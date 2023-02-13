@@ -404,6 +404,11 @@
                                             <span class="sub-item">List PC</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('maintenance_create') }}">
+                                            <span class="sub-item">Maintenance</span>
+                                        </a>
+                                    </li>
 
                                 </ul>
                             </div>
