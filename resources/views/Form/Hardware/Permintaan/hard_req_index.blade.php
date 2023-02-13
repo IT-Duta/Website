@@ -1,13 +1,13 @@
 @extends('layout.main')
 @section('title')
-    Permintaan Perbaikan Hardware
+    Permintaan Pengajuan Hardware
 @endsection
 @section('main_header')
     List Pengajuan Hardware
 @endsection
 @section('header')
-    <a href="{{ route('hard_req_export') }}" class="btn btn-secondary btn-round">Export Permintaan Hardware</a>
-    <a href="{{ route('hard_req_create') }}" class="btn btn-secondary btn-round">Add Permintaan Hardware</a>
+    <a href="{{ route('hard_req_export') }}" class="btn btn-secondary btn-round">Export Pengajuan Hardware</a>
+    <a href="{{ route('hard_req_create') }}" class="btn btn-secondary btn-round">Add Pengajuan Hardware</a>
 @endsection
 @section('content')
     <div class="card card-shadow">
@@ -15,8 +15,8 @@
             <h3 class="text-center">List Pengajuan Hardware</h3>
         </div>
         <div class="card-body">
-            <div class="table-responsive text-center ">
-                <table class="table table-striped table-bordered display nowrap" id="perbaikan_master">
+            <div class="text-center ">
+                <table class="table table-striped table-bordered " id="pengajuan_master">
                     <caption>List Pengajuan Hardware</caption>
                     <thead>
                         <tr class="table-primary">
@@ -144,6 +144,9 @@
 
 @section('javascript')
     <script>
+        $('#pengajuan_master').DataTable({
+            autoWidth: true
+        });
         function showData(id) {
             $.get('{{ route('hard_req_data') }}', {
                 'id': id

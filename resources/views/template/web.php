@@ -20,5 +20,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/list','controller@index')->name('list_index');
 
+Route::get('/list/create','controller@create')->name('list_create');
+Route::post('/list/store','controller@store')->name('list_store');
 
 require __DIR__.'/auth.php';
