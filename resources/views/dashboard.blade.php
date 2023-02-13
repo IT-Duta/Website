@@ -32,7 +32,7 @@
     Dashboard EDP
 @endsection
 @section('main_header')
-    Selamat Datang xxx
+    Selamat Datang
 @endsection
 @section('content')
     <div class="row mb-3">
