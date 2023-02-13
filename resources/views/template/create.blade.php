@@ -14,7 +14,7 @@
             {{-- Judul card --}}
         </div>
         <div class="card-body">
-            <form method='post' action="#" enctype="multipart/form-data">
+            <form method='post' action="{{route('list_store')}}" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @if ($errors->any())
                     <p class="alert alert-danger">{{ $errors->first() }}</p>
@@ -25,8 +25,8 @@
                             <label for="tgl_pengaju">Tanggal Pengajuan</label>
                         </div>
                         <div class="col-md">
-                            <input required 
-                            class="form-control" 
+                            <input required
+                            class="form-control"
                             name="tgl_pengaju"
                             type="date">
                         </div>
@@ -38,14 +38,14 @@
                             <label for="nama_pengaju">Nama Pengaju</label>
                         </div>
                         <div class="col-md">
-                            <input required 
-                            class="form-control" 
+                            <input required
+                            class="form-control"
                             name="nama_pengaju"
                             type="text">
                         </div>
                     </div>
                 </div>
-                <button type="submit" 
+                <button type="submit"
                     class="btn btn-primary btn-shadow">
                     Submit
                 </button>

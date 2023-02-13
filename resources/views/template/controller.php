@@ -34,10 +34,22 @@ class nama_controller extends Controller
 
     public function edit($id)
     {
+        $list=DB::table('nama_table')->where('id',$id)->first();
+        return view('template\edit')->with(compact('list'));
     }
     public function update(Request $request)
     {
+        $data=$request->validate([
+            'id'=>'required',
+            'tgl_pengaju' => 'required|date',
+            'nama_pengaju' => 'required|string',
+        ]);
 
+        DB::table('nama_table')->where('id',$data['id'])->update([
+            'tgl_pengaju'=>$data['tgl_pengaju'],
+            'nama_pengaju'=>$data['nama_pengaju']
+        ]);
+        return redirect()->route('list_index')->with('status','Data telah diubah');
     }
 
     public function delete($id)
