@@ -166,8 +166,10 @@
                                 <div class="timeline__cards">
                                     <div class="timeline__card card">
                                         <div class="card__content">
-                                            <p id="test_tgl_awal"></p>
+                                            <p id="tgl_terima_dr_produksi"></p>
                                             <p id="catatan_test"></p>
+                                            <p id="test_tgl_awal"></p>
+                                            <p id="picTestQc"></p>
                                             <p id="status_test_qc"></p>
                                         </div>
                                     </div>
@@ -186,8 +188,8 @@
                                 <div class="timeline__cards">
                                     <div class="timeline__card card">
                                         <div class="card__content">
-                                                    <p id="tgl_kirim"></p>
                                                     <p id="tgl_dari_qc"></p>
+                                                    <p id="tgl_kirim"></p>
                                                     <p id="surat_jalan"></p>
                                                     <p id="keterangan"></p>
                                                    

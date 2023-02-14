@@ -47,9 +47,10 @@ class pn_00_panel_controller extends Controller
         if ($request->ajax()) {
             $data = $request->data;
         $clicked=DB::table('pn_01_p3c as p3c')
-        ->select('p3c.*','p3c.id as id_pp','pd.id as id_pd','pd.wiring','pd.mekanik','pd.tgl_serah_ke_qc','pd.status_komponen','tm.fullname as spv','qc.*','qc.id as id_qc','eng.*')
+        ->select('p3c.*','p3c.id as id_pp','pd.id as id_pd','pd.wiring','pd.mekanik','pd.tgl_serah_ke_qc','pd.status_komponen','tm.fullname as spv','qc.*','qc.id as id_qc','eng.*','log.tgl_dari_qc','log.tgl_kirim','log.surat_jalan','log.keterangan')
         ->leftJoin('pn_02_produksi as pd','pd.id_panel','=','p3c.id')
         ->leftJoin('pn_03_qc as qc','qc.id_panel','=','p3c.id')
+        ->leftJoin('pn_05_logistik as log','log.id_panel','=','p3c.id')
         ->leftJoin('pn_04_eng as eng','eng.id_panel','=','p3c.id')
         ->leftJoin('pn_00_team as tm','tm.id','=','pd.spv')
         ->where('p3c.id',$data)
