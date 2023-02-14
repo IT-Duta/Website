@@ -18,7 +18,7 @@ class pn_05_logistik_controller extends Controller
         ->join('pn_01_p3c as p3c','p3c.id','=','l.id_panel')
         ->orderBy('l.id','desc')
         ->get();
-        return view('Produksi\admin_05_logistik\index')->with(compact('list'));
+        return view('Produksi.admin_05_logistik.index')->with(compact('list'));
     }
     public function store(Request $request){
         $data=$request->validate([

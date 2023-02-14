@@ -22,7 +22,7 @@ class pn_04_eng_Controller extends Controller
         ->select('eng.*','p3c.nama_panel','p3c.nomor_seri_panel','p3c.mfd','p3c.tipe_panel')
         ->join('pn_01_p3c as p3c','p3c.id','=','eng.id_panel')
         ->get();
-     return view('Produksi\admin_04_eng\index')->with(compact('list'));
+     return view('Produksi.admin_04_eng.index')->with(compact('list'));
     }
 
     /**
@@ -40,7 +40,7 @@ class pn_04_eng_Controller extends Controller
         ->where('eng.id_panel',null)
         ->orderBy('p3c.id','asc')
         ->get();
-        return view('Produksi\admin_04_eng\insert')->with(compact('p3c_list'));
+        return view('Produksi.admin_04_eng.insert')->with(compact('p3c_list'));
     }
     public function create_data($id)
     {
@@ -48,7 +48,7 @@ class pn_04_eng_Controller extends Controller
         ->select('p3c.id','p3c.nomor_seri_panel','p3c.nama_customer','p3c.nama_panel','p3c.nama_proyek')
         ->where('p3c.id',$id)
         ->first();
-        return view('Produksi\admin_04_eng\insert_data')->with(compact('p3c_list'));
+        return view('Produksi.admin_04_eng.insert_data')->with(compact('p3c_list'));
     }
 
 
@@ -90,13 +90,6 @@ class pn_04_eng_Controller extends Controller
         return redirect()->route('pn_04_index')->with('status','Data has been created');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $list = DB::table('pn_04_eng as eng')
@@ -104,7 +97,7 @@ class pn_04_eng_Controller extends Controller
         ->join('pn_01_p3c as p3c','p3c.id','=','eng.id_panel')
         ->where('eng.id',$id)
         ->first();
-        return view('Produksi\admin_04_eng\edit')->with(compact('list'));
+        return view('Produksi.admin_04_eng.edit')->with(compact('list'));
     }
     public function edit_data($id)
     {
@@ -113,7 +106,7 @@ class pn_04_eng_Controller extends Controller
         ->join('pn_01_p3c as p3c','p3c.id','=','eng.id_panel')
         ->where('eng.id_panel',$id)
         ->first();
-        return view('Produksi\admin_04_eng\edit')->with(compact('list'));
+        return view('Produksi.admin_04_eng.edit')->with(compact('list'));
     }
 
     /**

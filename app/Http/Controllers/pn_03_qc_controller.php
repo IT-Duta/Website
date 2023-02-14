@@ -23,7 +23,7 @@ class pn_03_qc_controller extends Controller
         ->join('pn_01_p3c as p3c','p3c.id','=','qc.id_panel')
         ->orderBy('qc.id','desc')
         ->get();
-        return view('Produksi\admin_03_qc\index')->with(compact('list'));
+        return view('Produksi.admin_03_qc.index')->with(compact('list'));
     }
 
     /**
@@ -41,7 +41,7 @@ class pn_03_qc_controller extends Controller
         ->where('qc.id_panel',null)
         ->orderBy('p3c.id','asc')
         ->get();
-        return view('Produksi\admin_03_qc\insert')
+        return view('Produksi.admin_03_qc.insert')
         ->with(compact('p3c_list'));
     }
     public function create_data($id)
@@ -53,7 +53,7 @@ class pn_03_qc_controller extends Controller
         ->first();
         $teams = DB::table('pn_00_team')->orderBy('Fullname','asc')
         ->get();
-        return view('Produksi\admin_03_qc\insert_data')
+        return view('Produksi.admin_03_qc.insert_data')
         ->with(compact('p3c_list','teams'));
     }
 
@@ -111,7 +111,7 @@ class pn_03_qc_controller extends Controller
         $teams = DB::table('pn_00_team')->orderBy('Fullname','asc')
         ->get();
         $detail = DB::table('pn_03_qc_det')->where('id_test',$id)->orderBy('id','asc')->get();
-        return view('Produksi\admin_03_qc\edit')->with(compact('list','detail','teams'));
+        return view('Produksi.admin_03_qc.edit')->with(compact('list','detail','teams'));
     }
 
     /**

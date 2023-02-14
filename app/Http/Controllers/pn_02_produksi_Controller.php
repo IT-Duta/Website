@@ -21,7 +21,7 @@ class pn_02_produksi_Controller extends Controller
         ->join('pn_00_team','pn_00_team.id','=','pn_02_produksi.spv')
         ->orderBy('pn_02_produksi.id','desc')
         ->get();
-        return view('Produksi\admin_02_produksi\index')->with(compact('list'));
+        return view('Produksi.admin_02_produksi.index')->with(compact('list'));
 
     }
 
@@ -35,7 +35,7 @@ class pn_02_produksi_Controller extends Controller
         ->get();
         $teams = DB::table('pn_00_team')->orderBy('Fullname','asc')
         ->get();
-        return view('Produksi\admin_02_produksi\insert')->with(compact('teams','p3c_list'));
+        return view('Produksi.admin_02_produksi.insert')->with(compact('teams','p3c_list'));
     }
     public function create_data($id){
         $p3c_list = DB::table('pn_01_p3c')
@@ -44,7 +44,7 @@ class pn_02_produksi_Controller extends Controller
         ->first();
         $teams = DB::table('pn_00_team')->orderBy('Nickname','asc')
         ->get();
-        return view('Produksi\admin_02_produksi\insert_data')->with(compact('teams','p3c_list'));
+        return view('Produksi.admin_02_produksi.insert_data')->with(compact('teams','p3c_list'));
     }
     public function store(Request $request)
     {
@@ -104,7 +104,7 @@ class pn_02_produksi_Controller extends Controller
         ->join('pn_00_team as t','t.id','=','pd.spv')
         ->where('pd.id',$id)->first();
         $teams=DB::table('pn_00_team')->get();
-        return view('Produksi\admin_02_produksi\edit')->with(compact('list','teams'));
+        return view('Produksi.admin_02_produksi.edit')->with(compact('list','teams'));
     }
     public function update(Request $request){
         $data = $request->validate([

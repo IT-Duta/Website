@@ -18,7 +18,7 @@ class pn_00_panel_controller extends Controller
         ->select('id','nomor_seri_panel','nama_customer','nomor_wo','nama_proyek','nama_panel','panel_status','det_engineering','status_pekerjaan')
         ->orderBy('created_at','desc')
         ->get();
-        return view('Produksi\admin_00_panel\index')->with(compact('list'));
+        return view('Produksi.admin_00_panel.index')->with(compact('list'));
     }
     public function index_new()
     {
@@ -29,7 +29,7 @@ class pn_00_panel_controller extends Controller
         ->leftJoin('pn_03_qc as qc','qc.id_panel','=','p3c.id')
         ->orderBy('p3c.created_at','asc')
         ->get();
-        return view('Produksi\admin_00_panel\index_new')->with(compact('list'));
+        return view('Produksi.admin_00_panel.index_new')->with(compact('list'));
     }
     public function display()
     {
@@ -40,7 +40,7 @@ class pn_00_panel_controller extends Controller
         ->leftJoin('pn_03_qc as qc','qc.id_panel','=','p3c.id')
         ->orderBy('p3c.created_at','asc')
         ->get();
-        return view('Produksi\admin_00_panel\display')->with(compact('list'));
+        return view('Produksi.admin_00_panel.display')->with(compact('list'));
     }
     public function getData(Request $request){
         $clicked=null;

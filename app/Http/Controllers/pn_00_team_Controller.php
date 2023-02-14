@@ -12,10 +12,10 @@ class pn_00_team_Controller extends Controller
 {
     public function index(){
         $list = DB::table('pn_00_team')->orderBy('Fullname','asc')->get();
-        return view('Produksi\admin_00_team\index')->with(compact('list'));
+        return view('Produksi.admin_00_team.index')->with(compact('list'));
     }
     public function create(){
-        return view('Produksi\admin_00_team\insert');
+        return view('Produksi.admin_00_team.insert');
     }
     public function store(Request $request)
     {
@@ -37,7 +37,7 @@ class pn_00_team_Controller extends Controller
 
     public function edit($id){
         $list = DB::table('pn_00_team')->where('id',$id)->first();
-        return view('Produksi\admin_00_team\edit')->with(compact('list'));
+        return view('Produksi.admin_00_team.edit')->with(compact('list'));
     }
 
     public function update(Request $request)

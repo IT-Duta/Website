@@ -15,10 +15,10 @@ class pn_01_p3c_Controller extends Controller
 {
     public function index(){
         $list = DB::table('pn_01_p3c')->orderBy('id','desc')->get();
-        return view('Produksi\admin_01_p3c\index')->with(compact('list'));
+        return view('Produksi.admin_01_p3c.index')->with(compact('list'));
     }
     public function create(){
-        return view('Produksi\admin_01_p3c\insert');
+        return view('Produksi.admin_01_p3c.insert');
     }
     public function store(Request $request){
         $request->validate([
@@ -95,7 +95,7 @@ class pn_01_p3c_Controller extends Controller
     }
     public function edit($id){
         $list = DB::table('pn_01_p3c')->where('id',$id)->first();
-        return view('Produksi\admin_01_p3c\edit')->with(compact('list'));
+        return view('Produksi.admin_01_p3c.edit')->with(compact('list'));
     }
     public function update(Request $request){
         $request->validate([
