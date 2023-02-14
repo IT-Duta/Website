@@ -18,7 +18,7 @@ class ppbExportIndv implements FromView
     public function view(): View
     {
         $header=DB::table('proc_ppb_header')->where('id_pengajuan',$this->id)->first();
-        $items=DB::table('proc_ppb_detail')->select('ppb_qty','ppb_satuan','ppb_deskripsi','ppb_tipe_barang','ppb_merek','ppb_pemasok_panel')->where('id_pengajuan',$this->id)->orderby('id','asc')->first();
+        $items=DB::table('proc_ppb_detail')->select('ppb_qty','ppb_satuan','ppb_deskripsi','ppb_tipe_barang','ppb_merek','ppb_pemasok_panel')->where('id_pengajuan',$this->id)->orderby('id','asc')->get();
         return view('procurement.exportIndv')->with(compact('header','items'));
     }
 //     public function map($data): array

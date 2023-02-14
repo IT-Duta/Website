@@ -42,12 +42,13 @@
             {{-- {{dd($items)}} --}}
             <tbody>
                 @php $nomor=1; @endphp
+                {{-- {{dd($items)}} --}}
                 @foreach ($items as $item)
                 <tr style="height: 100px;">
                     <td style="text-align: center;background-color:#cff4fc;">{{ $nomor++ }}</td>
-                    <td style="text-align: center;background-color:#cff4fc;width:150px;">{{$item->ppb_qty}}</td>
-                    <td style="text-align: center;background-color:#f8d7da;width:300px;">{{$item->ppb_satuan}}</td>
-                    <td style="text-align: center;background-color:#f8d7da;">{{$item->ppb_deskripsi}}</td>
+                    <td style="text-align: center;background-color:#cff4fc;width:50px;">{{$item->ppb_qty}}</td>
+                    <td style="text-align: center;background-color:#f8d7da;width:50px;">{{$item->ppb_satuan}}</td>
+                    <td style="text-align: center;background-color:#f8d7da;width:300px;">{{$item->ppb_deskripsi}}</td>
                     <td style="text-align: center;background-color:#f8d7da;width:150px;">{{$item->ppb_tipe_barang}}</td>
                     <td style="text-align: center;background-color:#f8d7da;width:200px;">{{$item->ppb_merek}}</td>
                     <td style="text-align: center;background-color:#f8d7da;width:150px;">{{$item->ppb_pemasok_panel}}</td>

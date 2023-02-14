@@ -21,14 +21,5 @@ class produksiExport implements FromView
         ->get();
         return view('produksi.produksiExport')->with(compact('exportData'));
     }
-    // public function collection()
-    // {
-        // $exportData = DB::table('pro_panel_head as hd')
-        // ->select('hd.panel_seri','hd.panel_nama','hd.panel_pelanggan','hd.panel_proyek','hd.panel_status_pekerjaan')
-    //     $exportData=DB::table('pro_panel_det')
-    //     ->join('pro_panel_head','pro_panel_head.panel_seri','=','pro_panel_det.panel_seri')
-    //     ->get();
-
-    //     return $exportData;
-    // }
+    
 }

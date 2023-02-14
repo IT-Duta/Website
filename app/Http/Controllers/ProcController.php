@@ -323,14 +323,12 @@ class ProcController extends Controller
     {
         $time=Carbon::now();
         $time=date_format($time,'d-m-y, H.i.s');
-        $filename='PPB Track '.$time.'.xlsx';
-        // return Excel::download(new ppbExport, $filename);
-        // return Excel::download(new ppbExport, $filename, \Maatwebsite\Excel\Excel::XLSX, [
-        //     'Content-Type' => 'text/css',
-        //     'Access-Control-Expose-Headers' => ['Content-Disposition'],
-        //     'Content-Disposition' => 'attachment; filename="export.xlsx"',
-        //     'FromView' => 'path/to/stylesheet.css',
-        // ]);
+        $number=DB::table('proc_ppb_header')->select('ppb_no')->where('id_pengajuan',$id)->first();
+       
+        $number = str_replace(array("/", ""), "-", $number->ppb_no);
+        
+        $filename='PPB '.$number.' '.$time.'.xlsx';
+        
         return Excel::download(new ppbExportIndv($id), $filename, \Maatwebsite\Excel\Excel::XLSX, [
             'setAutoSize' => true,
             'Content-Type' => 'text/css',
