@@ -186,12 +186,11 @@
                                 <div class="timeline__cards">
                                     <div class="timeline__card card">
                                         <div class="card__content">
-                                                    {{-- <p id="capacity"></p>
-                                                    <p id="ampere"></p>
-                                                    <p id="ip"></p>
-                                                    <p id="voltage"></p>
-                                                    <p id="phasa_3"></p>
-                                                    <p id="frekuensi"></p> --}}
+                                                    <p id="tgl_kirim"></p>
+                                                    <p id="tgl_dari_qc"></p>
+                                                    <p id="surat_jalan"></p>
+                                                    <p id="keterangan"></p>
+                                                   
                                         </div>
                                     </div>
                                 </div>
