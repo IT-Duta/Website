@@ -24,6 +24,7 @@
                         <th>No. Seri Panel</th>
                         <th>Nama Panel</th>
                         <th>Tanggal Terima Dari Produksi</th>
+                        <th>PIC Test</th>
                         <th>Catatan Test</th>
                         <th>Tanggal Buat</th>
                         <th>Status</th>
@@ -61,6 +62,9 @@
                         </td>
                         <td>
                             {{$list->tgl_terima_dr_produksi}}
+                        </td>
+                        <td>
+                            {{$list->picTestQc}}
                         </td>
                         <td>
                             {{$list->catatan_test}}

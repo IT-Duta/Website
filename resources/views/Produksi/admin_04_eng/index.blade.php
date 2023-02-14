@@ -1,9 +1,9 @@
 @extends('layout.main')
 @section('title')
-    Daftar Eng Panel
+    Daftar Engineering Panel
 @endsection
 @section('main_header')
-    Daftar Eng Panel
+    Daftar Rating Plate
 @endsection
 @section('header')
     {{-- <a href="{{route('pn_04_create')}}" class="btn btn-round btn-success">Tambah Eng Panel</a> --}}
