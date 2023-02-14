@@ -55,11 +55,11 @@ class pn_01_p3c_Controller extends Controller
             }
         }
         // Ubah ketika ganti tahun, jika tahun sekarang tidak sama dengan tahun terakhir input maka ubah nilai ke 1
-        $currentYear = date("Y");
-        $createdAtYear = date("Y", strtotime($nomorSub->created_at));
-        if ($currentYear != $createdAtYear) {
-            $panel_nomor=1;
-        }
+        // $currentYear = date("Y");
+        // $createdAtYear = date("Y", strtotime($nomorSub->created_at));
+        // if ($currentYear != $createdAtYear) {
+        //     $panel_nomor=1;
+        // }
 
         $cell=$request->cell;
         $jenis_panel=$request->jenis_panel;
