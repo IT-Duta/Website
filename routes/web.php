@@ -230,6 +230,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('procurementMiddleware')->group(function(){
 
         Route::get('/procurement/ppb/export','ProcController@export')->name('procurement_export');
+        Route::get('/procurement/ppb/export/{id}','ProcController@exportIndv')->name('procurement_exportIndv');
         Route::get('/procurement/ppb/del/{id}','ProcController@destroy')->name('procurement_del');
     });
     // PO Lokal Track

@@ -50,9 +50,9 @@ public function columnFormats(): array
     return [
         'A' => NumberFormat::FORMAT_NUMBER,
         'B' => NumberFormat::FORMAT_TEXT,
-        // 'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         'D' => NumberFormat::FORMAT_NUMBER,
-        // 'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         'F' => NumberFormat::FORMAT_TEXT,
         'G' => NumberFormat::FORMAT_TEXT,
         'H' => NumberFormat::FORMAT_TEXT,
@@ -61,10 +61,10 @@ public function columnFormats(): array
         'K' => NumberFormat::FORMAT_TEXT,
         'L' => NumberFormat::FORMAT_TEXT,
         'M' => NumberFormat::FORMAT_TEXT,
-        // 'N' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-        // 'O' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        'N' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        'O' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         'P' => NumberFormat::FORMAT_TEXT,
-        // 'Q' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        'Q' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         'R' => NumberFormat::FORMAT_TEXT,
     ];
 }
