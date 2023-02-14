@@ -34,8 +34,8 @@
         <a href="{{route('pn_01_index')}}" class="btn btn-sm btn-secondary mx-3">P3C</a>
         <a href="{{route('pn_02_index')}}" class="btn btn-sm btn-secondary mx-3">Produksi</a>
         <a href="{{route('pn_03_index')}}" class="btn btn-sm btn-secondary mx-3">QC</a>
-        <a href="{{route('pn_04_index')}}" class="btn btn-sm btn-secondary mx-3">Engineer</a>
         <a href="{{route('pn_05_index')}}" class="btn btn-sm btn-secondary mx-3">Logistik</a>
+        <a href="{{route('pn_04_index')}}" class="btn btn-sm btn-secondary mx-3">Engineer</a>
     </div>
 </div>
 <div class="row">

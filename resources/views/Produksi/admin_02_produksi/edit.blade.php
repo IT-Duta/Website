@@ -190,7 +190,7 @@
                         <label for="">Tgl Serah produksi ke QC <span class="text-red">*Wajib</span></label>
                         <input readonly class="form-control" type="datetime-local" name="tgl_serah_ke_qc" id="tgl_serah_ke_qc"
                         <?php
-                        $current_datetime = (new DateTime())->format('Y-m-d\TH:i:s');
+                        $current_datetime = (new DateTime())->format('Y-m-d H:i:s');
                         $current_datetime = ($list->tgl_serah_ke_qc == null) ? $current_datetime : $list->tgl_serah_ke_qc ;
                         ?>
                         value="{{$current_datetime}}"
