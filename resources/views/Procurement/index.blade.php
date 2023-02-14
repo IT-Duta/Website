@@ -140,9 +140,9 @@ background-color: yellow;
                                 <button type="button" {{$button}} class="btn btn-primary btn-sm" data-toggle="modal" data-target="#daftarBarangModal" onClick="request_data('{{ $list->id_pengajuan }}')">
                                     PRINT
                                 </button>
-                                {{-- <a class="btn btn-primary btn-sm" href="{{route('procurement_exportIndv',['id' =>$list->id_pengajuan])}}">
+                                <a class="btn btn-primary btn-sm" href="{{route('procurement_exportIndv',['id' =>$list->id_pengajuan])}}">
                                     Export
-                                </a> --}}
+                                </a>
                             </td>
                             <td><?php echo $nomor++; ?></td>
                             <td class="{{$stats_row}}">{{ $list->ppb_status }}</td>

@@ -21,17 +21,17 @@ class ppbExportIndv implements FromView
         $items=DB::table('proc_ppb_detail')->where('id_pengajuan',$this->id)->orderby('id','asc')->first();
         return view('procurement.exportIndv')->with(compact('header','items'));
     }
-    public function map($data): array
-{
-    return [
-        $data->ppb_no,
-        $data->ppb_qty,
-        $data->ppb_satuan,
-        $data->ppb_deskripsi,
-        $data->ppb_tipe_barang,
-        $data->ppb_merek,
-        $data->ppb_pemasok_panel,
-    ];
-}
+//     public function map($data): array
+// {
+//     return [
+//         $data->ppb_no,
+//         $data->ppb_qty,
+//         $data->ppb_satuan,
+//         $data->ppb_deskripsi,
+//         $data->ppb_tipe_barang,
+//         $data->ppb_merek,
+//         $data->ppb_pemasok_panel,
+//     ];
+// }
 
 }
