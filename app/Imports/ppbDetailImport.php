@@ -27,7 +27,11 @@ class ppbDetailImport implements ToModel, WithHeadingRow, WithMultipleSheets
         // dd($this->data);
             $desk=$row['ppb_deskripsi'];
             $pengajuan=substr($this->data,10);
-            $id_barang_detail=''.$pengajuan.''.substr($desk,10).'';
+            // Remove all non-alphanumeric characters
+            $str = preg_replace('/[^a-zA-Z0-9]/', '', $desk);
+            // Remove all spaces
+            $str = str_replace(' ', '', $desk);
+            $id_barang_detail=''.$pengajuan.''.md5($str).'';
             DB::table('proc_ppb_detail')->insert([
                 'id_pengajuan'=>$this->data,
                 'id_barang_detail'=>$id_barang_detail,

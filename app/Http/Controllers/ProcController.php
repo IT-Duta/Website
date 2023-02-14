@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ppbExport;
+use App\Exports\ppbExportIndv;
 use App\Imports\ppbDetailImport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -62,8 +63,6 @@ class ProcController extends Controller
                 $ppb_no = '' . $ppb_no . '/PRO-PPB/'. $bulan.'/'. $tahun . '';
                 $id_pengajuan=substr(md5($ppb_no),20);
 
-
-
                 if ($request->hasFile('import')) {
                     DB::table('proc_ppb_header')->insert([
                         'id_user_input'=>Auth::user()->id,
@@ -115,7 +114,13 @@ class ProcController extends Controller
                     for ($i = 0; $i < count($request->ppb_qty); $i++) {
                         $desk=$request->ppb_deskripsi[$i];
                         $pengajuan=substr($id_pengajuan,10);
-                        $id_barang_detail=''.$pengajuan.''.substr($desk,10).'';
+                        // Remove all non-alphanumeric characters
+                        $str = preg_replace('/[^a-zA-Z0-9]/', '', $desk);
+
+                        // Remove all spaces
+                        $str = str_replace(' ', '', $desk);
+                        $id_barang_detail=''.$pengajuan.''.md5($str).'';
+
                         DB::table('proc_ppb_detail')->insert([
                             'id_pengajuan'=>$id_pengajuan,
                             'id_barang_detail'=>$id_barang_detail,
@@ -193,7 +198,12 @@ class ProcController extends Controller
                 $pengajuan=substr($request->get('id_pengajuan'),10);
                 for ($i = 0; $i < count($request->ppb_qty); $i++) {
                     $desk=$request->ppb_deskripsi[$i];
-                    $id_barang_detail=''.$pengajuan.''.substr($desk,10).'';
+                    // Remove all non-alphanumeric characters
+                    $str = preg_replace('/[^a-zA-Z0-9]/', '', $desk);
+
+                    // Remove all spaces
+                    $str = str_replace(' ', '', $desk);
+                    $id_barang_detail=''.$pengajuan.''.md5($str).'';
                     if($request->ppb_id[$i] != ""){
 
                         DB::table('proc_ppb_detail')
@@ -301,6 +311,27 @@ class ProcController extends Controller
         //     'FromView' => 'path/to/stylesheet.css',
         // ]);
         return Excel::download(new ppbExport, $filename, \Maatwebsite\Excel\Excel::XLSX, [
+            'setAutoSize' => true,
+            'Content-Type' => 'text/css',
+            'Access-Control-Expose-Headers' => ['Content-Disposition'],
+            'Content-Disposition' => 'attachment; filename="export.xlsx"',
+            'FromView' => asset('css/exportppb.css'),
+        ]);
+
+    }
+    public function exportIndv($id)
+    {
+        $time=Carbon::now();
+        $time=date_format($time,'d-m-y, H.i.s');
+        $filename='PPB Track '.$time.'.xlsx';
+        // return Excel::download(new ppbExport, $filename);
+        // return Excel::download(new ppbExport, $filename, \Maatwebsite\Excel\Excel::XLSX, [
+        //     'Content-Type' => 'text/css',
+        //     'Access-Control-Expose-Headers' => ['Content-Disposition'],
+        //     'Content-Disposition' => 'attachment; filename="export.xlsx"',
+        //     'FromView' => 'path/to/stylesheet.css',
+        // ]);
+        return Excel::download(new ppbExportIndv($id), $filename, \Maatwebsite\Excel\Excel::XLSX, [
             'setAutoSize' => true,
             'Content-Type' => 'text/css',
             'Access-Control-Expose-Headers' => ['Content-Disposition'],
