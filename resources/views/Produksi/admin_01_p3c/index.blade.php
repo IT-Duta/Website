@@ -9,11 +9,6 @@
 @section('content')
     <div class="card card-shadow">
         <div class="card-header">
-
-
-
-
-
             <h1>Daftar Panel</h1>
         </div>
         <div class="card-body">

@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <hr>
-                <h2>Detail</h2>
+                <h2>Rating Plate</h2>
                 <hr>
                 <div class="row">
                     <div class="col-6">
@@ -123,8 +123,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="frekuensi">Name Plate</label>
                         <hr>
+                <h2>Name Plate</h2>
+                <hr>
                         <SPAN for="frekuensi">FORMAT : Nama;jumlah;satuan; contoh: ON/OFF;10;PCS;PANEL;1;PCS </SPAN>
                         <textarea name="name_plate" class="form-control" id="" cols="30" rows="10" placeholder="ENTER NAMEPLATE"></textarea>
                       </div>

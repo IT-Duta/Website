@@ -12,23 +12,6 @@
 @section('content')
     <div class="card card-shadow">
         <div class="card-header">
-
-            <?php
-            $currentUrl = 'http://116.197.128.230/panel/p3c/edit-4';
-            $currentUrl = URL::current();
-            $segments = explode('/', $currentUrl);
-            $baseUrl = $segments[0] . '//' . $segments[2];
-            ?>
-
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo $baseUrl; ?>">Home</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo $baseUrl . '/' . $segments[3]; ?>">{{ucfirst($segments[3])}}</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo $baseUrl . '/' . $segments[3] . '/' . $segments[4]; ?>">{{ucfirst($segments[4])}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Current</li>
-              </ol>
-            </nav>
-
             <h3 class="text-center">List Ticket</h3>
         </div>
         <div class="card-body">
