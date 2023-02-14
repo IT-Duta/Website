@@ -190,26 +190,17 @@
                         <label for="">Tgl Serah produksi ke QC <span class="text-red">*Wajib</span></label>
                         <input readonly class="form-control" type="datetime-local" name="tgl_serah_ke_qc" id="tgl_serah_ke_qc"
                         <?php
-                        $current_datetime = (new DateTime())->format('Y-m-d H:i:s');
-                        $current_datetime = ($list->tgl_serah_ke_qc == null) ? $current_datetime : $list->tgl_serah_ke_qc ;
+                        $current_datetime_1 = (new DateTime())->format('Y-m-d H:i:s');
+                        
+                        $current_datetime_2 = ($list->tgl_serah_ke_qc == null) ? $current_datetime_1 : $list->tgl_serah_ke_qc ;
                         ?>
-                        value="{{$current_datetime}}"
+                        value="{{$current_datetime_2}}"
                         {{-- value="{{$list->tgl_serah_ke_qc}}" --}}
                         >
+                        {{-- {{$current_datetime_1}}
+                        {{$list->tgl_serah_ke_qc}} --}}
                     </div>
-                    {{-- <div class="mb-3 row">
-                        <label for="kirim_email" class="col-sm-4 col-form-label">Kirim email QC untuk pengetesan <span class="text-red">*ketika submit</span></label>
-                        <div class="selectgroup w-100 col-sm-8">
-                            <label class="selectgroup-item">
-                                <input type="radio" name="kirim_email" value="Iya" class="kirim_email selectgroup-input">
-                                <span class="selectgroup-button">Iya</span>
-                            </label>
-                            <label class="selectgroup-item">
-                                <input type="radio" name="kirim_email" value="Tidak" class="kirim_email selectgroup-input">
-                                <span class="selectgroup-button">Tidak</span>
-                            </label>
-                        </div>
-                    </div> --}}
+                    
                 </div>
 
 
