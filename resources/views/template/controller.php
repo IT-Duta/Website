@@ -39,6 +39,7 @@ class nama_controller extends Controller
     }
     public function update(Request $request)
     {
+        
         $data=$request->validate([
             'id'=>'required',
             'tgl_pengaju' => 'required|date',

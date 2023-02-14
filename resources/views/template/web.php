@@ -23,4 +23,7 @@ Route::get('/list','controller@index')->name('list_index');
 Route::get('/list/create','controller@create')->name('list_create');
 Route::post('/list/store','controller@store')->name('list_store');
 
+Route::get('/list/edit/{id}','controller@edit')->name('list_edit');
+Route::post('/list/update','controller@update')->name('list_update');
+
 require __DIR__.'/auth.php';
