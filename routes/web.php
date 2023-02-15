@@ -366,5 +366,13 @@ Route::post('/ga/masteritem/import', 'ga_masterItemController@masterItemImport')
 Route::post('/ga/masteritem/delete/{id}', 'ga_masterItemController@destroy')->name('ga.masterItemDelete');
 Route::get('ga/masteritem/export','ga_masterItemController@export')->name('ga.masterItemExport');
 
+// General Affair Master Warehouse
+Route::get('/ga/masterwarehouse', 'ga_masterWarehouseController@masterItem')->name('ga.masterWarehouse');
+Route::post('/ga/masterwarehouse/store', 'ga_masterWarehouseController@store')->name('ga.masterWarehouseAdd');
+Route::get('/ga/masterwarehouse/{id}/edit', 'ga_masterWarehouseController@edit')->name('ga.masterWarehouseEdit');
+Route::post('/ga/masterwarehouse/update', 'ga_masterWarehouseController@update')->name('ga.masterWarehouseUpdate');
+Route::post('/ga/masterwarehouse/import', 'ga_masterWarehouseController@masterItemImport')->name('ga.masterWarehouseImport');
+Route::post('/ga/masterwarehouse/delete/{id}', 'ga_masterWarehouseController@destroy')->name('ga.masterWarehouseDelete');
+Route::get('ga/masterwarehouse/export','ga_masterWarehouseController@export')->name('ga.masterWarehouseExport');
 
 require __DIR__.'/auth.php';
