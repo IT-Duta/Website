@@ -14,6 +14,7 @@
             {{-- Judul card --}}
         </div>
         <div class="card-body">
+            <div class="text-center table-responsive">
             <table class="table table-bordered table-stripped table-responsive" id="id_table">
                 <thead>
                     <tr>
@@ -46,6 +47,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 

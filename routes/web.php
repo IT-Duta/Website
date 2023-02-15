@@ -357,5 +357,14 @@ Route::delete('/panel/team/del-{id}','pn_00_team_Controller@delete')->name('pn_0
 Route::post('/panel/team/import','pn_00_team_Controller@import')->name('pn_00_import');
 
 
+//General Affair Master Item
+Route::get('/ga/masteritem', 'ga_masterItemController@masterItem')->name('ga.masterItem');
+Route::post('/ga/masteritem/store', 'ga_masterItemController@store')->name('ga.masterItemAdd');
+Route::get('/ga/masteritem/{id}/edit', 'ga_masterItemController@edit')->name('ga.masterItemEdit');
+Route::post('/ga/masteritem/update', 'ga_masterItemController@update')->name('ga.masterItemUpdate');
+Route::post('/ga/masteritem/import', 'ga_masterItemController@masterItemImport')->name('ga.masterItemImport');
+Route::post('/ga/masteritem/delete/{id}', 'ga_masterItemController@destroy')->name('ga.masterItemDelete');
+Route::get('ga/masteritem/export','ga_masterItemController@export')->name('ga.masterItemExport');
+
 
 require __DIR__.'/auth.php';
