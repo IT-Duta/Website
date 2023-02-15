@@ -140,7 +140,7 @@ Daftar Barang
           </button>
         </div>
         <div class="modal-body">
-            <a href="{{route('download_file',['file'=> 'import_masterbarang.xlsx'])}}">Template Import</a>
+            <a href="{{route('download_file', 'import_masterbarang.xlsx')}}">Template Import</a>
             <form action="{{route('ga.masterItemImport')}}" method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @if ($errors->any())
