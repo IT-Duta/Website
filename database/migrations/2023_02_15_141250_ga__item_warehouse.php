@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GaQtyBarang extends Migration
+class GaItemWarehouse extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class GaQtyBarang extends Migration
      */
     public function up()
     {
-        Schema::create('ga_qtyBarang', function (Blueprint $table) {
+        Schema::create('ga_item_warehouse', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('uuid_gudang');
+            $table->uuid('connector');
+            $table->string('uuid_gudang');
             $table->string('uuid_barang');
             $table->string('qty_barang');
             $table->timestamps();
