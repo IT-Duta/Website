@@ -282,11 +282,9 @@ class ProcController extends Controller
     }
     public function getData(request $request){
         if ($request->ajax()) {
-            // $output="";
             $connectors = DB::table('proc_ppb_detail')
         ->where('id_pengajuan', '=', $request->passdata)
         ->get();
-            // dd($connectors);
             return response(json_encode($connectors));
         }
     }
