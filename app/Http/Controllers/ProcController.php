@@ -85,7 +85,19 @@ class ProcController extends Controller
                         'ppb_status'=>'Menunggu',
                         'created_at'=>Carbon::now(),
                     ]);
-                    Excel::import(new ppbDetailImport($id_pengajuan), request()->file('import'));
+
+                    $file = $request->file('import');
+                    // dd($file);
+                    $import = new ppbDetailImport($id_pengajuan);
+                    Excel::import($import, $file);
+
+                    $filename = $import->generateErrorFile();
+                    if ($filename) {
+                        return redirect()->route('procurement_index')->with('status','Data has been added')
+                            ->with('filename', $filename);
+                    } else {
+                        return redirect()->route('procurement_index')->with('status','Data has been added');
+                    }
                 }
                 else {
 
@@ -248,7 +260,14 @@ class ProcController extends Controller
         }
 
     }
-
+    public function downloadErrorFile($filename)
+    {
+        $path = storage_path('app/' . $filename);
+        if (file_exists($path)) {
+            return response()->download($path)->deleteFileAfterSend(true);
+        }
+        abort(404);
+    }
     public function ppb_status(Request $request){
         DB::table('proc_ppb_header')
             ->where('id_pengajuan', $request->get('id_pengajuan'))
@@ -324,11 +343,11 @@ class ProcController extends Controller
         $time=Carbon::now();
         $time=date_format($time,'d-m-y, H.i.s');
         $number=DB::table('proc_ppb_header')->select('ppb_no')->where('id_pengajuan',$id)->first();
-       
+
         $number = str_replace(array("/", ""), "-", $number->ppb_no);
-        
+
         $filename='PPB '.$number.' '.$time.'.xlsx';
-        
+
         return Excel::download(new ppbExportIndv($id), $filename, \Maatwebsite\Excel\Excel::XLSX, [
             'setAutoSize' => true,
             'Content-Type' => 'text/css',

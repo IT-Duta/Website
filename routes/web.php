@@ -227,6 +227,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/procurement/ppb/getDesc','ProcController@getDesc')->name('pbb_getDesc');
     Route::get('/procurement/ppb/pbb_getTipebarang','ProcController@pbb_getTipebarang')->name('pbb_getTipebarang');
     Route::get('/procurement/ppb/pbb_getMerek','ProcController@pbb_getMerek')->name('pbb_getMerek');
+    Route::get('/procurement/ppb/downloaderror/{filename}','ProcController@downloadErrorFile')->name('pbb_downloadErrorFile');
+        Route::get('/ga/downloadErrorFile/{filename}','ga_ItemWarehouseController@downloadErrorFile')->name('ga.downloadErrorFile');
     Route::middleware('procurementMiddleware')->group(function(){
 
         Route::get('/procurement/ppb/export','ProcController@export')->name('procurement_export');

@@ -5,6 +5,7 @@ namespace App\Imports;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -16,7 +17,7 @@ class ppbDetailImport implements ToModel, WithHeadingRow, WithMultipleSheets
     * @param Collection $collection
     */
     public $data;
-
+    private $missingRows=[];
     public function __construct($data)
     {
         $this->data = $data;
@@ -52,9 +53,24 @@ class ppbDetailImport implements ToModel, WithHeadingRow, WithMultipleSheets
                 'ppb_pemasok_panel' => $row['ppb_pemasok_panel'],
                 'created_at' => Carbon::now(),
             ]);
+        }else {
+            $this->missingRows[] = $row;
         }
     }
+    public function generateErrorFile()
+    {
+        $errorRows = [];
 
+        if (!empty($this->missingRows)) {
+            $errorRows[] = "Updated rows: \n" . print_r($this->missingRows, true);
+        }
+        if (!empty($errorRows)) {
+            $filename = 'error_rows_' . date('Ymd_His') . '.txt';
+            Storage::disk('local')->put($filename, implode("\n\n", $errorRows));
+            return $filename;
+        }
+        return null;
+    }
     public function sheets(): array
     {
         return [

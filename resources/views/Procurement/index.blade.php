@@ -56,7 +56,12 @@ background-color: yellow;
             {{-- <button type="button" class="bg-danger btn text-white" id="belum_coa">COA belum di input</button> --}}
         </div>
         <div class="card-body">
-
+            @if ($filename = session('filename'))
+            <div class="alert alert-danger">
+                Data tidak dapat diimpor sepenuhnya. Silakan unduh file error untuk rincian lebih lanjut.
+                <a href="{{ route('pbb_downloadErrorFile', $filename) }}">Download File Error</a>
+            </div>
+        @endif
             <div class="table-responsive text-center ">
                 <table class="table table-striped table-bordered display" id="list_ppb">
                     <caption>List Karyawan</caption>
