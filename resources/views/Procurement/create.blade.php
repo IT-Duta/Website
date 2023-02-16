@@ -236,78 +236,8 @@ table td input {
         $("#detail").css({display:"block"});
 });
   </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
-<script>
-    $(document).ready(function() {
-      $('.descriptions').typeahead({
-        minLength: 2,
-        highlight: true,
-      },
-      {
-        display: function(suggestion) {
-          return suggestion.ppb_deskripsi;
-        },
-        source: function(query, syncResults, asyncResults) {
-          $.get('{{route('pbb_getDesc')}}', {searchTerm: query}, function(suggestions) {
-            asyncResults(suggestions);
-            console.log(suggestions);
-          });
-        }
-      });
-    });
-    </script>
-<script>
-    $(document).ready(function() {
-      $('.ppb_tipe_barang').typeahead({
-        minLength: 2,
-        highlight: true,
-      },
-      {
-        display: function(suggestion) {
-          return suggestion.ppb_tipe_barang;
-        },
-        source: function(query, syncResults, asyncResults) {
-          $.get('{{route('pbb_getTipebarang')}}', {searchTerm: query}, function(suggestions) {
-            asyncResults(suggestions);
-          });
-        }
-      });
-    });
-//     $(document).on('click', '.ppb_npp', function() {
-//     $(this).typeahead({
-//       minLength: 2,
-//       highlight: true,
-//     },
-//     {
-//       display: function(suggestion) {
-//         return suggestion.ppb_tipe_barang;
-//       },
-//       source: function(query, syncResults, asyncResults) {
-//         $.get('{{route('pbb_getTipebarang')}}', {searchTerm: query}, function(suggestions) {
-//           asyncResults(suggestions);
-//         });
-//       }
-//     });
-//   });
-    </script>
-<script>
-
-      $('.ppb_merek').typeahead({
-        minLength: 2,
-        highlight: true,
-      },
-      {
-        display: function(suggestion) {
-          return suggestion.ppb_merek;
-        },
-        source: function(query, syncResults, asyncResults) {
-          $.get('{{route('pbb_getMerek')}}', {searchTerm: query}, function(suggestions) {
-            asyncResults(suggestions);
-          });
-        }
-      });
-
-    </script>
+    {{-- Pada script dibawah digunakan untuk memastikan habwa NRP tidak boleh kosong atau
+        diisi dengan tanda minus (-) --}}
     <script>
         function validateForm() {
           var NRP = document.getElementById("NRP").value;
@@ -318,6 +248,8 @@ table td input {
           return true;
         }
         </script>
+        {{-- Pada script ini digunakan untuk membuat tombol detail barang tidak bisa digunakan,
+            Jika data header tidak diisi terlebih dahulu --}}
     <script>
         const form = document.getElementById('myForm');
         const buttons = document.querySelectorAll('button[type="button"]');
@@ -337,6 +269,10 @@ table td input {
         });
 
       </script>
+
+      {{-- Script ini bertujuan untuk melakukan cek apakah yang di input menggunakan simbol ;
+        Jika menggunakan simbol tersebut maka akan memunculkan pesan error
+        --}}
       <script>
 
         const form_1 = document.getElementById('myForm');
@@ -370,7 +306,7 @@ table td input {
           });
         });
       </script>
-
+{{-- Script ini berguna untuk menghapus kolom detail barang jika menggunakan file import --}}
       <script>
         $(document).ready(function() {
             $('#removeFile').on('click', function() {

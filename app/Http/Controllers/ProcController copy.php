@@ -132,61 +132,62 @@ class ProcController extends Controller
                 }
                 break;
             case 'edit':
-                // Check the current status of the request
-                $checkstatus = DB::table('proc_ppb_header')
+                $checkstatus=DB::table('proc_ppb_header')
                 ->select('ppb_status')
-                ->where('id_pengajuan', $request->get('id_pengajuan'))
+                ->where('id_pengajuan',$request->get('id_pengajuan'))
                 ->first();
-                $currentStatus = $checkstatus->ppb_status;
+                $status = $request->get('ppb_status');
+                if ($status != $checkstatus->ppb_status) {
+                    // Use a switch statement to update the appropriate column
+                    switch ($status) {
+                        case "Diterima":
+                            DB::table('proc_ppb_header')
+                                ->where('id_pengajuan', $request->get('id_pengajuan'))
+                                ->update([
+                                    'ppb_status' => $status,
+                                    'ppb_tgl_terima' => Carbon::now()
+                                ]);
+                            break;
+                        case "Selesai":
+                            DB::table('proc_ppb_header')
+                                ->where('id_pengajuan', $request->get('id_pengajuan'))
+                                ->update([
+                                    'ppb_status' => $status,
+                                    'ppb_tgl_selesai' => Carbon::now()
+                                ]);
+                            break;
+                        case "Batal":
+                            DB::table('proc_ppb_header')
+                                ->where('id_pengajuan', $request->get('id_pengajuan'))
+                                ->update([
+                                    'ppb_status' => $status,
+                                    'ppb_tgl_batal' => Carbon::now()
+                                ]);
+                            break;
+                        default:
+                            // Handle other ppb_status values
+                            break;
+                    }
 
-                // Check if the new status is different from the current one
-                $newStatus = $request->get('ppb_status');
-                if ($newStatus != $currentStatus) {
-                // Update the status and related fields
-                $updateData = [
-                    'ppb_status' => $newStatus,
-                    'updated_at' => Carbon::now(),
-                ];
-
-                switch ($newStatus) {
-                    case 'Diterima':
-                        $updateData['ppb_tgl_terima'] = Carbon::now();
-                        break;
-                    case 'Selesai':
-                        $updateData['ppb_tgl_selesai'] = Carbon::now();
-                        break;
-                    case 'Batal':
-                        $updateData['ppb_tgl_batal'] = Carbon::now();
-                        break;
-                    default:
-                        // Handle other ppb_status values
-                        break;
                 }
-
                 DB::table('proc_ppb_header')
-                    ->where('id_pengajuan', $request->get('id_pengajuan'))
-                    ->update($updateData);
-                }
-
-                // Update the header fields
-                DB::table('proc_ppb_header')
-                ->where('id_pengajuan', $request->get('id_pengajuan'))
+                ->where('id_pengajuan',$request->get('id_pengajuan'))
                 ->update([
-                    'ppb_referensi' => $request->get('ppb_referensi'),
-                    'ppb_tgl_po' => $request->get('ppb_tgl_po'),
-                    'ppb_pengaju' => $request->get('ppb_pengaju'),
-                    'ppb_pelanggan' => $request->get('ppb_pelanggan'),
-                    'ppb_divisi' => $request->get('ppb_divisi'),
-                    'ppb_proyek' => $request->get('ppb_proyek'),
-                    'ppb_nrp' => $request->get('ppb_nrp'),
-                    'ppb_npp' => $request->get('ppb_npp'),
-                    'ppb_tipe' => $request->get('ppb_tipe'),
-                    'ppb_alasan' => $request->get('ppb_alasan'),
-                    'ppb_tgl_pengajuan' => $request->get('ppb_tgl_pengajuan'),
-                    'ppb_tgl_deadline' => $request->get('ppb_tgl_deadline'),
-                    'ppb_catatan' => $request->get('ppb_catatan'),
-                    'ppb_status' => $request->get('ppb_status'),
-                    'updated_at' => Carbon::now(),
+                    'ppb_referensi'=>$request->get('ppb_referensi'),
+                    'ppb_tgl_po'=>$request->get('ppb_tgl_po'),
+                    'ppb_pengaju'=>$request->get('ppb_pengaju'),
+                    'ppb_pelanggan'=>$request->get('ppb_pelanggan'),
+                    'ppb_divisi'=>$request->get('ppb_divisi'),
+                    'ppb_proyek'=>$request->get('ppb_proyek'),
+                    'ppb_nrp'=>$request->get('ppb_nrp'),
+                    'ppb_npp'=>$request->get('ppb_npp'),
+                    'ppb_tipe'=>$request->get('ppb_tipe'),
+                    'ppb_alasan'=>$request->get('ppb_alasan'),
+                    'ppb_tgl_pengajuan'=>$request->get('ppb_tgl_pengajuan'),
+                    'ppb_tgl_deadline'=>$request->get('ppb_tgl_deadline'),
+                    'ppb_catatan'=>$request->get('ppb_catatan'),
+                    'ppb_status'=>$request->get('ppb_status'),
+                    'updated_at'=>Carbon::now(),
                 ]);
 
                 $pengajuan=substr($request->get('id_pengajuan'),10);

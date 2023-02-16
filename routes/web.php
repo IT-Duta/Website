@@ -224,9 +224,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/procurement/ppb/update','ProcController@update')->name('procurement_update');
     Route::post('/procurement/ppb/changeStatus','ProcController@ppb_status')->name('ppb_status');
     Route::get('/procurement/ppb/delbarang/{id}','ProcController@delbarang')->name('procurement_delbarang');
-    Route::get('/procurement/ppb/getDesc','ProcController@getDesc')->name('pbb_getDesc');
-    Route::get('/procurement/ppb/pbb_getTipebarang','ProcController@pbb_getTipebarang')->name('pbb_getTipebarang');
-    Route::get('/procurement/ppb/pbb_getMerek','ProcController@pbb_getMerek')->name('pbb_getMerek');
     Route::get('/procurement/ppb/downloaderror/{filename}','ProcController@downloadErrorFile')->name('pbb_downloadErrorFile');
         Route::get('/ga/downloadErrorFile/{filename}','ga_ItemWarehouseController@downloadErrorFile')->name('ga.downloadErrorFile');
     Route::middleware('procurementMiddleware')->group(function(){
