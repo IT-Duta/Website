@@ -166,7 +166,7 @@ Daftar Gudang
           </button>
         </div>
         <div class="modal-body">
-            <a href="{{route('download_file', 'import_mastergudang.xlsx')}}">Template Import</a>
+            <a href="{{route('download_file', 'import_itemwarehouse.xlsx')}}">Template Import</a>
             <form action="{{route('ga.ItemWarehouseImport')}}" method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @if ($errors->any())
