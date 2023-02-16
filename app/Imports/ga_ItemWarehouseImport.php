@@ -17,6 +17,8 @@ class ga_ItemWarehouseImport implements ToModel, WithHeadingRow, WithMultipleShe
     private $errorRows = [];
     private $updatedRows = [];
     private $insertedRows = [];
+    private $skippedRows = [];
+    private $missingRows = [];
 
     public function model(array $row)
 {
@@ -29,24 +31,23 @@ class ga_ItemWarehouseImport implements ToModel, WithHeadingRow, WithMultipleShe
             ->where('nama_gudang', $row['nama_gudang'])
             ->value('uuid_gudang');
 
-        $existing = DB::table('ga_item_warehouse')
-            ->where('uuid_barang', $checkItems)
-            ->where('uuid_gudang', $checkWH)
-            ->first();
-
         if ($checkItems && $checkWH) {
-            if ($existing) {
-                // update the existing row
+            $existingRow = DB::table('ga_item_warehouse')
+                ->where('uuid_barang', $checkItems)
+                ->where('uuid_gudang', $checkWH)
+                ->first();
+
+            if ($existingRow) {
+                $this->updatedRows[] = $row;
                 DB::table('ga_item_warehouse')
-                    ->where('id', $existing->id)
+                    ->where('uuid_barang', $checkItems)
+                    ->where('uuid_gudang', $checkWH)
                     ->update([
                         'qty_barang' => $row['qty_barang'],
                         'updated_at' => Carbon::now()
                     ]);
-
-                $this->updatedRows[] = $row;
             } else {
-                // insert the new row
+                $this->insertedRows[] = $row;
                 DB::table('ga_item_warehouse')->insert([
                     'connector' => Str::uuid(),
                     'uuid_barang' => $checkItems,
@@ -55,27 +56,39 @@ class ga_ItemWarehouseImport implements ToModel, WithHeadingRow, WithMultipleShe
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
-
-                $this->insertedRows[] = $row;
             }
         } else {
-            $this->errorRows[] = $row;
+            $this->skippedRows[] = $row;
         }
     } else {
-        $this->errorRows[] = $row;
+        $this->missingRows[] = $row;
     }
 }
 
-
-    public function generateErrorFile()
-    {
-        if (!empty($this->errorRows)) {
-            $filename = 'error_rows_' . date('Ymd_His') . '.txt';
-            Storage::disk('local')->put($filename, print_r($this->errorRows, true));
-            return $filename;
-        }
-        return null;
+public function generateErrorFile()
+{
+    $errorRows = [];
+    if (!empty($this->missingRows)) {
+        $errorRows[] = "Missing rows: \n" . print_r($this->missingRows, true);
     }
+    if (!empty($this->skippedRows)) {
+        $errorRows[] = "Skipped rows: \n" . print_r($this->skippedRows, true);
+    }
+    if (!empty($this->insertedRows)) {
+        $errorRows[] = "Inserted rows: \n" . print_r($this->insertedRows, true);
+    }
+    if (!empty($this->updatedRows)) {
+        $errorRows[] = "Updated rows: \n" . print_r($this->updatedRows, true);
+    }
+    if (!empty($errorRows)) {
+        $filename = 'error_rows_' . date('Ymd_His') . '.txt';
+        Storage::disk('local')->put($filename, implode("\n\n", $errorRows));
+        return $filename;
+    }
+    return null;
+}
+
+
 
     public function sheets(): array
     {
