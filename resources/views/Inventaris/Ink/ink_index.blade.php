@@ -5,10 +5,12 @@
 @section('main_header')
     Inventaris Tinta
 @endsection
-@can('viewAdmin')
-    @section('header')
-        <a href="{{ route('ink_create') }}" class="btn btn-secondary btn-round">Add Ink</a>
-    @endsection
+@can('isIT')
+
+@section('header')
+<a href="{{ route('ink_create') }}" class="btn btn-secondary btn-round">Add Ink</a>
+<a href="{{ route('ink_export') }}" class="btn btn-secondary btn-round">Export Ink</a>
+@endsection
 @endcan
 @section('content')
 

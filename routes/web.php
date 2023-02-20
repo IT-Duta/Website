@@ -115,6 +115,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/printer-report/{id}', 'PrinterController@report')->name('printer_report');
     Route::get('/inventaris/printer-del/{id}', 'PrinterController@destroy')->name('printer_del');
     Route::post('/inventaris/printer-update', 'PrinterController@update')->name('printer_update');
+    // Export Tinta
+    Route::get('/inventaris/tinta/export','InkController@export')->name('ink_export');
 
     // Untuk Inventaris Tinta
     Route::get('/inventaris/ink','InkController@index')->name('ink_index');
@@ -270,6 +272,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Maintenance
+    Route::get('dashboard/maintenance','maintenanceController@index')->name('maintenance_index');
     Route::get('dashboard/maintenance-create','maintenanceController@create')->name('maintenance_create');
     Route::post('dashboard/maintenance-store','maintenanceController@store')->name('maintenance_store');
 
@@ -366,16 +369,16 @@ Route::post('/ga/masteritem/delete/{id}', 'ga_masterItemController@destroy')->na
 Route::get('ga/masteritem/export','ga_masterItemController@export')->name('ga.masterItemExport');
 
 // General Affair Master Warehouse
-Route::get('/ga/masterwarehouse', 'ga_masterWarehouseController@masterItem')->name('ga.masterWarehouse');
+Route::get('/ga/masterwarehouse', 'ga_masterWarehouseController@masterWarehouse')->name('ga.masterWarehouse');
 Route::post('/ga/masterwarehouse/store', 'ga_masterWarehouseController@store')->name('ga.masterWarehouseAdd');
 Route::get('/ga/masterwarehouse/{id}/edit', 'ga_masterWarehouseController@edit')->name('ga.masterWarehouseEdit');
 Route::post('/ga/masterwarehouse/update', 'ga_masterWarehouseController@update')->name('ga.masterWarehouseUpdate');
-Route::post('/ga/masterwarehouse/import', 'ga_masterWarehouseController@masterItemImport')->name('ga.masterWarehouseImport');
+Route::post('/ga/masterwarehouse/import', 'ga_masterWarehouseController@masterWarehouseImport')->name('ga.masterWarehouseImport');
 Route::post('/ga/masterwarehouse/delete/{id}', 'ga_masterWarehouseController@destroy')->name('ga.masterWarehouseDelete');
 Route::get('ga/masterwarehouse/export','ga_masterWarehouseController@export')->name('ga.masterWarehouseExport');
 
 //
-// General Affair Master Warehouse
+// General Affair Master Item Warehouse
 Route::get('/ga', 'ga_ItemWarehouseController@masterItem')->name('ga.ItemWarehouse');
 Route::post('/ga/store', 'ga_ItemWarehouseController@store')->name('ga.ItemWarehouseAdd');
 Route::get('/ga/{id}/edit', 'ga_ItemWarehouseController@edit')->name('ga.ItemWarehouseEdit');
@@ -384,4 +387,11 @@ Route::post('/ga/import', 'ga_ItemWarehouseController@masterItemImport')->name('
 Route::post('/ga/delete/{id}', 'ga_ItemWarehouseController@destroy')->name('ga.ItemWarehouseDelete');
 Route::get('/ga/export','ga_ItemWarehouseController@export')->name('ga.ItemWarehouseExport');
 Route::get('/ga/downloadErrorFile/{filename}','ga_ItemWarehouseController@downloadErrorFile')->name('ga.downloadErrorFile');
+
+// General Affair Add Report
+Route::get('/ga/permintaan/','ga_reportPermintaanController@index')->name('ga.permintaanIndex');
+Route::post('/ga/permintaan/store','ga_reportPermintaanController@store')->name('ga.permintaanStore');
+Route::post('/ga/permintaan/update','ga_reportPermintaanController@update')->name('ga.permintaanUpdate');
+Route::get('/ga/permintaan/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.permintaanRequest');
+Route::get('/ga/permintaan/{id}/getData','ga_reportPermintaanController@getData')->name('ga.permintaanGetData');
 require __DIR__.'/auth.php';

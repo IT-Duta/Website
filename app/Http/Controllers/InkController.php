@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\inkStockExport;
 use App\Mail\newInk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InkController extends Controller
 {
@@ -140,6 +142,14 @@ class InkController extends Controller
             ->get();
             return response(json_encode($connectors));
         }
+    }
+
+    // Export Tinta
+    public function export(){
+        $time=Carbon::now();
+        $time=date_format($time,'d-m-y, H.i.s');
+        $filename='Tinta export'.$time.'.xlsx';
+        return Excel::download(new inkStockExport, $filename);
     }
 
 }

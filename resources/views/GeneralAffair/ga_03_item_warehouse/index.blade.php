@@ -1,21 +1,24 @@
 @extends('layout.main')
 @section('title')
-Daftar Gudang
+Stok Barang
 @endsection
 @section('main_header')
-   Daftar Gudang
+   Stok Barang
 @endsection
+@can('isGA')
 @section('header')
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addItemWarehouseModal">
     Tambah Stok Barang
-  </button>
-   <!-- Button trigger modal -->
+</button>
+<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importItemWarehouseModal">
     Import Gudang
-  </button>
+</button>
+
 <a href="{{route('ga.ItemWarehouseExport')}}"class="btn btn-success btn-sm">Export Master Item</a>
 @endsection
+@endcan
 @section('content')
 @if (session('status'))
     <div class="alert alert-success">{{ session('status') }}</div>
@@ -30,7 +33,7 @@ Daftar Gudang
 
     <div class="card card-shadow">
         <div class="card-header">
-            Daftar Gudang
+            Stok Barang
         </div>
         <div class="card-body">
             <div class="text-center table-responsive">
@@ -68,10 +71,13 @@ Daftar Gudang
                             {{$list->qty_barang}}
                         </td>
                         <td>
+                            @can('isGA')
                             {{-- Tombol Hapus --}}
                             <button class="btn btn-danger delete-item" data-toggle="modal" data-target="#confirm-delete" data-id="{{ $list->connector}}">Delete</button>
                             {{-- Tombol Edit --}}
                             <button class="btn btn-primary edit-item" data-toggle="modal" data-target="#edit-modal" data-id="{{ $list->connector }}">Edit</button>
+                            @endcan
+                            <button class="btn btn-success req-item" data-toggle="modal" data-target="#request-modal" data-id="{{ $list->connector }}">Request</button>
                         </td>
                     </tr>
                     @endforeach
@@ -80,192 +86,27 @@ Daftar Gudang
             </div>
         </div>
     </div>
-{{-- Modal Tambah Gudang --}}
+{{-- Modal Tambah Stok Barang --}}
+@include('GeneralAffair.ga_03_item_warehouse.addModal')
 
-
-  <!-- Modal -->
-  <div class="modal fade" id="addItemWarehouseModal" tabindex="-1" aria-labelledby="addItemWarehouseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addItemWarehouseModalLabel">Tambah Stok Barang</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method='post' action="{{route('ga.ItemWarehouseAdd')}}" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                @if ($errors->any())
-                    <p class="alert alert-danger">{{ $errors->first() }}</p>
-                @endif
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="nama_gudang">Nama Barang</label>
-                        </div>
-                        <div class="col-md">
-                           <select class="form-control" name="uuid_barang" id="">
-                            @for ($i = 0; $i < count($items); $i++)
-                            <option value="{{$items[$i]->uuid_barang}}">{{$items[$i]->nama_barang}}</option>
-                            @endfor
-                           </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="qty_barang">Jumlah Barang</label>
-                        </div>
-                        <div class="col-md">
-                            <input type="number" step="any" name="qty_barang" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="nama_gudang">Nama Gudang</label>
-                        </div>
-                        <div class="col-md">
-                            <select class="form-control" name="uuid_gudang" id="">
-                                @for ($i = 0; $i < count($warehouses); $i++)
-                            <option value="{{$warehouses[$i]->uuid_gudang}}">{{$warehouses[$i]->nama_gudang}}</option>
-                            @endfor
-                               </select>
-                        </div>
-                    </div>
-                </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit"
-                    class="btn btn-primary btn-shadow">
-                    Submit
-                </button>
-            </form>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  {{-- End Modal Tambah Gudang --}}
+  {{-- End Modal Tambah Stok Barang --}}
   {{-- Modal Import Gudang --}}
+@include('GeneralAffair.ga_03_item_warehouse.importModal')
 
-
-  <!-- Modal -->
-  <div class="modal fade" id="importItemWarehouseModal" tabindex="-1" aria-labelledby="importItemWarehouseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="importItemWarehouseModalLabel">Import Modal</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <a href="{{route('download_file', 'import_itemwarehouse.xlsx')}}">Template Import</a>
-            <form action="{{route('ga.ItemWarehouseImport')}}" method="post" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                @if ($errors->any())
-                    <p class="alert alert-danger">{{ $errors->first() }}</p>
-                @endif
-                <input type="file" class="form-control" name="file">
-
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit"  class="btn btn-primary">Import Data</button>
-            </form>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
   {{-- End Modal Import Gudang --}}
-  {{-- Modal Hapus Gudang --}}
+  {{-- Modal Hapus Data --}}
   <!-- Modal -->
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Confirm Delete</h4>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this quantity?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <form id="delete-form" method="POST">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+@include('GeneralAffair.ga_03_item_warehouse.deleteModal')
+  {{-- End Modal Hapus Data --}}
+  {{-- Modal Edit Data --}}
+  @include('GeneralAffair.ga_03_item_warehouse.editModal')
+  {{-- End Modal Edit Data --}}
+{{-- Start Modal Request Item --}}
+@include('GeneralAffair.ga_03_item_warehouse.requestModal')
+<!-- Modal -->
 
-            </div>
-        </div>
-    </div>
-</div>
 
-  {{-- End Modal Hapus Gudang --}}
-  {{-- Modal Edit Gudang --}}
-  <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="edit-modal-label">Edit Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="edit-form" method="POST" action="{{route('ga.ItemWarehouseUpdate')}}">
-                    {{ csrf_field() }}
-                    {{ method_field('POST') }}
-                    <input type="hidden" class="form-control" id="connector" name="connector">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="nama_gudang">Nama Barang</label>
-                            </div>
-                            <div class="col-md">
-                                <input type="text" readonly name="nama_barang" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="qty_barang">Jumlah Barang</label>
-                            </div>
-                            <div class="col-md">
-                                <input type="number" step="any" name="qty_barang" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="nama_gudang">Nama Gudang</label>
-                            </div>
-                            <div class="col-md">
-                                <input type="text" readonly name="nama_gudang" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" form="edit-form" class="btn btn-primary">Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-  {{-- End Modal Edit Gudang --}}
+{{-- End Modal --}}
 @endsection
 @section('javascript')
 <script>
@@ -285,6 +126,7 @@ Daftar Gudang
     });
 </script>
 {{-- Edit Modal --}}
+
 <script>
     $(document).ready(function() {
         $('.edit-item').click(function() {
@@ -294,6 +136,21 @@ Daftar Gudang
                 $('#edit-form input[name="connector"]').val(data.connector);
                 $('#edit-form input[name="nama_gudang"]').val(data.nama_gudang);
                 $('#edit-form input[name="nama_barang"]').val(data.nama_barang);
+            });
+        });
+    });
+</script>
+{{-- Request Script --}}
+<script>
+    $(document).ready(function() {
+        $('.req-item').click(function() {
+            var id = $(this).data('id');
+            $.get('{{ route("ga.permintaanRequest", ":id") }}'.replace(':id', id), function(data) {
+                $('#req-form input[name="connector"]').val(data.connector);
+                $('#req-form input[name="nama_gudang"]').val(data.nama_gudang);
+                $('#req-form input[name="nama_barang"]').val(data.nama_barang);
+                $('#req-form input[name="current_qty"]').val(data.qty_barang);
+                $('#req-form input[name="request_qty"]').attr('max', data.qty_barang);
             });
         });
     });

@@ -32,14 +32,14 @@ class ga_ItemWarehouseImport implements ToModel, WithHeadingRow, WithMultipleShe
             ->value('uuid_gudang');
 
         if ($checkItems && $checkWH) {
-            $existingRow = DB::table('ga_item_warehouse')
+            $existingRow = DB::table('ga_itemWarehouse')
                 ->where('uuid_barang', $checkItems)
                 ->where('uuid_gudang', $checkWH)
                 ->first();
 
             if ($existingRow) {
                 $this->updatedRows[] = $row;
-                DB::table('ga_item_warehouse')
+                DB::table('ga_itemWarehouse')
                     ->where('uuid_barang', $checkItems)
                     ->where('uuid_gudang', $checkWH)
                     ->update([
@@ -48,7 +48,7 @@ class ga_ItemWarehouseImport implements ToModel, WithHeadingRow, WithMultipleShe
                     ]);
             } else {
                 $this->insertedRows[] = $row;
-                DB::table('ga_item_warehouse')->insert([
+                DB::table('ga_itemWarehouse')->insert([
                     'connector' => Str::uuid(),
                     'uuid_barang' => $checkItems,
                     'uuid_gudang' => $checkWH,

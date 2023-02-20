@@ -53,6 +53,26 @@ class AuthServiceProvider extends ServiceProvider
                 ->first();
             return $isRole ? true : false;
         });
+
+        Gate::define('isIT', function (User $user) {
+                $isRole = DB::table('users as u')
+                ->join('user_detail as ud', 'u.email','=','ud.email' )
+                ->select('ud.user_divisi')
+                ->where('u.id','=',$user->id)
+                ->where('ud.user_divisi','IT')
+                ->first();
+            return $isRole ? true : false;
+        });
+        Gate::define('isGA', function (User $user) {
+                $isRole = DB::table('users as u')
+                ->join('user_detail as ud', 'u.email','=','ud.email' )
+                ->select('ud.user_divisi')
+                ->where('u.id','=',$user->id)
+                ->where('ud.user_divisi','GENERAL AFFAIR')
+                ->first();
+            return $isRole ? true : false;
+        });
+
         // $isRole = DB::table('users as u')
         // ->join('user_detail as ud', 'u.email','=','ud.email' )
         // ->select('u.*','ud.user_nik','ud.user_divisi','ud.user_gender','ud.user_birthday')

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class ga_ItemWarehouseController extends Controller
 {
     public function masterItem(){
-        $list=DB::table('ga_item_warehouse as iw')
+        $list=DB::table('ga_itemWarehouse as iw')
         ->join('ga_masterItem as mi','mi.uuid_barang','iw.uuid_barang')
         ->join('ga_masterWarehouse as mw','mw.uuid_gudang','iw.uuid_gudang')
         ->orderBy('nama_barang','asc')->get();
@@ -50,7 +50,7 @@ class ga_ItemWarehouseController extends Controller
             'qty_barang' => 'required',
         ]);
 
-        DB::table('ga_item_warehouse')->insert([
+        DB::table('ga_itemWarehouse')->insert([
             'connector' => Str::uuid(),
             'uuid_barang' => $data['uuid_barang'],
             'uuid_gudang' => $data['uuid_gudang'],
@@ -61,7 +61,7 @@ class ga_ItemWarehouseController extends Controller
     }
     public function edit($id)
     {
-        $item = DB::table('ga_item_warehouse as iw')
+        $item = DB::table('ga_itemWarehouse as iw')
         ->join('ga_masterItem as mi','mi.uuid_barang','iw.uuid_barang')
         ->join('ga_masterWarehouse as mw','mw.uuid_gudang','iw.uuid_gudang')
         ->where('connector',$id)
@@ -73,7 +73,7 @@ class ga_ItemWarehouseController extends Controller
             'connector' => 'required|string',
             'qty_barang' => 'required',
         ]);
-        DB::table('ga_item_warehouse')->where('connector',$data['connector'])
+        DB::table('ga_itemWarehouse')->where('connector',$data['connector'])
         ->update([
             'qty_barang' => $data['qty_barang'],
             'updated_at'=>Carbon::now()
@@ -82,7 +82,7 @@ class ga_ItemWarehouseController extends Controller
     }
     public function destroy($id)
     {
-        DB::table('ga_item_warehouse')->where('connector',$id)->delete();
+        DB::table('ga_itemWarehouse')->where('connector',$id)->delete();
         return redirect()->back()->with('status', 'Kuantiti sukses dihapus');
     }
     public function export()
