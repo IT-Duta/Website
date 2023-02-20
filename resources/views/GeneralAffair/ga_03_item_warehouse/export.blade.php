@@ -5,16 +5,13 @@
             No
         </th>
         <th style="width: 100px;">
-            Kode Unik
+            Nama Barang
         </th>
         <th style="width: 100px;">
             Nama Gudang
         </th>
         <th style="width: 100px;">
-            Status Gudang
-        </th>
-        <th style="width: 100px;">
-            Pertama Input
+            Jumlah Barang
         </th>
         <th style="width: 100px;">
             Terakhir Update
@@ -28,10 +25,9 @@
         @foreach ($list as $list)
         <tr>
             <td>{{$nomor++}}</td>
-            <td>{{$list->uuid_gudang}}</td>
+            <td>{{$list->nama_barang}}</td>
             <td>{{$list->nama_gudang}}</td>
-            <td>{{$list->status_gudang}}</td>
-            <td>{{$list->created_at}}</td>
+            <td>{{$list->qty_barang}}</td>
             <td>{{$list->updated_at}}</td>
         </tr>
         @endforeach

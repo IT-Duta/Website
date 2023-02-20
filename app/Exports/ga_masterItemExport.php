@@ -15,6 +15,5 @@ class ga_masterItemExport implements FromView
     {
         $list=DB::table('ga_masterItem')->get();
         return view('GeneralAffair.ga_01_masterItem.export')->with(compact('list'));
-        // return $list;
     }
 }

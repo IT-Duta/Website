@@ -13,10 +13,10 @@ Stok Barang
 </button>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importItemWarehouseModal">
-    Import Gudang
+    Import Stok Barang
 </button>
 
-<a href="{{route('ga.ItemWarehouseExport')}}"class="btn btn-success btn-sm">Export Master Item</a>
+<a href="{{route('ga.ItemWarehouseExport')}}"class="btn btn-success btn-sm">Export Stok Barang</a>
 @endsection
 @endcan
 @section('content')
@@ -116,19 +116,16 @@ Stok Barang
 </script>
 {{-- Delete Modal --}}
 <script>
-    $(document).ready(function() {
         $('.delete-item').click(function() {
             var id = $(this).data('id');
             var url = '{{ route("ga.ItemWarehouseDelete", ":id") }}';
             url = url.replace(':id', id);
             $('#delete-form').attr('action', url);
         });
-    });
 </script>
 {{-- Edit Modal --}}
 
 <script>
-    $(document).ready(function() {
         $('.edit-item').click(function() {
             var id = $(this).data('id');
             $.get('{{ route("ga.ItemWarehouseEdit", ":id") }}'.replace(':id', id), function(data) {
@@ -138,11 +135,9 @@ Stok Barang
                 $('#edit-form input[name="nama_barang"]').val(data.nama_barang);
             });
         });
-    });
 </script>
 {{-- Request Script --}}
 <script>
-    $(document).ready(function() {
         $('.req-item').click(function() {
             var id = $(this).data('id');
             $.get('{{ route("ga.permintaanRequest", ":id") }}'.replace(':id', id), function(data) {
@@ -153,7 +148,7 @@ Stok Barang
                 $('#req-form input[name="request_qty"]').attr('max', data.qty_barang);
             });
         });
-    });
+
 </script>
 
 

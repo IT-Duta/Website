@@ -86,17 +86,14 @@ Daftar Gudang
 } );
 </script>
 <script>
-    $(document).ready(function() {
         $('.delete-item').click(function() {
             var id = $(this).data('id');
             var url = '{{ route("ga.masterWarehouseDelete", ":id") }}';
             url = url.replace(':id', id);
             $('#delete-form').attr('action', url);
         });
-    });
 </script>
 <script>
-    $(document).ready(function() {
         $('.edit-item').click(function() {
             var id = $(this).data('id');
             $.get('{{ route("ga.masterWarehouseEdit", ":id") }}'.replace(':id', id), function(data) {
@@ -107,7 +104,6 @@ Daftar Gudang
 
             });
         });
-    });
 </script>
 
 

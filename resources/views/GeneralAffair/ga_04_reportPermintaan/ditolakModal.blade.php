@@ -1,14 +1,14 @@
-<div class="modal fade" id="action-modal" tabindex="-1" aria-labelledby="action-modalLabel" aria-hidden="true">
+<div class="modal fade" id="ditolak-modal" tabindex="-1" aria-labelledby="ditolak-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="action-modalLabel">Pengajuan Barang General Affair</h5>
+          <h5 class="modal-title" id="ditolak-modalLabel">Pengajuan Barang General Affair</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form method='post' action="{{route('ga.permintaanUpdate')}}" id="action-form" enctype="multipart/form-data">
+            <form method='post' action="{{route('ga.permintaanUpdate')}}" id="ditolak-form" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @if ($errors->any())
                     <p class="alert alert-danger">{{ $errors->first() }}</p>
@@ -98,17 +98,13 @@
                             <label for="status_permintaan">Status Permintaan</label>
                         </div>
                         <div class="col-md">
-                            <select name="status_permintaan" id="status_permintaan" class="form-control">
-                                <option value="Ditunggu">Ditunggu</option>
-                                <option value="Ditolak">Ditolak</option>
-                                <option value="Diterima">Diterima</option>
-                            </select>
-                            {{-- <input required
+
+                            <input required
                             class="form-control"
                             name="status_permintaan"
                             id="status_permintaan"
                             readonly
-                            type="text"> --}}
+                            type="text">
                         </div>
                     </div>
                 </div>
@@ -117,7 +113,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit"
-                class="btn btn-primary btn-shadow btn-block" form="action-form">
+                class="btn btn-primary btn-shadow btn-block" form="ditolak-form">
                 Submit
             </button>
           <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Close</button>
