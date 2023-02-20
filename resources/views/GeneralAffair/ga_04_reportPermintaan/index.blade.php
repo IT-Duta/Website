@@ -7,7 +7,7 @@ Daftar Permintaan Barang
 @endsection
 @section('header')
 @can('isGA')
-<a href="{{route('ga.masterWarehouseExport')}}"class="btn btn-success btn-sm">Export Master Item</a>
+<a href="{{route('ga.permintaanExport')}}"class="btn btn-success btn-sm">Export Report Permintaan</a>
 @endcan
 @endsection
 @section('content')

@@ -394,4 +394,5 @@ Route::post('/ga/permintaan/store','ga_reportPermintaanController@store')->name(
 Route::post('/ga/permintaan/update','ga_reportPermintaanController@update')->name('ga.permintaanUpdate');
 Route::get('/ga/permintaan/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.permintaanRequest');
 Route::get('/ga/permintaan/{id}/getData','ga_reportPermintaanController@getData')->name('ga.permintaanGetData');
+Route::get('/ga/permintaan/export','ga_reportPermintaanController@export')->name('ga.permintaanExport');
 require __DIR__.'/auth.php';

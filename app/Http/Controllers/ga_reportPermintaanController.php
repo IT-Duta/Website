@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ga_reportPermintaanExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ga_reportPermintaanController extends Controller
 {
     public function index(){
@@ -80,5 +83,12 @@ class ga_reportPermintaanController extends Controller
         ->where('connector',$id)
         ->first();
         return response()->json($item);
+    }
+
+    public function export()
+    {
+        $time=Carbon::now();
+        $file="Daftar Permintaan Barang ".$time.'.xlsx';
+        return Excel::download(new ga_reportPermintaanExport, $file);
     }
 }
