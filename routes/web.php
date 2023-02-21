@@ -395,4 +395,6 @@ Route::post('/ga/permintaan/update','ga_reportPermintaanController@update')->nam
 Route::get('/ga/permintaan/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.permintaanRequest');
 Route::get('/ga/permintaan/{id}/getData','ga_reportPermintaanController@getData')->name('ga.permintaanGetData');
 Route::get('/ga/permintaan/export','ga_reportPermintaanController@export')->name('ga.permintaanExport');
+// Barang Pinjam
+Route::get('/barang','BarangPinjamController@index')->name('barangIndex');
 require __DIR__.'/auth.php';
