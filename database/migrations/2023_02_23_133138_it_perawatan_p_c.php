@@ -16,12 +16,15 @@ class ItPerawatanPC extends Migration
         Schema::create('it_perawatanPC', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('uuid_perawatan');
+            $table->integer('nomor');
+            $table->string('nomor_perawatan');
             $table->string('pic');
             $table->string('user');
             $table->string('lokasi');
-            $table->string('cpu_perawatan');
-            $table->string('monitor_perawatan');
-            $table->string('kebersihan_perangkat');
+            $table->string('nomor_cpu');
+            $table->string('nomor_monitor');
+            $table->string('kebersihan_monitor');
+            $table->string('kebersihan_pc');
             $table->string('kondisi_monitor');
             $table->string('kondisi_keyboardmouse');
             $table->string('kondisi_mainboard');

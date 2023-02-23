@@ -405,8 +405,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('maintenance_create') }}">
-                                            <span class="sub-item">Maintenance</span>
+                                        <a href="{{ route('perawatan.pc.index') }}">
+                                            <span class="sub-item">Perawatan</span>
                                         </a>
                                     </li>
 

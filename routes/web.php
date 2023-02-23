@@ -246,29 +246,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/po-lokal/procurement/4','POTrackController@procurement_track_04_store')->name('lokal_procurement_4_store');
     Route::get('/po-lokal/procurement/getData','POTrackController@getData')->name('lokal_procurement_getData');
 
-    // Untuk General Affair
-    Route::get('/general/infra/create','GeneralAffair@infra_create')->name('infra_create');
-    Route::get('/general/item','GeneralAffair@item')->name('itm');
-    Route::get('/general/itm/create','GeneralAffair@itm_create')->name('itm_create');
-    Route::post('/general/itm/store','GeneralAffair@itm_store')->name('itm_store');
-    Route::post('/general/itm/import','GeneralAffair@itm_import')->name('itm_import');
-    Route::get('/general/itm/export','GeneralAffair@itm_export')->name('itm_export');
-    Route::get('/general/itm/del/{id}','GeneralAffair@itm_del')->name('itm_del');
-    Route::get('/general/warehouse','GeneralAffair@warehouse')->name('wh');
-    Route::get('/general/wh/create','GeneralAffair@wh_create')->name('wh_create');
-    Route::post('/general/wh/store','GeneralAffair@wh_store')->name('wh_store');
-    Route::get('/general/wh/del/{id}','GeneralAffair@wh_del')->name('wh_del');
-    Route::get('/general/','generalAffair@itm_balance_index')->name('ga_balance_index');
-    Route::get('/general/report','generalAffair@report')->name('ga_balance_report');
-    Route::get('/general/balance/insert','generalAffair@itm_balance_insert')->name('ga_balance_insert');
-    Route::post('/general/balance/store','GeneralAffair@itm_balance_store')->name('itm_balance_store');
-    Route::get('/general/balance/export','GeneralAffair@itm_balance_export')->name('itm_balance_export');
-    Route::get('/general/reqitem/create','GeneralAffair@reqitem_create')->name('reqitem_create');
-    Route::post('/general/reqitem/store','GeneralAffair@reqitem_store')->name('reqitem_store');
-    Route::get('/general/reqitem/reqloc','GeneralAffair@reqloc')->name('reqitem_reqloc');
-    Route::post('/general/reqitem/update','GeneralAffair@reqitem_update')->name('reqitem_update');
-    Route::get('/general/balance/report/export','GeneralAffair@ga_balance_export')->name('ga_balance_export');
-    Route::get('/general/reqitem/data', 'GeneralAffair@getData')->name('reqitem_getData');
+    // Perawatan PC
+    Route::get('/perawatan/pc','it_perawatanPCController@index')->name('perawatan.pc.index');
+    Route::get('/perawatan/pc/create','it_perawatanPCController@create')->name('perawatan.pc.create');
+    Route::post('/perawatan/pc/store','it_perawatanPCController@store')->name('perawatan.pc.store');
+    Route::post('/perawatan/pc/delete/{id}', 'it_perawatanPCController@destroy')->name('perawatan.pc.delete');
+
+    // Get Data for modal
+    Route::get('/perawatan/pc/{id}/getData','it_perawatanPCController@getData')->name('perawatan.pc.getData');
 
 
     // Maintenance
@@ -395,4 +380,6 @@ Route::post('/ga/permintaan/update','ga_reportPermintaanController@update')->nam
 Route::get('/ga/permintaan/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.permintaanRequest');
 Route::get('/ga/permintaan/{id}/getData','ga_reportPermintaanController@getData')->name('ga.permintaanGetData');
 Route::get('/ga/permintaan/export','ga_reportPermintaanController@export')->name('ga.permintaanExport');
+
 require __DIR__.'/auth.php';
+
