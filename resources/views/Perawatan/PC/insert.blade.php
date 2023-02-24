@@ -50,29 +50,16 @@
                     <div class="row my-2">
                         <div class="col">
                             <div class="form-group">
-                                <label for="nomor_cpu">Nomor CPU</label>
-                                <select name="nomor_cpu" class="form-control" id="nomor_cpu">
-                                    @foreach ($nomor_cpu as $nomor_cpu)
-                                        <option value="{{$nomor_cpu->pc_number}}">{{$nomor_cpu->pc_number.' U:'.$nomor_cpu->pc_user  .' L:'. $nomor_cpu->pc_location}}</option>
+                                <label for="nomor_monitor">Nomor Monitor</label>
+                                <select name="nomor_monitor" class="form-control" id="nomor_monitor">
+                                    <option value="" selected disabled></option>
+                                    <option value="Kosong">Kosong</option>
+                                    @foreach ($nomor_monitor as $nomor_monitor)
+                                    <option value="{{$nomor_monitor->monitor_number}}">{{$nomor_monitor->monitor_number.'N: '.$nomor_monitor->monitor_name.' U:'.$nomor_monitor->monitor_user  .' L:'. $nomor_monitor->monitor_location}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
-                        <div class="col">
-                         <div class="form-group">
-                            <label for="nomor_monitor">Nomor Monitor</label>
-                            <select name="nomor_monitor" class="form-control" id="nomor_monitor">
-                                <option value="" selected disabled></option>
-                                <option value="Kosong">Kosong</option>
-                                @foreach ($nomor_monitor as $nomor_monitor)
-                                    <option value="{{$nomor_monitor->monitor_number}}">{{$nomor_monitor->monitor_number.'N: '.$nomor_monitor->monitor_name.' U:'.$nomor_monitor->monitor_user  .' L:'. $nomor_monitor->monitor_location}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row my-2">
                         <div class="col" id="kebersihan_monitor">
                             <div class="form-group">
                                 <label class="form-label">Kebersihan Monitor</label>
@@ -88,24 +75,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kebersihan PC</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_pc" value="OK" class="selectgroup-input" >
-                                        <span class="selectgroup-button">OK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_pc" value="NOT" class="selectgroup-input">
-                                        <span class="selectgroup-button">NOT</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Batas Satu Baris --}}
-                    <div class="row my-2">
                         <div class="col" id="kondisi_monitor">
                             <div class="form-group">
                                 <label class="form-label">Kondisi Monitor</label>
@@ -116,6 +85,33 @@
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi_monitor" value="NOT" class="selectgroup-input">
+                                        <span class="selectgroup-button">NOT</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                         <div class="col">
+                            <div class="form-group">
+                                <label for="nomor_cpu">Nomor CPU</label>
+                                <select name="nomor_cpu" class="form-control" id="nomor_cpu">
+                                    @foreach ($nomor_cpu as $nomor_cpu)
+                                        <option value="{{$nomor_cpu->pc_number}}">{{$nomor_cpu->pc_number.' U:'.$nomor_cpu->pc_user  .' L:'. $nomor_cpu->pc_location}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Kebersihan PC</label>
+                                <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kebersihan_pc" value="OK" class="selectgroup-input" >
+                                        <span class="selectgroup-button">OK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kebersihan_pc" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -136,6 +132,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    {{-- Batas Satu Baris --}}
+                    <div class="row my-2">
+
+
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Kondisi Mainboard</label>
@@ -146,6 +147,37 @@
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi_mainboard" value="NOT" class="selectgroup-input">
+                                        <span class="selectgroup-button">NOT</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Kondisi Processor</label>
+                                <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi_processor" value="OK" class="selectgroup-input" >
+                                        <span class="selectgroup-button">OK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi_processor" value="NOT" class="selectgroup-input">
+                                        <span class="selectgroup-button">NOT</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Kondisi RAM</label>
+                                <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi_ram" value="OK" class="selectgroup-input" >
+                                        <span class="selectgroup-button">OK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi_ram" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -170,36 +202,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kondisi Processor</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_processor" value="OK" class="selectgroup-input" >
-                                        <span class="selectgroup-button">OK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_processor" value="NOT" class="selectgroup-input">
-                                        <span class="selectgroup-button">NOT</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kondisi RAM</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_ram" value="OK" class="selectgroup-input" >
-                                        <span class="selectgroup-button">OK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_ram" value="NOT" class="selectgroup-input">
-                                        <span class="selectgroup-button">NOT</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Kondisi Jaringan</label>
