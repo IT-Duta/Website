@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\perawatanPCExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+
 class it_perawatanPCController extends Controller
 {
     public function index(){
@@ -98,5 +101,12 @@ class it_perawatanPCController extends Controller
         ->where('uuid_perawatan',$id)
         ->first();
         return response()->json($item);
+    }
+    public function export()
+    {
+        $time=Carbon::now();
+        $time=date_format($time,'d-m-y, H.i.s');
+        $filename='perawatan export '.$time.'.xlsx';
+        return Excel::download(new perawatanPCExport, $filename);
     }
 }

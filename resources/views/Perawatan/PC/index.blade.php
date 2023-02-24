@@ -11,11 +11,11 @@ Daftar Perawatan
     Tambah Perawatan
   </a>
 
-   {{-- <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importperawatanModal">
+   <!-- Button trigger modal -->
+{{-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importperawatanModal">
     Import Perawatan
-  </button>
-<a href="{{route('ga.masterItemExport')}}"class="btn btn-success btn-sm">Export Master Item</a> --}}
+  </button> --}}
+<a href="{{route('perawatan.pc.export')}}"class="btn btn-success btn-sm">Export Perawatan</a>
 @endsection
 @section('content')
     <div class="card card-shadow">

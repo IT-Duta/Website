@@ -251,7 +251,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/perawatan/pc/create','it_perawatanPCController@create')->name('perawatan.pc.create');
     Route::post('/perawatan/pc/store','it_perawatanPCController@store')->name('perawatan.pc.store');
     Route::post('/perawatan/pc/delete/{id}', 'it_perawatanPCController@destroy')->name('perawatan.pc.delete');
-
+    // Eksport Data
+    Route::get('/perawatan/pc/export','it_perawatanPCController@export')->name('perawatan.pc.export');
     // Get Data for modal
     Route::get('/perawatan/pc/{id}/getData','it_perawatanPCController@getData')->name('perawatan.pc.getData');
 
