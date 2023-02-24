@@ -19,7 +19,9 @@
                     @if ($errors->any())
                         <p class="alert alert-danger">{{ $errors->first() }}</p>
                     @endif
-
+                    <hr>
+                    <h2>General</h2>
+                    <hr>
                     <div class="form-group">
                         <label for="pic">PIC</label>
                         <input type="text" id="pic" name="pic" required class="form-control"value="{{ Auth::user()->name }}">
@@ -47,6 +49,9 @@
                         </div>
                         </div>
                     </div>
+                    <hr>
+                    <h2>Monitor</h2>
+                    <hr>
                     <div class="row my-2">
                         <div class="col">
                             <div class="form-group">
@@ -91,6 +96,9 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <h2>CPU</h2>
+                    <hr>
                     <div class="row my-2">
                          <div class="col">
                             <div class="form-group">
@@ -221,6 +229,9 @@
                     </div>
                     {{-- Akhir Satu Baris --}}
                     {{-- Batas Satu Baris --}}
+                    <hr>
+                    <h2>Software</h2>
+                    <hr>
                     <div class="row my-2">
                         <div class="col">
                             <div class="form-group">
