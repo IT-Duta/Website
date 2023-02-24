@@ -63,6 +63,8 @@
                          <div class="form-group">
                             <label for="nomor_monitor">Nomor Monitor</label>
                             <select name="nomor_monitor" class="form-control" id="nomor_monitor">
+                                <option value="" selected disabled></option>
+                                <option value="Kosong">Kosong</option>
                                 @foreach ($nomor_monitor as $nomor_monitor)
                                     <option value="{{$nomor_monitor->monitor_number}}">{{$nomor_monitor->monitor_number.'N: '.$nomor_monitor->monitor_name.' U:'.$nomor_monitor->monitor_user  .' L:'. $nomor_monitor->monitor_location}}</option>
                                 @endforeach
@@ -71,7 +73,7 @@
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col">
+                        <div class="col" id="kebersihan_monitor">
                             <div class="form-group">
                                 <label class="form-label">Kebersihan Monitor</label>
                                 <div class="selectgroup w-100">
@@ -104,7 +106,7 @@
                     </div>
                     {{-- Batas Satu Baris --}}
                     <div class="row my-2">
-                        <div class="col">
+                        <div class="col" id="kondisi_monitor">
                             <div class="form-group">
                                 <label class="form-label">Kondisi Monitor</label>
                                 <div class="selectgroup w-100">
@@ -293,3 +295,31 @@
 @endsection
 
 
+@section('javascript')
+<script>
+    $(document).ready(function() {
+    // get reference to the select element
+    var select = $('#nomor_monitor');
+
+    // add event listener for when the select element changes
+    select.change(function() {
+        // get the selected option value
+        var selectedValue = $(this).val();
+
+        // check if the selected option is "Kosong"
+        if (selectedValue === 'Kosong') {
+        // hide the desired DIV elements
+        $('#kondisi_monitor').hide();
+        $('#kebersihan_monitor').hide();
+        // add more lines if you need to hide more DIVs
+        } else {
+        // show the desired DIV elements
+        $('#kondisi_monitor').show();
+        $('#kebersihan_monitor').show();
+        // add more lines if you need to show more DIVs
+        }
+    });
+    });
+
+</script>
+@endsection
