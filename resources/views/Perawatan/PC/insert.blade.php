@@ -30,7 +30,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="user">User</label>
-                                <select name="user" class="form-control" id="user">
+                                <select required name="user" class="form-control" id="user">
                                     @foreach ($user as $user)
                                     <option>{{$user->k_nama}}</option>
                                     @endforeach
@@ -41,7 +41,7 @@
                         <div class="col">
                          <div class="form-group">
                         <label for="lokasi">Lokasi</label>
-                            <select name="lokasi" class="form-control" id="lokasi">
+                            <select required name="lokasi" class="form-control" id="lokasi">
                                 @foreach ($lokasi as $lokasi)
                                     <option>{{$lokasi->loc_name}}</option>
                                 @endforeach
@@ -56,7 +56,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nomor_monitor">Nomor Monitor</label>
-                                <select name="nomor_monitor" class="form-control" id="nomor_monitor">
+                                <select name="nomor_monitor" required class="form-control" id="nomor_monitor">
                                     <option value="" selected disabled></option>
                                     <option value="Kosong">Kosong</option>
                                     @foreach ($nomor_monitor as $nomor_monitor)
@@ -70,11 +70,11 @@
                                 <label class="form-label">Kebersihan Monitor</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_monitor" value="OK" class="selectgroup-input" >
+                                        <input type="radio" name="kebersihan_monitor" value="OK" class="selectgroup-input ok" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_monitor" value="NOT" class="selectgroup-input">
+                                        <input type="radio" name="kebersihan_monitor" value="NOT" class="selectgroup-input not">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -85,11 +85,11 @@
                                 <label class="form-label">Kondisi Monitor</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_monitor" value="OK" class="selectgroup-input" >
+                                        <input type="radio" name="kondisi_monitor" value="OK" class="selectgroup-input ok" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_monitor" value="NOT" class="selectgroup-input">
+                                        <input type="radio" name="kondisi_monitor"  value="NOT" class="selectgroup-input not">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -103,7 +103,7 @@
                          <div class="col">
                             <div class="form-group">
                                 <label for="nomor_cpu">Nomor CPU</label>
-                                <select name="nomor_cpu" class="form-control" id="nomor_cpu">
+                                <select required name="nomor_cpu" required class="form-control" id="nomor_cpu">
                                     @foreach ($nomor_cpu as $nomor_cpu)
                                         <option value="{{$nomor_cpu->pc_number}}">{{$nomor_cpu->pc_number.' U:'.$nomor_cpu->pc_user  .' L:'. $nomor_cpu->pc_location}}</option>
                                     @endforeach
@@ -115,11 +115,11 @@
                                 <label class="form-label">Kebersihan PC</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_pc" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kebersihan_pc" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kebersihan_pc" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kebersihan_pc" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -130,11 +130,11 @@
                                 <label class="form-label">Kondisi Keyboard/Mouse</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_keyboardmouse" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_keyboardmouse" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_keyboardmouse" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_keyboardmouse" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -150,11 +150,11 @@
                                 <label class="form-label">Kondisi Mainboard</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_mainboard" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_mainboard" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_mainboard" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_mainboard" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -165,11 +165,11 @@
                                 <label class="form-label">Kondisi Processor</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_processor" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_processor" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_processor" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_processor" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -181,11 +181,11 @@
                                 <label class="form-label">Kondisi RAM</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_ram" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_ram" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_ram" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_ram" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -200,11 +200,11 @@
                                 <label class="form-label">Kondisi Penyimpanan</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_penyimpanan" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_penyimpanan" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_penyimpanan" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_penyimpanan" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -216,11 +216,11 @@
                                 <label class="form-label">Kondisi Jaringan</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_jaringan" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="kondisi_jaringan" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi_jaringan" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="kondisi_jaringan" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -238,11 +238,11 @@
                                 <label class="form-label">Optimasi OS</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_os" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="optimasi_os" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_os" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="optimasi_os" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -253,11 +253,11 @@
                                 <label class="form-label">Optimasi Antivirus</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_antivirus" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="optimasi_antivirus" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_antivirus" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="optimasi_antivirus" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -268,11 +268,11 @@
                                 <label class="form-label">Optimasi Software</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_software" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="optimasi_software" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="optimasi_software" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="optimasi_software" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -283,11 +283,11 @@
                                 <label class="form-label">Backup Email</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="backup_email" value="OK" class="selectgroup-input" >
+                                        <input type="radio" required name="backup_email" value="OK" class="selectgroup-input" >
                                         <span class="selectgroup-button">OK</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="backup_email" value="NOT" class="selectgroup-input">
+                                        <input type="radio" required name="backup_email" value="NOT" class="selectgroup-input">
                                         <span class="selectgroup-button">NOT</span>
                                     </label>
                                 </div>
@@ -325,11 +325,16 @@
         // hide the desired DIV elements
         $('#kondisi_monitor').hide();
         $('#kebersihan_monitor').hide();
+        $('#kondisi_monitor input[name="kondisi_monitor"]').prop('required',false);
+        $('#kebersihan_monitor input[name="kebersihan_monitor"]').prop('required',false);
         // add more lines if you need to hide more DIVs
-        } else {
+    } else {
         // show the desired DIV elements
         $('#kondisi_monitor').show();
         $('#kebersihan_monitor').show();
+        $('#kondisi_monitor input[name="kondisi_monitor"]').prop('required',true);
+        $('#kebersihan_monitor input[name="kebersihan_monitor"]').prop('required',true);
+        // $('#kebersihan_monitor').attr(required);
         // add more lines if you need to show more DIVs
         }
     });

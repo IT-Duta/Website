@@ -63,7 +63,10 @@ class it_perawatanPCController extends Controller
             'backup_email' => 'required|string',
             'keterangan' => 'required|string'
         ]);
-
+        if ($data['nomor_monitor']=='Kosong') {
+            $data['kebersihan_monitor']='Kosong';
+            $data['kondisi_monitor']='Kosong';
+        }
         // Insert the data into the database
        DB::table('it_perawatanPC')->insert([
             'uuid_perawatan' => Str::uuid(),
