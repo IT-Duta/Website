@@ -13,6 +13,6 @@ class perawatanPCExport implements FromView
     {
         $collection = DB::table('it_perawatanPC')
             ->get();
-        return view('Perawatan.PC.export')->with(compact('collection'));
+        return view('Perawatan.PC.export')->with(compact('list'));
     }
 }
