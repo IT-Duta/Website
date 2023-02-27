@@ -25,21 +25,25 @@
                     </div>
                 </div>
                 <div class="form-group row">
-
-                    <div class="form-group col">
-                        <label for="name">Nomor CPU</label>
-                        <input type="text" class="form-control" readonly id="nomor_cpu" name="nomor_cpu">
-                    </div>
                     <div class="form-group col">
                         <label for="name">Nomor Monitor</label>
                         <input type="text" class="form-control" readonly id="nomor_monitor" name="nomor_monitor">
                     </div>
+                    <div class="form-group col">
+                        <label for="name">Kebersihan Monitor</label>
+                        <input type="text" class="form-control" readonly id="kebersihan_monitor" name="kebersihan_monitor">
+                    </div>
+                    <div class="form-group col">
+                        <label for="name">Kondisi Monitor</label>
+                        <input type="text" class="form-control" readonly id="kondisi_monitor" name="kondisi_monitor">
+                    </div>
                 </div>
                     <div class="form-group row">
                         <div class="form-group col">
-                            <label for="name">Kebersihan Monitor</label>
-                            <input type="text" class="form-control" readonly id="kebersihan_monitor" name="kebersihan_monitor">
+                            <label for="name">Nomor CPU</label>
+                            <input type="text" class="form-control" readonly id="nomor_cpu" name="nomor_cpu">
                         </div>
+    
                         <div class="form-group col">
                             <label for="name">Kebersihan PC</label>
                             <input type="text" class="form-control" readonly id="kebersihan_pc" name="kebersihan_pc">
