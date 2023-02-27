@@ -18,7 +18,7 @@ class ProcController extends Controller
         // return view('Procurement.index')->with(compact('list'));
         // Melakukan penarikan data secara bertahap sehingga tidak membuat beban yang besar pada server
         $chunks = [];
-        DB::table('proc_ppb_header')->orderBy('id', 'asc')->chunk(100, function ($list) use (&$chunks) {
+        DB::table('proc_ppb_header')->orderBy('id', 'asc')->chunk(1000, function ($list) use (&$chunks) {
             $chunks[] = $list;
         });
         return view('Procurement.index')->with('chunks', $chunks);
