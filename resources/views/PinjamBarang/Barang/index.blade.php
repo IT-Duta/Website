@@ -19,14 +19,17 @@
                 <thead>
                     <tr>
                         <th>
-                            nomor
+                            Nomor
                         </th>
                         <th>
-                            kode_barang
+                            Kode Barang
                         </th>
-                        <th>nama_barang
+                        <th>
+                            Nama Barang
                         </th>
-                        <th>status_barang</th>
+                        <th>
+                            Status Barang
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
