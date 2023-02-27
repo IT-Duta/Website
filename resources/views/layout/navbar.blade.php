@@ -127,6 +127,7 @@
                                 <div class="quick-actions-scroll scrollbar-outer">
                                     <div class="quick-actions-items">
                                         <div class="row m-0">
+                                            @can('isGA')
                                             <a class="col-6 col-md-6 p-0"href="{{ route('ga.masterItem') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-database"></i>
@@ -139,13 +140,14 @@
                                                     <span class="text">Daftar Gudang</span>
                                                 </div>
                                             </a>
+                                            @endcan
                                             <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('ga.ItemWarehouse') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-interface-1"></i>
                                                     <span class="text">Stok Barang</span>
                                                 </div>
                                             </a>
-                                            <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('ga.permintaanIndex') }}">
+                                            <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('ga.reportIndex') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-interface-1"></i>
                                                     <span class="text">Report Permintaan Barang</span>

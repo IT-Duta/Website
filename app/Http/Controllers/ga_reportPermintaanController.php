@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ga_reportPermintaanExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -12,7 +13,16 @@ use Maatwebsite\Excel\Facades\Excel;
 class ga_reportPermintaanController extends Controller
 {
     public function index(){
-        $list=DB::table('ga_reportPermintaan')->orderBy('id','desc')->get();
+        $check=DB::table('user_detail')->join('users','users.email','user_detail.email')->where('user_detail.email',AUTH::user()->email)->first();
+        // dd($check);
+        if($check->user_divisi=='GENERAL AFFAIR'){
+            // Normal check
+            $list=DB::table('ga_reportPermintaan')->orderBy('id','desc')->get();
+        }
+        else{
+            // Only show report admin or general affair
+            $list=DB::table('ga_reportPermintaan')->where('admin',$check->name)->orderBy('id','desc')->get();
+        }
         return view('GeneralAffair.ga_04_reportPermintaan.index')->with(compact('list'));
     }
     public function store(Request $request){
@@ -32,6 +42,7 @@ class ga_reportPermintaanController extends Controller
             'request_qty' => $data['request_qty'],
             'current_qty' => $data['current_qty'],
             'status_permintaan' => 'Ditunggu',
+            'admin' => Auth::user()->name,
             'created_at' =>Carbon::now()
         ]);
         DB::table('ga_itemWarehouse')->where('connector',$data['connector'])
@@ -39,7 +50,7 @@ class ga_reportPermintaanController extends Controller
             'qty_barang' => DB::raw('qty_barang - ' . $data['request_qty']),
             'updated_at'=>Carbon::now()
         ]);
-        return redirect()->back()->with('status', 'Barang sukses di minta');
+        return redirect()->route('ga.reportIndex')->with('status', 'Barang sukses di minta');
     }
     public function getData($id){
         $item = DB::table('ga_reportPermintaan')

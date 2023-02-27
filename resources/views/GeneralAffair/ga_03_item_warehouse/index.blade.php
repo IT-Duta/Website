@@ -33,7 +33,10 @@ Stok Barang
 
     <div class="card card-shadow">
         <div class="card-header">
-            Stok Barang
+
+            <button class="btn btn-sm btn-primary" id="HO"type="button">HO</button>
+            <button class="btn btn-sm btn-success" id="LEGOK"type="button">LEGOK</button>
+            <button class="btn btn-sm btn-danger" id="RESET"type="button">RESET</button>
         </div>
         <div class="card-body">
             <div class="text-center table-responsive">
@@ -112,6 +115,17 @@ Stok Barang
 <script>
     $(document).ready( function () {
     $('#daftar_gudang').DataTable();
+    var table= $('#daftar_gudang').DataTable();
+        $("#HO").click(function(){
+            table.column(1).search("HO").draw();
+            // table.column(6).search("Tunggu").draw();
+        });
+        $("#LEGOK").click(function(){
+            table.column(1).search("LEGOK").draw();
+        });
+        $("#RESET").click(function(){
+            table.column(1).search("").draw();
+        });
 } );
 </script>
 {{-- Delete Modal --}}
@@ -140,7 +154,7 @@ Stok Barang
 <script>
         $('.req-item').click(function() {
             var id = $(this).data('id');
-            $.get('{{ route("ga.permintaanRequest", ":id") }}'.replace(':id', id), function(data) {
+            $.get('{{ route("ga.reportRequest", ":id") }}'.replace(':id', id), function(data) {
                 $('#req-form input[name="connector"]').val(data.connector);
                 $('#req-form input[name="nama_gudang"]').val(data.nama_gudang);
                 $('#req-form input[name="nama_barang"]').val(data.nama_barang);

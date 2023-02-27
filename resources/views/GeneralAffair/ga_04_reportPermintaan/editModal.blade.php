@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method='post' action="{{route('ga.permintaanUpdate')}}" id="edit-form" enctype="multipart/form-data">
+            <form method='post' action="{{route('ga.reportUpdate')}}" id="edit-form" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @if ($errors->any())
                     <p class="alert alert-danger">{{ $errors->first() }}</p>

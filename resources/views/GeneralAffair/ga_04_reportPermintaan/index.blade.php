@@ -7,7 +7,7 @@ Daftar Permintaan Barang
 @endsection
 @section('header')
 @can('isGA')
-<a href="{{route('ga.permintaanExport')}}"class="btn btn-success btn-sm">Export Report Permintaan</a>
+<a href="{{route('ga.reportExport')}}"class="btn btn-success btn-sm">Export Report Permintaan</a>
 @endcan
 @endsection
 @section('content')
@@ -41,10 +41,12 @@ Daftar Permintaan Barang
                     @foreach ($list as $list)
                     <tr>
                         <td>
+                            @can('isGA')
                             {{-- Tombol Edit --}}
                             <button class="btn btn-primary btn-sm edit-modal" data-toggle="modal" data-target="#edit-modal" data-id="{{ $list->uuid_permintaan }}">Ubah</button>
                             <button class="btn btn-success btn-sm diterima-modal" data-toggle="modal" data-target="#diterima-modal" data-id="{{ $list->uuid_permintaan }}">Diterima</button>
                             <button class="btn btn-danger btn-sm ditolak-modal" data-toggle="modal" data-target="#ditolak-modal" data-id="{{ $list->uuid_permintaan }}">Ditolak</button>
+                            @endcan
                         </td>
                         <td>
                             {{$nomor++}}
@@ -97,7 +99,7 @@ Daftar Permintaan Barang
 <script>
         $('.edit-modal').click(function() {
             var id = $(this).data('id');
-            $.get('{{ route("ga.permintaanGetData", ":id") }}'.replace(':id', id), function(data) {
+            $.get('{{ route("ga.reportGetData", ":id") }}'.replace(':id', id), function(data) {
                 $('#edit-form input[name="uuid_permintaan"]').val(data.uuid_permintaan);
                 $('#edit-form input[name="nama_gudang"]').val(data.nama_gudang);
                 $('#edit-form input[name="nama_barang"]').val(data.nama_barang);
@@ -112,7 +114,7 @@ Daftar Permintaan Barang
 <script>
     $('.diterima-modal').click(function() {
         var id = $(this).data('id');
-        $.get('{{ route("ga.permintaanGetData", ":id") }}'.replace(':id', id), function(data) {
+        $.get('{{ route("ga.reportGetData", ":id") }}'.replace(':id', id), function(data) {
                 $('#diterima-form input[name="uuid_permintaan"]').val(data.uuid_permintaan);
                 $('#diterima-form input[name="nama_gudang"]').val(data.nama_gudang);
                 $('#diterima-form input[name="nama_barang"]').val(data.nama_barang);
@@ -126,7 +128,7 @@ Daftar Permintaan Barang
 <script>
     $('.ditolak-modal').click(function() {
         var id = $(this).data('id');
-        $.get('{{ route("ga.permintaanGetData", ":id") }}'.replace(':id', id), function(data) {
+        $.get('{{ route("ga.reportGetData", ":id") }}'.replace(':id', id), function(data) {
                 $('#ditolak-form input[name="uuid_permintaan"]').val(data.uuid_permintaan);
                 $('#ditolak-form input[name="nama_gudang"]').val(data.nama_gudang);
                 $('#ditolak-form input[name="nama_barang"]').val(data.nama_barang);

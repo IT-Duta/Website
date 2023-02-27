@@ -375,12 +375,12 @@ Route::get('/ga/export','ga_ItemWarehouseController@export')->name('ga.ItemWareh
 Route::get('/ga/downloadErrorFile/{filename}','ga_ItemWarehouseController@downloadErrorFile')->name('ga.downloadErrorFile');
 
 // General Affair Add Report
-Route::get('/ga/permintaan/','ga_reportPermintaanController@index')->name('ga.permintaanIndex');
-Route::post('/ga/permintaan/store','ga_reportPermintaanController@store')->name('ga.permintaanStore');
-Route::post('/ga/permintaan/update','ga_reportPermintaanController@update')->name('ga.permintaanUpdate');
-Route::get('/ga/permintaan/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.permintaanRequest');
-Route::get('/ga/permintaan/{id}/getData','ga_reportPermintaanController@getData')->name('ga.permintaanGetData');
-Route::get('/ga/permintaan/export','ga_reportPermintaanController@export')->name('ga.permintaanExport');
+Route::get('/ga/report/','ga_reportPermintaanController@index')->name('ga.reportIndex');
+Route::post('/ga/report/store','ga_reportPermintaanController@store')->name('ga.reportStore');
+Route::post('/ga/report/update','ga_reportPermintaanController@update')->name('ga.reportUpdate');
+Route::get('/ga/report/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.reportRequest');
+Route::get('/ga/report/{id}/getData','ga_reportPermintaanController@getData')->name('ga.reportGetData');
+Route::get('/ga/report/export','ga_reportPermintaanController@export')->name('ga.reportExport');
 
 require __DIR__.'/auth.php';
 
