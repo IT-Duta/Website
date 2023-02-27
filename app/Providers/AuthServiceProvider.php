@@ -49,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
                 ->join('user_detail as ud', 'u.email','=','ud.email' )
                 ->select('ud.user_divisi')
                 ->where('u.id','=',$user->id)
-                ->where('ud.user_divisi','PROCUREMENT')
+                ->whereIn('ud.user_divisi', ['PROCUREMENT', 'IT'])
                 ->first();
             return $isRole ? true : false;
         });
@@ -68,7 +68,7 @@ class AuthServiceProvider extends ServiceProvider
                 ->join('user_detail as ud', 'u.email','=','ud.email' )
                 ->select('ud.user_divisi')
                 ->where('u.id','=',$user->id)
-                ->where('ud.user_divisi','GENERAL AFFAIR')
+                ->whereIn('ud.user_divisi', ['GENERAL AFFAIR', 'IT'])
                 ->first();
             return $isRole ? true : false;
         });
