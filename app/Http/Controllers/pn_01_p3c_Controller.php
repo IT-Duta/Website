@@ -183,5 +183,15 @@ class pn_01_p3c_Controller extends Controller
         // Return the search suggestions as a JSON response
         return response()->json($suggestions);
     }
+    public function s_email($id)
+    {
 
+        // dd($id);
+        Mail::mailer('P3C')
+                // ->to(['engineering-pec@ptduta.com'])
+                ->to(['azis@ptduta.com','engineering-pec@ptduta.com','adminproduksi@ptduta.com'])
+                // ->to(['darma@ptduta.com', 'hendrarudianto@ptduta.com'] )
+                ->send(new newPanelp3c($id));
+            return redirect()->back()->with('status','Email telah dikirim');
+        }
 }

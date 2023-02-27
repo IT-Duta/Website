@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class newPanelp3c extends Mailable
 {
+    public $id;
+
     use Queueable, SerializesModels;
 
     /**
@@ -17,9 +19,10 @@ class newPanelp3c extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id)
     {
         //
+        $this->id = $id;
     }
 
     /**
@@ -29,7 +32,9 @@ class newPanelp3c extends Mailable
      */
     public function build()
     {
-        $data=DB::table('pn_01_p3c')->limit(1)->orderByDesc('created_at')->first();
+        $data=DB::table('pn_01_p3c')
+        ->where('id',$this->id)
+        ->limit(1)->orderByDesc('created_at')->first();
         $nama_proyek = $data->nama_proyek;
         $subject=$nama_proyek;
 

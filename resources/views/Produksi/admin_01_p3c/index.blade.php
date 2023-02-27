@@ -48,15 +48,12 @@
                     <tr>
                         {{-- <td>{{$nomor++}}</td> --}}
                         <td>
-                            <form method="get" action="{{route('pn_01_edit',$list->id)}}" class="form-button">
-                            @csrf
-                            @method('get')
-                            <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
-                                {{-- <i class="fa fa-edit"></i> --}}
-                                EDIT
-                            </button>
-                        </form>
-                    </td>
+                            <a href="{{ route('pn_01_emails', ['id' => $list->id]) }}" class="btn btn-sm btn-primary">Kirim Email</a>
+                            {{-- @php
+                            echo $nomor++;
+                            @endphp --}}
+                        </td>
+
                         <td>{{$list->nomor_seri_panel}}</td>
                         <td>{{$list->nama_customer}}</td>
                         <td>{{$list->nama_proyek}}</td>
@@ -68,6 +65,13 @@
                         <td>{{$list->deadline_qc_pass}}</td>
                         <td>{{$list->admin}}</td>
                         <td>
+                            <form method="get" action="{{route('pn_01_edit',$list->id)}}" class="form-button">
+                                @csrf
+                                @method('get')
+                                <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-primary delete-button form-button" data-original-title="Edit Task">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </form>
                             <div class="form-button-action">
 
                                 <form method="POST" action="{{route('pn_01_delete',$list->id)}}"class="form-button">

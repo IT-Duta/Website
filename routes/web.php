@@ -267,7 +267,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/Getkaryawan','KaryawanController@get')->name('karyawan_get');
     Route::post('dashboard/karyawan','KaryawanController@store')->name('karyawan_store');
     Route::post('dashboard/updatekaryawan','KaryawanController@update')->name('karyawan_update');
-    Route::get('dashboard/karyawan/del/{id}','KaryawanController@destroy')->name('karyawan_delete');
+    Route::get('dashboard/karyawan/del/x{id}','KaryawanController@destroy')->name('karyawan_delete');
     Route::post('dashboard/karyawan-import','KaryawanController@import')->name('karyawan_import');
 
         // Panel p3c
@@ -281,6 +281,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/panel/p3c/export','pn_01_p3c_Controller@export')->name('pn_01_export');
         // Check Existing Customer
         Route::get('/panel/p3c/getCust','pn_01_p3c_Controller@getCust')->name('pn_01_getCust');
+        Route::get('/panel/p3c/emails/{id}', 'pn_01_p3c_Controller@s_email')->name('pn_01_emails');
     });
 
     // Panel Produksi
@@ -381,6 +382,9 @@ Route::post('/ga/report/update','ga_reportPermintaanController@update')->name('g
 Route::get('/ga/report/{id}/reqs', 'ga_reportPermintaanController@reqs')->name('ga.reportRequest');
 Route::get('/ga/report/{id}/getData','ga_reportPermintaanController@getData')->name('ga.reportGetData');
 Route::get('/ga/report/export','ga_reportPermintaanController@export')->name('ga.reportExport');
+
+// Barang Pinjam
+Route::get('/pinjam/','BarangPinjamController@index')->name('BarangPinjam.Index');
 
 require __DIR__.'/auth.php';
 
