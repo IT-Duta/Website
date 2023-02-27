@@ -87,8 +87,9 @@ background-color: yellow;
                     <tbody>
 
                         <?php $nomor = 1; ?>
+                        @foreach ($chunks as $chunk)
 
-                        @foreach ($list as $list)
+                        @foreach ($chunk as $list)
                             @php
                                 if ($list->ppb_status =="Batal") {
                                     $button = "disabled";
@@ -179,6 +180,7 @@ background-color: yellow;
                                 {{$statsCoa}}
                             </td>
                             </tr>
+                            @endforeach
                             @endforeach
                     </tbody>
 

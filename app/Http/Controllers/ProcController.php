@@ -14,8 +14,14 @@ use Maatwebsite\Excel\Facades\Excel;
 class ProcController extends Controller
 {
     public function index(){
-        $list=DB::table('proc_ppb_header')->orderBy('id','asc')->get();
-        return view('Procurement.index')->with(compact('list'));
+        // $list=DB::table('proc_ppb_header')->orderBy('id','asc')->get();
+        // return view('Procurement.index')->with(compact('list'));
+        // Melakukan penarikan data secara bertahap sehingga tidak membuat beban yang besar pada server
+        $chunks = [];
+        DB::table('proc_ppb_header')->orderBy('id', 'asc')->chunk(100, function ($list) use (&$chunks) {
+            $chunks[] = $list;
+        });
+        return view('Procurement.index')->with('chunks', $chunks);
     }
     public function create(){
         // return view('Inventaris.PrinterScanner.printer_ink')->with(compact('ink', 'printer', 'connector'));
