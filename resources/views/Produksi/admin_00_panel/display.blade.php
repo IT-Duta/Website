@@ -126,7 +126,7 @@
                     $sevenDaysAgoTimestamp = strtotime('-7 days');
                     $qDoneTimestampUnix = strtotime($qDoneTimestamp);
                     if ($qDoneTimestampUnix < $sevenDaysAgoTimestamp) {
-                        $deleteRow = "deleteRow";
+                        // $deleteRow = "deleteRow";
                     }
                     switch ($list->jenis_panel) {
                         case 'W':
