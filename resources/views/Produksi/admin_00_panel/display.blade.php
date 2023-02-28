@@ -98,101 +98,69 @@
                 $wWaspadaCount=0;
                 $wTundaCount=0;
                 $wTotal=0;
-                $deleteRow="";
+
             ?>
             @foreach ($list as $list)
             @php
+                $deleteRow = "";
                 $pDoneTimestamp = $list->PDone;
                 $qDoneTimestamp = $list->QDone;
-                $nowTimestamp = new DateTime();
+                $nowTimestamp = time(); // get current Unix timestamp
                 $dProduksi = new DateTime($list->deadline_produksi);
                 $dQC = new DateTime($list->deadline_qc_pass);
 
                 // Determine production status
-                if ($pDoneTimestamp != null) {
+                if ($pDoneTimestamp !== null) {
                     $pdStatsClass = "bg-success text-white"; // Production completed
+                } elseif ($nowTimestamp > $dProduksi->getTimestamp()) {
+                    $pdStatsClass = "bg-danger text-white 3"; // Production deadline missed
                 } else {
-                    if ($nowTimestamp > $dProduksi) {
-                        $pdStatsClass = "bg-danger text-white 3"; // Production deadline missed
-                    } else {
-                        $pdStatsClass = ""; // Production in progress
-                    }
+                    $pdStatsClass = ""; // Production in progress
                 }
 
                 // Determine QC status and panel counts
-                if ($qDoneTimestamp != null) {
+                if ($qDoneTimestamp !== null) {
                     $qcStatsClass = "bg-success text-white"; // QC completed
-                    // Hide rows for completed panels that were QC'd more than 7 days ago
-                    $sevenDaysAgoTimestamp = strtotime('-7 days');
                     $qDoneTimestampUnix = strtotime($qDoneTimestamp);
-                    if ($qDoneTimestampUnix < $sevenDaysAgoTimestamp) {
-                        // $deleteRow = "deleteRow";
+                    if ($qDoneTimestampUnix < strtotime('-7 days')) {
+                        $deleteRow = "deleteRow";
                     }
-                    switch ($list->jenis_panel) {
-                        case 'W':
-                            $wCompleteCount++;
-                            $wTotal++;
-                            break;
-                        case 'F':
-                            $fCompleteCount++;
-                            $fTotal++;
-                            break;
-
-                        default:
-                            # code...
-                            break;
+                    if ($list->jenis_panel === 'W') {
+                        $wCompleteCount++;
+                        $wTotal++;
+                    } elseif ($list->jenis_panel === 'F') {
+                        $fCompleteCount++;
+                        $fTotal++;
                     }
-                }elseif ($list->status_pekerjaan=="Tunda") {
-                    $qcStatsClass="bg-warning text-dark"; //QC Tunda
-                    switch ($list->jenis_panel) {
-                        case 'W':
-                            $wTundaCount++;
-                            $wTotal++;
-                            break;
-                        case 'F':
-                            $fTundaCount++;
-                            $fTotal++;
-                            break;
-
-                        default:
-                            # code...
-                            break;
+                } elseif ($list->status_pekerjaan === "Tunda") {
+                    $qcStatsClass = "bg-warning text-dark"; //QC Tunda
+                    if ($list->jenis_panel === 'W') {
+                        $wTundaCount++;
+                        $wTotal++;
+                    } elseif ($list->jenis_panel === 'F') {
+                        $fTundaCount++;
+                        $fTotal++;
+                    }
+                } elseif ($nowTimestamp > $dQC->getTimestamp()) {
+                    $qcStatsClass = "bg-danger text-white"; // QC deadline missed
+                    if ($list->jenis_panel === 'W') {
+                        $wWaspadaCount++;
+                        $wTotal++;
+                    } elseif ($list->jenis_panel === 'F') {
+                        $fWaspadaCount++;
+                        $fTotal++;
                     }
                 } else {
-                    if ($nowTimestamp > $dQC) {
-                        $qcStatsClass = "bg-danger text-white"; // QC deadline missed
-                        switch ($list->jenis_panel) {
-                        case 'W':
-                            $wWaspadaCount++;
-                            $wTotal++;
-                            break;
-                        case 'F':
-                            $fWaspadaCount++;
-                            $fTotal++;
-                            break;
-
-                        default:
-                            # code...
-                            break;
-                    }
-                    } else {
-                        $qcStatsClass = ""; // QC in progress
-                        switch ($list->jenis_panel) {
-                        case 'W':
-                            $wProgressCount++;
-                            $wTotal++;
-                            break;
-                        case 'F':
-                            $fProgressCount++;
-                            $fTotal++;
-                            break;
-
-                        default:
-                            # code...
-                            break;
-                    }
+                    $qcStatsClass = ""; // QC in progress
+                    if ($list->jenis_panel === 'W') {
+                        $wProgressCount++;
+                        $wTotal++;
+                    } elseif ($list->jenis_panel === 'F') {
+                        $fProgressCount++;
+                        $fTotal++;
                     }
                 }
+
 
             @endphp
             <tr class="bg-light {{$deleteRow}}">
