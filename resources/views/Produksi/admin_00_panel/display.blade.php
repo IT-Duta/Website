@@ -77,93 +77,125 @@
         </thead>
         <tbody class="text-center align-middle border-black" id="list">
             <?php $nomor=1;
-                $freeWaspada=0; //Nilai Waspada Freestanding
-                $freeProgress=0;//Nilai Progress Freestanding
-                $freeSelesai=0;//Nilai Selesai Freestanding
-                $freeTunda=0;//Nilai Tunda Freestanding
-                $freeTotal=0;
-                $wallWaspada=0;
-                $wallProgress=0;
-                $wallSelesai=0;
-                $wallTunda=0;
-                $wallTotal=0;
-                $willNone="";
+                // $freeWaspada=0; //Nilai Waspada Freestanding
+                // $freeProgress=0;//Nilai Progress Freestanding
+                // $freeSelesai=0;//Nilai Selesai Freestanding
+                // $freeTunda=0;//Nilai Tunda Freestanding
+                // $freeTotal=0;
+                // $wallWaspada=0;
+                // $wallProgress=0;
+                // $wallSelesai=0;
+                // $wallTunda=0;
+                // $wallTotal=0;
+                // $willNone="";
+                $fCompleteCount=0;
+                $fProgressCount=0;
+                $fWaspadaCount=0;
+                $fTundaCount=0;
+                $fTotal=0;
+                $wCompleteCount=0;
+                $wProgressCount=0;
+                $wWaspadaCount=0;
+                $wTundaCount=0;
+                $wTotal=0;
+                $deleteRow="";
             ?>
             @foreach ($list as $list)
             @php
-                $pDone = $list->PDone; //timestamp produksi done
-                $qDone = $list->QDone; //timestamp qc done
-                $now = new DateTime(); //current date and time
-                $dProduksi=new DateTime($list->deadline_produksi); //Deadline set by p3c
-                $dQC=new DateTime($list->deadline_qc_pass); //Deadline set by p3c
-                // Hitung jumlah profuksi
-                if ($pDone != null) {
-                    $pdStats="bg-success text-white";
+                $pDoneTimestamp = $list->PDone;
+                $qDoneTimestamp = $list->QDone;
+                $nowTimestamp = new DateTime();
+                $dProduksi = new DateTime($list->deadline_produksi);
+                $dQC = new DateTime($list->deadline_qc_pass);
+
+                // Determine production status
+                if ($pDoneTimestamp != null) {
+                    $pdStatsClass = "bg-success text-white"; // Production completed
                 } else {
-                    if ($now > $dProduksi) {
-                        $pdStats="bg-danger text-white 3";
-                    }else {
-                        $pdStats="";
+                    if ($nowTimestamp > $dProduksi) {
+                        $pdStatsClass = "bg-danger text-white 3"; // Production deadline missed
+                    } else {
+                        $pdStatsClass = ""; // Production in progress
                     }
                 }
-                // Hitung jumlah QC
-                if ($qDone != null) {
-                    // Hitung jumlah yang selesai
-                    $timestamp = strtotime($qDone);
-                    
-                    // Check if more than 7 days
-                    if(time() - $timestamp > 604800) {
-                    // run something if the assigned timestamp is more than 7 days from the current timestamp
-                        $willNone="none";
-                    }else {
-                        $willNone="";
-                        $qcStats="bg-success text-white";
+
+                // Determine QC status and panel counts
+                if ($qDoneTimestamp != null) {
+                    $qcStatsClass = "bg-success text-white"; // QC completed
+                    // Hide rows for completed panels that were QC'd more than 7 days ago
+                    $sevenDaysAgoTimestamp = strtotime('-7 days');
+                    $qDoneTimestampUnix = strtotime($qDoneTimestamp);
+                    if ($qDoneTimestampUnix < $sevenDaysAgoTimestamp) {
+                        $deleteRow = "deleteRow";
                     }
                     switch ($list->jenis_panel) {
                         case 'W':
-                            $wallSelesai += 1;
-                        break;
+                            $wCompleteCount++;
+                            $wTotal++;
+                            break;
+                        case 'F':
+                            $fCompleteCount++;
+                            $fTotal++;
+                            break;
+
                         default:
-                            $freeSelesai += 1;
-                        break;
+                            # code...
+                            break;
                     }
+                }elseif ($list->status_pekerjaan=="Tunda") {
+                    $qcStatsClass="bg-warning text-dark"; //QC Tunda
+                    switch ($list->jenis_panel) {
+                        case 'W':
+                            $wTundaCount++;
+                            $wTotal++;
+                            break;
+                        case 'F':
+                            $fTundaCount++;
+                            $fTotal++;
+                            break;
 
+                        default:
+                            # code...
+                            break;
+                    }
                 } else {
-                    if ($now > $dQC) {
-                        $qcStats="bg-danger text-white 3";
+                    if ($nowTimestamp > $dQC) {
+                        $qcStatsClass = "bg-danger text-white"; // QC deadline missed
                         switch ($list->jenis_panel) {
-                            case 'W':
-                                $wallWaspada += 1;
+                        case 'W':
+                            $wWaspadaCount++;
+                            $wTotal++;
                             break;
-                            default:
-                                $freeWaspada += 1;
+                        case 'F':
+                            $fWaspadaCount++;
+                            $fTotal++;
                             break;
-                        }
-                    }else {
-                        $qcStats="bg-success text-white";
+
+                        default:
+                            # code...
+                            break;
+                    }
+                    } else {
+                        $qcStatsClass = ""; // QC in progress
                         switch ($list->jenis_panel) {
-                            case 'W':
-                                $wallProgress += 1;
+                        case 'W':
+                            $wProgressCount++;
+                            $wTotal++;
                             break;
-                            default:
-                                $freeProgress += 1;
+                        case 'F':
+                            $fProgressCount++;
+                            $fTotal++;
                             break;
-                        }
+
+                        default:
+                            # code...
+                            break;
+                    }
                     }
                 }
 
-                // Hitung total panel berdasarkan jenisnya
-                switch ($list->jenis_panel) {
-                    case 'W':
-                        $wallTotal += 1;
-                    break;
-
-                    default:
-                    $freeTotal += 1;
-                        break;
-                }
             @endphp
-            <tr class="bg-light {{$willNone}}">
+            <tr class="bg-light {{$deleteRow}}">
                 <td>{{$nomor++}}</td>
                 <td class="fw-bold">{{$list->nomor_seri_panel}}</td>
                 <td> {{$list->nama_panel}}</td>
@@ -172,8 +204,8 @@
                 <td>{{$list->spv}}</td>
                 <td>{{implode(", ",explode(",",$list->wiring))}}</td>
                 <td>{{implode(", ",explode(",",$list->mekanik))}}</td>
-                <td class="{{$pdStats}}">{{date("d/m/Y",strtotime(substr($list->deadline_produksi,0,10)))}}</td>
-                <td class="{{$qcStats}}">{{date("d/m/Y",strtotime(substr($list->deadline_qc_pass,0,10)))}}</td>
+                <td class="{{$pdStatsClass}}">{{date("d/m/Y",strtotime(substr($list->deadline_produksi,0,10)))}}</td>
+                <td class="{{$qcStatsClass}}">{{date("d/m/Y",strtotime(substr($list->deadline_qc_pass,0,10)))}}</td>
                 <td>{{$list->status_komponen}}</td>
             </tr>
             @endforeach
@@ -196,19 +228,19 @@
         <tbody>
             <tr>
                 <td>Free Standing</td>
-                <td>{{$freeProgress}}</td>
-                <td>{{$freeSelesai}}</td>
-                <td>{{$freeWaspada}}</td>
-                <td>{{$freeTunda}}</td>
-                <td>{{$freeTotal}}</td>
+                <td>{{$fProgressCount}}</td>
+                <td>{{$fCompleteCount}}</td>
+                <td>{{$fWaspadaCount}}</td>
+                <td>{{$fTundaCount}}</td>
+                <td>{{$fTotal}}</td>
             </tr>
             <tr>
                 <td>Wall Mounting</td>
-                <td>{{$wallProgress}}</td>
-                <td>{{$wallSelesai}}</td>
-                <td>{{$wallWaspada}}</td>
-                <td>{{$wallTunda}}</td>
-                <td>{{$wallTotal}}</td>
+                <td>{{$wProgressCount}}</td>
+                <td>{{$wCompleteCount}}</td>
+                <td>{{$wWaspadaCount}}</td>
+                <td>{{$wTundaCount}}</td>
+                <td>{{$wTotal}}</td>
                 </tr>
         </tbody>
     </table>
@@ -230,6 +262,9 @@
 
     <script>
         $(document).ready(function(){
+            // Delete Row
+            $('tr.deleteRow').remove();
+
             var table = $("#list");
             var tableRows = $("#list tr");
             var numRows = tableRows.length;
@@ -270,6 +305,7 @@
                 // $('marquee[behavior=""][direction=""]').marquee('destroy').marquee();
 
             }, 12000); // 5 seconds
+
         });
     </script>
 
