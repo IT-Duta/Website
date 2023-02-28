@@ -68,7 +68,7 @@
                             <form method="get" action="{{route('pn_01_edit',$list->id)}}" class="form-button">
                                 @csrf
                                 @method('get')
-                                <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-primary delete-button form-button" data-original-title="Edit Task">
+                                <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-primary edit-button form-button" data-original-title="Edit Task">
                                     <i class="fa fa-edit"></i>
                                 </button>
                             </form>
@@ -96,6 +96,17 @@
     $('#panelData').DataTable();
 } );
 </script>
+<script>
+    const editButtons = document.querySelectorAll('.edit-button');
+
+    editButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        if (!confirm('Are you sure you want to edit this item?')) {
+          event.preventDefault();
+        }
+      });
+    });
+    </script>
 <script>
     const deleteButtons = document.querySelectorAll('.delete-button');
 
