@@ -115,8 +115,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/printer-report/{id}', 'PrinterController@report')->name('printer_report');
     Route::get('/inventaris/printer-del/{id}', 'PrinterController@destroy')->name('printer_del');
     Route::post('/inventaris/printer-update', 'PrinterController@update')->name('printer_update');
-    // Export Tinta
+    
+    // Export Stock Tinta
     Route::get('/inventaris/tinta/export','InkController@export')->name('ink_export');
+
+    // Export Report Tinta
+    Route::get('/inventaris/tinta/report-export','InkController@export_list')->name('ink_list_export');
+
 
     // Untuk Inventaris Tinta
     Route::get('/inventaris/ink','InkController@index')->name('ink_index');

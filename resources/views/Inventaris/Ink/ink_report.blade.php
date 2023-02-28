@@ -5,6 +5,9 @@
 @section('main_header')
     Report Tinta
 @endsection
+@section('header')
+<a href="{{ route('ink_list_export') }}" class="btn btn-secondary btn-round">Export Report Tinta</a>
+@endsection
 @section('content')
     <div class="card card-shadow">
         <div class="card-header">
