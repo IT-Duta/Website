@@ -89,8 +89,8 @@ return [
             'host' => env('MAIL_HOST_ENG', 'mail.ptduta.com'),
             'port' => env('MAIL_PORT_ENG', 587),
             'encryption' => env('MAIL_ENCRYPTION_ENG', 'tls'),
-            'username' => env('MAIL_USERNAME_ENG', 'dianita@ptduta.com'),
-            'password' => env('MAIL_PASSWORD_ENG', 'd01111995fuji'),
+            'username' => env('MAIL_USERNAME_ENG', 'hendrarudianto@ptduta.com'),
+            'password' => env('MAIL_PASSWORD_ENG', 'h1105ptduta'),
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS_ENG', 'notification-engineering@ptduta.com'),
                 'name' => env('MAIL_FROM_NAME_ENG', 'ENG Notification'),

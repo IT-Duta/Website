@@ -174,7 +174,7 @@ class pn_04_eng_Controller extends Controller
     public function s_email($id)
 {
         Mail::mailer('ENG')
-            ->to(['hendrarudianto@ptduta.com'])
+            ->to(['edp@ptduta.com'])
             ->send(new newPaneleng($id));
         return redirect()->back()->with('status','Email telah dikirim');
     }
