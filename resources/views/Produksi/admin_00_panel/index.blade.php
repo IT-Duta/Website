@@ -58,7 +58,7 @@
                                     #
                                 </th>
                                 <th>No. WO</th>
-                                <th>Proyek</th>
+                                <th>Nama Proyek</th>
                                 <th>Nama Panel</th>
                                 <th>Nomor Seri</th>
                                 <th>Customer</th>
