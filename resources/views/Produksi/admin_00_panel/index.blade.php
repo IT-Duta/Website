@@ -58,7 +58,7 @@
                                     #
                                 </th>
                                 <th>No. WO</th>
-                                <th>Projek</th>
+                                <th>Proyek</th>
                                 <th>Panel</th>
                                 <th>Nomor Seri</th>
                                 <th>Customer</th>
@@ -192,7 +192,6 @@
                                                     <p id="tgl_kirim"></p>
                                                     <p id="surat_jalan"></p>
                                                     <p id="keterangan"></p>
-                                                   
                                         </div>
                                     </div>
                                 </div>
