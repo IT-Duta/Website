@@ -44,11 +44,11 @@
                 <div class="card-body">
                     <button id="Tunggu" type="button" class="btn btn-sm btn-primary">Tunggu</button>
                     <button id="Progress" type="button" class="btn btn-sm btn-primary">Progress</button>
-                    <button id="Test-QC" type="button" class="btn btn-sm btn-primary">Test-QC</button>
+                    <button id="Test-QC" type="button" class="btn btn-sm btn-primary">Test QC</button>
                     <button id="On_Test" type="button" class="btn btn-sm btn-primary">On Test</button>
                     <button id="Selesai_Test" type="button" class="btn btn-sm btn-primary">Selesai Test</button>
                     <button id="Tunda" type="button" class="btn btn-sm btn-primary">Tunda</button>
-                    <button id="eng" type="button" class="btn btn-sm btn-primary">Eng</button>
+                    <button id="eng" type="button" class="btn btn-sm btn-primary">Rating Plate</button>
                     <button id="all" type="button" class="btn btn-sm btn-primary">Reset</button>
 
                     <table class="table table-stripped table-responsive px-0 mx-0" id="list_panel">
@@ -59,11 +59,11 @@
                                 </th>
                                 <th>No. WO</th>
                                 <th>Proyek</th>
-                                <th>Panel</th>
+                                <th>Nama Panel</th>
                                 <th>Nomor Seri</th>
                                 <th>Customer</th>
-                                <th>Panel Status</th>
-                                <th>Engineering</th>
+                                <th>Status Panel</th>
+                                <th>Rating Plate</th>
                             </tr>
                         </thead>
                         <tbody>
