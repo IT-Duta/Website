@@ -50,8 +50,8 @@ return [
             'host' => env('MAIL_HOST_P3C', 'mail.ptduta.com'),
             'port' => env('MAIL_PORT_P3C', 587),
             'encryption' => env('MAIL_ENCRYPTION_P3C', 'tls'),
-            'username' => env('MAIL_USERNAME_P3C', 'admin-ppic1@ptduta.com'),
-            'password' => env('MAIL_PASSWORD_P3C', 'ppic107072020'),
+            'username' => env('MAIL_USERNAME_P3C', 'rinaseptiani@ptduta.com'),
+            'password' => env('MAIL_PASSWORD_P3C', 'r0409'),
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS_P3C', 'notification-p3c@ptduta.com'),
                 'name' => env('MAIL_FROM_NAME_P3C', 'P3C Notification'),
