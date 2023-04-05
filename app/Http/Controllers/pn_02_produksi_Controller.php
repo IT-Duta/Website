@@ -16,7 +16,7 @@ class pn_02_produksi_Controller extends Controller
     public function index()
     {
         $list=DB::table('pn_02_produksi')
-        ->select('pn_02_produksi.*','pn_00_team.Fullname','pn_01_p3c.nama_panel','pn_01_p3c.nomor_seri_panel','pn_01_p3c.mfd')
+        ->select('pn_02_produksi.*','pn_00_team.Fullname','pn_01_p3c.nama_panel','pn_01_p3c.nomor_seri_panel','pn_01_p3c.mfd','pn_01_p3c.status_pekerjaan as status')
         ->join('pn_01_p3c','pn_01_p3c.id','=','pn_02_produksi.id_panel')
         ->join('pn_00_team','pn_00_team.id','=','pn_02_produksi.spv')
         ->orderBy('pn_02_produksi.id','desc')
