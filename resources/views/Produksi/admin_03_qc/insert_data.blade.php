@@ -56,7 +56,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="namaProyek">ID PANEL</label>
-                                <input name="id_panel" value="{{$p3c_list->nomor_wo}}" readonly type="text" class="form-control" id="namaCustomer" placeholder="Enter Nama Customer">
+                                <input name="id_panel" value="{{$p3c_list->id}}" readonly type="text" class="form-control" id="namaCustomer" placeholder="Enter Nama Customer">
                             </div>
                         </div>
                         <div class="col">

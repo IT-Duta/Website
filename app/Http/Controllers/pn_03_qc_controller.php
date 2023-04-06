@@ -76,7 +76,7 @@ class pn_03_qc_controller extends Controller
         $check=DB::table('pn_03_qc')->select('id_panel')->where('id_panel',$data['id_panel'])->first();
         if(empty($check->id_panel)){
             DB::table('pn_03_qc')->insert([
-                'id_panel' => $data['id_panel'],
+            'id_panel' => $data['id_panel'],
             'tgl_terima_dr_produksi' => $data['tgl_terima_dr_produksi'],
             'catatan_test' => $data['catatan_test'],
             'status_test_qc' => $data['status_test_qc'],

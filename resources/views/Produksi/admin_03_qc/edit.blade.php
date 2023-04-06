@@ -80,9 +80,9 @@
                 <button id="addTest" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestModal">
                     Tambah Test
                 </button>
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#viewTestModal">
+                {{-- <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#viewTestModal">
                     View Detail Test
-                </button>
+                </button> --}}
                 <hr>
                 <h2>Detail</h2>
                 <hr>
