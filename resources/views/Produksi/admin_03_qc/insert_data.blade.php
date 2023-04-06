@@ -56,7 +56,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="namaProyek">ID PANEL</label>
-                                <input name="id_panel" value="{{$p3c_list->id}}" readonly type="text" class="form-control" id="namaCustomer" placeholder="Enter Nama Customer">
+                                <input name="id_panel" value="{{$p3c_list->nomor_wo}}" readonly type="text" class="form-control" id="namaCustomer" placeholder="Enter Nama Customer">
                             </div>
                         </div>
                         <div class="col">
@@ -77,12 +77,12 @@
                                 <input name="nama_panel" value="{{$p3c_list->nama_panel}}" readonly type="text" class="form-control" id="namaPanel" placeholder="Enter Nama Panel">
                             </div>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <div class="form-group">
-                                <label for="namaPanel">Tangga Manufaktur</label>
-                                <input name="mfd" value="{{$p3c_list->mfd}}" readonly type="text" class="form-control" id="mdf" placeholder="Enter Nama Panel">
+                                <label for="namaPanel">MFD</label>
+                                <input name="mfd" value="{{date("M Y",strtotime($p3c_list->mfd))}}" readonly type="text" class="form-control" id="mdf" placeholder="Enter Nama Panel">
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <hr>

@@ -47,7 +47,7 @@ class pn_03_qc_controller extends Controller
     public function create_data($id)
     {
         $p3c_list = DB::table('pn_01_p3c as p3c')
-        ->select('p3c.id','p3c.nomor_seri_panel','p3c.nama_customer','p3c.nama_panel','p3c.nama_proyek','p3c.mfd','pn_02_produksi.tgl_serah_ke_qc')
+        ->select('p3c.id','p3c.nomor_wo','p3c.nomor_seri_panel','p3c.nama_customer','p3c.nama_panel','p3c.nama_proyek','p3c.mfd','pn_02_produksi.tgl_serah_ke_qc')
         ->join('pn_02_produksi','pn_02_produksi.id_panel','p3c.id')
         ->where('p3c.id',$id)
         ->first();

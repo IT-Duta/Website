@@ -121,10 +121,15 @@ class pn_02_produksi_Controller extends Controller
         ]);
         $wiring = implode(',', $data['wiring']);
         $mekanik = implode(',', $data['mekanik']);
-        if ($data['status_pekerjaan'] != "Test-QC") {
-            $data['status_pekerjaan']=$data['status_pekerjaan'];
-            $data['tgl_serah_ke_qc']="";
+        try {
+            if ($data['status_pekerjaan'] != "Test-QC") {
+                $data['status_pekerjaan']=$data['status_pekerjaan'];
+                $data['tgl_serah_ke_qc']="";
+            }
+        } catch (\Throwable $th) {
+            $data['status_pekerjaan']='';
         }
+
         DB::table('pn_02_produksi')
         ->where('id',$data['id'])
         ->where('id_panel',$data['id_panel'])
