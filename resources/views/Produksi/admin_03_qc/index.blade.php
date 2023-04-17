@@ -23,11 +23,11 @@
                         </th>
                         <th>No. Seri Panel</th>
                         <th>Nama Panel</th>
-                        <th>Tanggal Terima Dari Produksi</th>
+                        <th>Tanggal Terima</th>
                         <th>PIC Test</th>
                         <th>Catatan Test</th>
-                        <th>Tanggal Buat</th>
                         <th>Status</th>
+                        <th>Tanggal Input</th>
                         <th>Admin</th>
                         <th>Aksi</th>
                     </tr>
@@ -70,11 +70,11 @@
                             {{$list->catatan_test}}
                         </td>
                         <td>
-                            {{$list->created_at}}
-                        </td>
-                        <td>
                             {{$list->status_pekerjaan}}
                             {{-- {{$list->created_at}} --}}
+                        </td>
+                        <td>
+                            {{$list->created_at}}
                         </td>
                         <td>
                             {{$list->admin}}

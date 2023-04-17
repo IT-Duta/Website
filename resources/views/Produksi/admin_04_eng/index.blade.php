@@ -30,9 +30,9 @@
                         <th>3 Phase</th>
                         <th>IP</th>
                         <th>Frekuensi</th>
-                        <th>Tanggal Buat</th>
-                        <th>Tanggal Manufaktur</th>
+                        <th>MFD</th>
                         <th>Admin</th>
+                        <th>Tanggal Input</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -77,14 +77,14 @@
                             {{$list->frekuensi}}
                         </td>
                         <td>
-                            {{$list->created_at}}
-                        </td>
-                        <td>
-                            {{date("d M Y",strtotime($list->mfd));
+                            {{date("M Y",strtotime($list->mfd));
                             }}
                         </td>
                         <td>
                             {{$list->admin}}
+                        </td>
+                        <td>
+                            {{$list->created_at}}
                         </td>
                         <td>
                             <div class="form-button-action">

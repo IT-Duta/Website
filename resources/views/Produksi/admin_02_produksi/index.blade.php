@@ -26,11 +26,11 @@
                         <th>SPV</th>
                         <th>Wiring</th>
                         <th>Mekanik</th>
-                        <th>Serah Terima</th>
+                        <th>Tanggal Serah</th>
                         <th>Status Komponen</th>
-                        <th>Tanggal Buat</th>
-                        <th>Tanggal Manufaktur</th>
+                        <th>MFD</th>
                         <th>Admin</th>
+                        <th>Tanggal Input</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -78,14 +78,14 @@
                             {{$list->status_komponen}}
                         </td>
                         <td>
-                            {{$list->created_at}}
-                        </td>
-                        <td>
                             {{date("M Y",strtotime($list->mfd));
                             }}
                         </td>
                         <td>
                             {{$list->admin}}
+                        </td>
+                        <td>
+                            {{$list->created_at}}
                         </td>
                         <td>
                             <div class="form-button-action">
