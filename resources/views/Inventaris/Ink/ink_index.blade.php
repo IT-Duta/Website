@@ -75,7 +75,7 @@
                                                     ink_type="Add" ink_printer="-" ink_unique={{ $list->ink_unique }}
                                                     onClick="add_data('{{ $list->ink_unique }}')" type="button"
                                                     class="btn btn-success btn-sm" data-toggle="modal"
-                                                    data-target="#request_modal">
+                                                    data-target="#addition_modal">
                                                     Add
                                                 </button>
                                                 <a href="{{ route('ink_edit', $list->ink_unique) }}"
@@ -204,6 +204,77 @@
                         </div>
                         <div id="btntype">
                             <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Modal -->
+
+    <!-- Modal for Penambahan Stock Tinta-->
+
+
+    <div class="modal fade" id="addition_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="header"></div>
+                <div class="modal-body">
+                    <form action="{{ route('ink_update') }}" method="post" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                        @if ($errors->any())
+                            <p class="alert alert-danger">{{ $errors->first() }}</p>
+                        @endif
+                        <div class="form-group row">
+                            {{-- <div class="col">
+                                <label for="type" class="form-label">Input Type</label>
+                                <input type="text" name="type" id="edit" value="update" readonly class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="process" class="form-label">Input Process</label>
+                                <input type="text" name="process" id="process" value="" readonly class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row"> --}}
+                            <div class="col">
+                                <label for="ink_unique" class="form-label">Ink Unique</label>
+                                <input type="text" name="ink_unique" id="add_unique" value="" readonly
+                                    class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="ink_user" class="form-label col-md-3">User</label>
+                                <input type="text" name="ink_user" id="add_user" value="{{Auth::user()->name}}" readonly class="form-control col-md" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="ink_code" class="form-label">Kode Tinta</label>
+                                <input type="text" name="ink_code" id="add_code" readonly class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="ink_name" class="form-label col-md-3">Nama Tinta</label>
+                                <input type="text" name="ink_name" id="add_name" readonly class="form-control col-md" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="ink_qty_old" class="form-label">Saat Ini</label>
+                                <input type="text" name="ink_qty_old" id="add_qty_old" readonly
+                                    class="form-control col-md" />
+                            </div>
+                            <div class="col">
+                                <label for="ink_qty_new" class="form-label">Jumlah Stock Masuk</label>
+                                <input type="number" required name="ink_qty_new" id="ink_qty_new"
+                                    class="form-control col-md" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="ink_desc" class="form-label col-md-3">Catatan</label>
+                            <input type="text"required name="ink_desc" class="form-control col-md" />
+                        </div>
+                        <div id="btntype">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -345,18 +416,18 @@
 
         function add_data(clicked_id) {
             let clicked = clicked_id + "add";
-            let ink_unique = document.getElementById(clicked).getAttribute("ink_unique");
-            let ink_code = document.getElementById(clicked).getAttribute("ink_code");
-            let ink_name = document.getElementById(clicked).getAttribute("ink_name");
-            let ink_qty = document.getElementById(clicked).getAttribute("ink_qty");
-            let ink_type = document.getElementById(clicked).getAttribute("ink_type");
-            $("#ink_unique").val(ink_unique);
+            let add_unique = document.getElementById(clicked).getAttribute("ink_unique");
+            let add_code = document.getElementById(clicked).getAttribute("ink_code");
+            let add_name = document.getElementById(clicked).getAttribute("ink_name");
+            let add_qty = document.getElementById(clicked).getAttribute("ink_qty");
+            let add_type = document.getElementById(clicked).getAttribute("ink_type");
+            $("#add_unique").val(add_unique);
             $("#ink_printer_unique").html(
                 "<input type='text' name='ink_printer_unique' readonly required class='form-control  col-md' value='Kosong'> "
             )
-            $("#ink_code").val(ink_code);
-            $("#ink_name").val(ink_name);
-            $("#ink_qty_old").val(ink_qty);
+            $("#add_code").val(add_code);
+            $("#add_name").val(add_name);
+            $("#add_qty_old").val(add_qty);
             $("#ink_type").val(ink_type);
             $("#ink_status").val("Add");
             $("#process").val("add");

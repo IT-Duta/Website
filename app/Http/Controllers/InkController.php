@@ -52,7 +52,6 @@ class InkController extends Controller
     }
     public function update(request $request)
     {
-
         switch ($request->get('type')) {
             case 'create':
                 $ink_code = $request->get('ink_code');
