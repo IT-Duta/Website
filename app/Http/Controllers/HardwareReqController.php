@@ -24,28 +24,28 @@ class HardwareReqController extends Controller
         $lokasi = DB::table('duta_lokasi')->orderBy('id', 'asc')->get();
         $divisi = DB::table('duta_divisi')->orderBy('id', 'asc')->get();
         $template = DB::table('pc_template')->get();
-        return view('Form.Hardware.Permintaan.hard_req_create')->with(compact('divisi','lokasi','template'));
+        return view('Form.Hardware.Permintaan.hard_req_create')->with(compact('divisi', 'lokasi', 'template'));
     }
     public function edit($id)
     {
-        $hardReq= HardReq::where('hard_req_unique',$id)->first();
-        $this->authorize('HardReqUpdate',$hardReq);
+        $hardReq = HardReq::where('hard_req_unique', $id)->first();
+        $this->authorize('HardReqUpdate', $hardReq);
         // $list = DB::table('hard_req_general')->where('hard_req_general_unique', '=', $id)->first();
         // $detail = DB::table('hard_req_detail')->where('hard_req_general_unique', '=', $id)->get();
         return view('Form.Hardware.permintaan.hard_req_edit')->with(compact('hardReq'));
     }
     public function destroy($id)
     {
-    DB::table('hard_req')->where('hard_req_unique','=',$id)->delete();
-    return redirect()->back()->with('status','Data has been deleted');
+        DB::table('hard_req')->where('hard_req_unique', '=', $id)->delete();
+        return redirect()->back()->with('status', 'Data has been deleted');
     }
     public function print($id)
     {
-        $hardReq = HardReq::where('hard_req_unique',$id)->first();
-        $this->authorize('HardReqView',$hardReq);
-        $list= DB::table('hard_req')
-        ->where('hard_req_unique', '=', $id)
-        ->first();
+        $hardReq = HardReq::where('hard_req_unique', $id)->first();
+        $this->authorize('HardReqView', $hardReq);
+        $list = DB::table('hard_req')
+            ->where('hard_req_unique', '=', $id)
+            ->first();
         return view('Form.Hardware.Permintaan.hard_req_print')->with(compact('list'));
     }
 
@@ -57,7 +57,7 @@ class HardwareReqController extends Controller
                 $hard_req_number = $this->hard_number();
                 $hard_urut = $this->noUrut();
                 $hard_req_unique = 'pph' . md5($hard_req_number);
-                $hard_req_unique=substr($hard_req_unique,0,25);
+                $hard_req_unique = substr($hard_req_unique, 0, 25);
                 DB::table('hard_req')->insert([
                     'hard_req_urut' => $hard_urut,
                     'hard_req_unique' => $hard_req_unique,
@@ -86,19 +86,19 @@ class HardwareReqController extends Controller
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')
                 // ->send(new newFormRequest);
                 // Mengambil data yang terakhir kali di input, kemudian menampilkannya delam bentuk printou
-                $list= DB::table('hard_req')
-                ->orderBy('id','desc')
-                ->first();
+                $list = DB::table('hard_req')
+                    ->orderBy('id', 'desc')
+                    ->first();
                 return view('Form.Hardware.Permintaan.hard_req_print')->with(compact('list'));
                 // return redirect()->route('request')->with('status','Request has been Added');
                 break;
             case 'edit':
-                $this->authorize('HardReqUpdate',$hardReq);
+                $this->authorize('HardReqUpdate', $hardReq);
                 DB::table('hard_req')->where('hard_req_unique', $request->get('hard_req_unique'))->update([
                     'hard_req_status' => $request->get('hard_req_status'),
                     'updated_at' => Carbon::now(),
                 ]);
-                return redirect()->back()->with('status','Data has been updated');
+                return redirect()->back()->with('status', 'Data has been updated');
                 break;
             case 'detail':
                 DB::table('hard_req_detail')->insert([
@@ -110,32 +110,33 @@ class HardwareReqController extends Controller
                     'hard_req_date' => $request->get('hard_req_date')
 
                 ]);
-                return redirect()->back()->with('status','Data has been updated');
+                return redirect()->back()->with('status', 'Data has been updated');
                 break;
             default:
                 # code...
                 break;
         }
     }
-    public function del_det($id){
+    public function del_det($id)
+    {
         DB::table('hard_req')->where('id', '=', $id)->delete();
         return redirect()->back();
     }
 
     public function noUrut()
     {
-        $check = DB::table('hard_req')->select('hard_req_urut','created_at')->orderBy('id', 'desc')->first();
+        $check = DB::table('hard_req')->select('hard_req_urut', 'created_at')->orderBy('id', 'desc')->first();
         if (empty($check->hard_req_urut)) {
             $hard_urut = 1;
         } else {
             $hard_urut = $check->hard_req_urut + 1;
         }
-         // Ubah ketika ganti tahun, jika tahun sekarang tidak sama dengan tahun terakhir input maka ubah nilai ke 1
-         $currentYear = date("Y");
-         $createdAtYear = date("Y", strtotime($check->created_at));
-         if ($currentYear != $createdAtYear) {
-             $hard_urut=1;
-         }
+        // Ubah ketika ganti tahun, jika tahun sekarang tidak sama dengan tahun terakhir input maka ubah nilai ke 1
+        $currentYear = date("Y");
+        $createdAtYear = date("Y", strtotime($check->created_at));
+        if ($currentYear != $createdAtYear) {
+            $hard_urut = 1;
+        }
         return $hard_urut;
     }
     public function hard_number()
@@ -147,21 +148,21 @@ class HardwareReqController extends Controller
         $hard_number = '' . $pc_no . '/EDP-PPH/' . $bulan . '/' . $tahun . '';
         return $hard_number;
     }
-    public function showData(request $request){
+    public function showData(request $request)
+    {
         if ($request->ajax()) {
             // $output="";
             $connectors = DB::table('hard_req')
-            ->where('id', '=', $request->id)
-            ->get();
+                ->where('id', '=', $request->id)
+                ->get();
             return response(json_encode($connectors));
         }
     }
     public function export()
     {
-        $time=Carbon::now();
-        $time=date_format($time,'d-m-y, H.i.s');
-        $filename='Hardware Request '.$time.'.xlsx';
+        $time = Carbon::now();
+        $time = date_format($time, 'd-m-y, H.i.s');
+        $filename = 'Hardware Request ' . $time . '.xlsx';
         return Excel::download(new hardReqExport, $filename);
     }
-
 }

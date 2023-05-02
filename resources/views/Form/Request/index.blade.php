@@ -56,8 +56,8 @@
                                                 data-placement="top" title="Show Data"></i>
                                         </a>
                                         <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                            <i class="fas fa-desktop" data-toggle="tooltip"
-                                            data-placement="top" title="Show Request"></i>
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
                                         </a>
                                         @can('HardReqView', $hardReq)
                                             <a target="__BLANK" href="{{ route('hard_req_print', $hardReq->hard_req_unique) }}"
@@ -71,7 +71,8 @@
                                             @endcan
                                         @endif --}}
                                         @can('isAdmin')
-                                            <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');" href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
+                                            <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');"
+                                                href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
                                                 class="text-danger"><i class="fa fa-trash" data-toggle="tooltip"
                                                     data-placement="top" title="Delete Data"></i></a>
                                         @endcan
@@ -96,11 +97,13 @@
                                     <td>
                                         <a target="__BLANK" href="{{ route('soft_req_print', $list->soft_req_unique) }}"
                                             class="text-primary"><i class="fas fa-print" data-toggle="tooltip"
-                                                data-placement="top" title="Print Data"></i></a>
-                                                <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                                    <i class="fas fa-desktop" data-toggle="tooltip"
-                                                    data-placement="top" title="Show Request"></i>
-                                                </a>
+                                                data-placement="top" title="Print Data"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             @endcan
@@ -123,12 +126,14 @@
                                             href="{{ route('hard_fix_print', $list->hard_fix_general_unique) }}"
                                             class="text-primary"><i class="fas fa-print" data-toggle="tooltip"
                                                 data-placement="top" title="Print Data"></i></a>
-                                                <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                                    <i class="fas fa-desktop" data-toggle="tooltip"
-                                                    data-placement="top" title="Show Request"></i>
-                                                </a>
+                                        <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
+                                        </a>
 
-                                                <a href="{{ route('hard_fix_edit', $list->hard_fix_general_unique) }}" class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top" title="Edit Data"></i></a>
+                                        <a href="{{ route('hard_fix_edit', $list->hard_fix_general_unique) }}"
+                                            class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top"
+                                                title="Edit Data"></i></a>
                                     </td>
                                 </tr>
                             @endcan
@@ -223,32 +228,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <table class="table table-stripped">
-                       <thead>
-                           <th>#</th>
-                           <th>Keterangan</th>
-                       </thead>
-                       <tbody>
-                           <tr>
-                               <td>Id</td>
-                               <td><input class="form-control" name="req_id" id="req_id" readonly></td>
-                           </tr>
-                           <tr>
-                               <td>Pengaju</td>
-                               <td><span id="req_user"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Nomor Pengajuan</td>
-                               <td><span id="req_no"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Tipe Pengajuan</td>
-                               <td><span id="req_type"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Alasan</td>
-                               <td><span id="req_alasan"></span></td>
-                           </tr>
+                    <table class="table table-stripped">
+                        <thead>
+                            <th>#</th>
+                            <th>Keterangan</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Id</td>
+                                <td><input class="form-control" name="req_id" id="req_id" readonly></td>
+                            </tr>
+                            <tr>
+                                <td>Pengaju</td>
+                                <td><span id="req_user"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Nomor Pengajuan</td>
+                                <td><span id="req_no"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Tipe Pengajuan</td>
+                                <td><span id="req_type"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Alasan</td>
+                                <td><span id="req_alasan"></span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -265,7 +270,7 @@
 @section('javascript')
     <script id="dataTables">
         $(document).ready(function() {
-            $('#list_request').DataTable();
+            // $('#list_request').DataTable();
 
             $.ajaxSetup({
                 headers: {
@@ -273,17 +278,21 @@
                 }
             });
         });
-        var table=$('#list_request').DataTable();
-        $("#pengadaan").click(function(){
+        var table = $('#list_request').DataTable({
+            paging: false,
+            ordering: false,
+            info: false,
+        });
+        $("#pengadaan").click(function() {
             table.column(3).search("Pengadaan Hardware").draw();
         });
-        $("#perbaikan").click(function(){
+        $("#perbaikan").click(function() {
             table.column(3).search("Perbaikan Hardware").draw();
         });
-        $("#permintaan").click(function(){
+        $("#permintaan").click(function() {
             table.column(3).search("Permintaan Software").draw();
         });
-        $("#reset").click(function(){
+        $("#reset").click(function() {
             table.column(3).search("").draw();
         });
     </script>
@@ -311,31 +320,29 @@
             });
         }
 
-        $('.preview').click(function(){
-        var req_id = $(this).parent().siblings('.req_id').text();
-        var req_no = $(this).parent().siblings('.req_no').text();
-        var req_type = $(this).parent().siblings('.req_type').text();
-        var req_user=$(this).parent().siblings('.req_user').text();
-        var req_alasan=$(this).parent().siblings('.req_alasan').text();
-        if (req_type =='Permintaan Software') {
-            var link="request/acc_soft/"+req_id;
-        }
-        if (req_type =='Pengadaan Hardware') {
-            var link="request/acc_hard/"+req_id;
-        }
-        if (req_type =='Perbaikan Hardware') {
-            // var link="request/acc_hard_fix/"+req_id;
-            var link="#";
-        }
-        $("#acc_link_req").attr("href",link);
-        $("#req_id").val(req_id);
-        $("#req_no").html(req_no);
-        $("#req_type").html(req_type);
-        $("#req_user").html(req_user);
-        $("#req_alasan").html(req_alasan);
+        $('.preview').click(function() {
+            var req_id = $(this).parent().siblings('.req_id').text();
+            var req_no = $(this).parent().siblings('.req_no').text();
+            var req_type = $(this).parent().siblings('.req_type').text();
+            var req_user = $(this).parent().siblings('.req_user').text();
+            var req_alasan = $(this).parent().siblings('.req_alasan').text();
+            if (req_type == 'Permintaan Software') {
+                var link = "request/acc_soft/" + req_id;
+            }
+            if (req_type == 'Pengadaan Hardware') {
+                var link = "request/acc_hard/" + req_id;
+            }
+            if (req_type == 'Perbaikan Hardware') {
+                // var link="request/acc_hard_fix/"+req_id;
+                var link = "#";
+            }
+            $("#acc_link_req").attr("href", link);
+            $("#req_id").val(req_id);
+            $("#req_no").html(req_no);
+            $("#req_type").html(req_type);
+            $("#req_user").html(req_user);
+            $("#req_alasan").html(req_alasan);
 
-    });
-
+        });
     </script>
-
 @endsection
