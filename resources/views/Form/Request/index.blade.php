@@ -25,8 +25,8 @@
                         onclick="UbahJudul4()">Waiting</button>
                     <button id="progress" type="button" class="btn btn-sm btn-outline-success"
                         onclick="UbahJudul5()">Progress</button>
-                    <button id="finish" type="button" class="btn btn-sm btn-outline-success"
-                        onclick="UbahJudul6()">Finish</button>
+                    {{-- <button id="finish" type="button" class="btn btn-sm btn-outline-success"
+                        onclick="UbahJudul6()">Finish</button> --}}
                     <button id="reset" type="button" class="btn btn-sm btn-outline-danger"
                         onclick="UbahJudul0()">Reset</button>
                 </div>
