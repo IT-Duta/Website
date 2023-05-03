@@ -115,7 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/printer-report/{id}', 'PrinterController@report')->name('printer_report');
     Route::get('/inventaris/printer-del/{id}', 'PrinterController@destroy')->name('printer_del');
     Route::post('/inventaris/printer-update', 'PrinterController@update')->name('printer_update');
-    
+
     // Export Stock Tinta
     Route::get('/inventaris/tinta/export','InkController@export')->name('ink_export');
 
@@ -140,8 +140,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/request/acc_ink/{id}', 'RequestViewController@ink_req')->name('ink_req_acc');
     Route::get('/dashboard/request/dec_ink/{id}/{ink}/{qty}', 'RequestViewController@ink_dec')->name('ink_req_dec');
     Route::get('/dashboard/request/acc_soft/{id}', 'RequestViewController@soft_req')->name('soft_req_acc');
+    Route::get('/dashboard/request/acc_soft/finish/{id}', 'RequestViewController@soft_req_finish')->name('soft_req_acc_finish');
     Route::get('/dashboard/request/acc_hard/{id}', 'RequestViewController@hard_req')->name('hard_req_acc');
+    Route::get('/dashboard/request/acc_hard/finish/{id}', 'RequestViewController@hard_req_finish')->name('hard_req_acc_finish');
     Route::get('/dashboard/request/acc_hard_fix/{id}', 'RequestViewController@hard_fix')->name('hard_fix_acc');
+    Route::get('/dashboard/request/acc_hard_fix/finish/{id}', 'RequestViewController@hard_fix_finish')->name('hard_fix_acc_finish');
     // Route::get('/home','HomeController@index')->name('home');
 
     // Halaman User
