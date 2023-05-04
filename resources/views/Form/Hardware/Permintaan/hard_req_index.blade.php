@@ -16,15 +16,13 @@
         </div>
         <div class="card-body">
             <div class="text-center ">
-                <table class="table table-striped table-bordered " id="pengajuan_master">
+                <table class="table table-striped table-bordered display" id="pengajuan_master">
                     <caption>List Pengajuan Hardware</caption>
                     <thead>
                         <tr class="table-primary">
                             <th>No</th>
                             <th>Nomor Pengajuan</th>
                             <th>User Pengaju</th>
-                            <th>Divisi</th>
-                            <th>Lokasi</th>
                             <th>Alasan</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -38,29 +36,31 @@
                                 <td><?php echo $nomor++; ?></td>
                                 <td>{{ $hardReq->hard_req_number }}</td>
                                 <td>{{ $hardReq->hard_req_user }}</td>
-                                <td>{{ $hardReq->hard_req_divisi }}</td>
-                                <td>{{ $hardReq->hard_req_location }}</td>
                                 <td>{{ $hardReq->hard_req_alasan }}</td>
                                 <td>{{ $hardReq->hard_req_status }}</td>
                                 <td>
-                                    <a onClick="showData({{ $hardReq->id }})"
-                                        data-toggle="modal" data-target="#showData"class="text-success"><i class="fas fa-desktop" data-toggle="tooltip" data-placement="top" title="Show Data"></i>
+                                    <a onClick="showData({{ $hardReq->id }})" data-toggle="modal"
+                                        data-target="#showData"class="text-success"><i class="fas fa-desktop"
+                                            data-toggle="tooltip" data-placement="top" title="Show Data"></i>
                                     </a>
                                     @can('HardReqView', $hardReq)
                                         <a target="__BLANK" href="{{ route('hard_req_print', $hardReq->hard_req_unique) }}"
-                                            class="text-primary"><i class="fas fa-print"data-toggle="tooltip" data-placement="top" title="Print Data"></i></a>
+                                            class="text-primary"><i class="fas fa-print"data-toggle="tooltip"
+                                                data-placement="top" title="Print Data"></i></a>
                                     @endcan
                                     @if ($hardReq->hard_req_status === 'Progress')
-                                    @can('HardReqUpdate', $hardReq)
-                                    <a  target="__BLANK"  href="{{ route('hard_req_edit', $hardReq->hard_req_unique) }}"
-                                        class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top" title="Edit Data"></i></a>
+                                        @can('HardReqUpdate', $hardReq)
+                                            <a target="__BLANK" href="{{ route('hard_req_edit', $hardReq->hard_req_unique) }}"
+                                                class="text-primary"><i class="fa fa-edit"data-toggle="tooltip"
+                                                    data-placement="top" title="Edit Data"></i></a>
                                         @endcan
-                                        @endif
-                                        @can('isAdmin')
-                                        <a  onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');" href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
-                                            class="text-danger"><i class="fa fa-trash"data-toggle="tooltip" data-placement="top" title="Delete Data"></i></a>
-
-                                        @endcan
+                                    @endif
+                                    @can('isAdmin')
+                                        <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');"
+                                            href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
+                                            class="text-danger"><i class="fa fa-trash"data-toggle="tooltip" data-placement="top"
+                                                title="Delete Data"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -147,6 +147,7 @@
         $('#pengajuan_master').DataTable({
             autoWidth: true
         });
+
         function showData(id) {
             $.get('{{ route('hard_req_data') }}', {
                 'id': id

@@ -16,7 +16,7 @@ class HardwareReqController extends Controller
 
     public function index()
     {
-        $hardReq = DB::table('hard_req')->orderByDesc('id')->get();
+        $hardReq = DB::table('hard_req')->orderByRaw('SUBSTR(hard_req_number, -2) DESC')->orderByRaw('SUBSTR(hard_req_number, 1, 3) DESC')->get();
         return view('Form.Hardware.Permintaan.hard_req_index')->with(compact('hardReq'));
     }
     //=====================================================================================================================
