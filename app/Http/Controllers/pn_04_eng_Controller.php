@@ -19,7 +19,7 @@ class pn_04_eng_Controller extends Controller
     public function index()
     {
         $list = DB::table('pn_04_eng as eng')
-        ->select('eng.*','p3c.nama_panel','p3c.nomor_seri_panel','p3c.mfd','p3c.tipe_panel')
+        ->select('eng.*','p3c.nama_panel','p3c.nama_proyek','p3c.nomor_seri_panel','p3c.mfd','p3c.tipe_panel')
         ->join('pn_01_p3c as p3c','p3c.id','=','eng.id_panel')
         ->get();
      return view('Produksi.admin_04_eng.index')->with(compact('list'));

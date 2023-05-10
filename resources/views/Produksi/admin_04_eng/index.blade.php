@@ -23,6 +23,7 @@
                         </th>
                         <th>No. Seri Panel</th>
                         <th>Nama Panel</th>
+                        <th>Nama Proyek</th>
                         <th>Tipe Panel</th>
                         <th>Capacity</th>
                         <th>Voltage</th>
@@ -54,6 +55,9 @@
                         </td>
                         <td>
                             {{$list->nama_panel}}
+                        </td>
+                        <td>
+                            {{$list->nama_proyek}}
                         </td>
                         <td>
                             {{$list->tipe_panel}}
