@@ -6,14 +6,12 @@
     Inventaris Tinta
 @endsection
 @can('isIT')
-
-@section('header')
-<a href="{{ route('ink_create') }}" class="btn btn-secondary btn-round">Add Ink</a>
-<a href="{{ route('ink_export') }}" class="btn btn-secondary btn-round">Export Ink</a>
-@endsection
+    @section('header')
+        <a href="{{ route('ink_create') }}" class="btn btn-secondary btn-round">Add Ink</a>
+        <a href="{{ route('ink_export') }}" class="btn btn-secondary btn-round">Export Ink</a>
+    @endsection
 @endcan
 @section('content')
-
     <div class="card">
         <div class="card-body">
             <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-pills-icons" id="pills-tab-with-icon" role="tablist">
@@ -35,8 +33,7 @@
             {{-- Isi dari Nav Pills --}}
             <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                 {{-- Isi dari Nav Tinta --}}
-                <div class="tab-pane fade" id="pills-home-icon" role="tabpanel"
-                    aria-labelledby="pills-home-tab-icon">
+                <div class="tab-pane fade" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
                     <div class="table-responsive text-center ">
                         <table class="table table-striped table-bordered" id="ink_master">
                             <caption>Inventaris Tinta</caption>
@@ -75,7 +72,7 @@
                                                     ink_type="Add" ink_printer="-" ink_unique={{ $list->ink_unique }}
                                                     onClick="add_data('{{ $list->ink_unique }}')" type="button"
                                                     class="btn btn-success btn-sm" data-toggle="modal"
-                                                    data-target="#request_modal">
+                                                    data-target="#addition_modal">
                                                     Add
                                                 </button>
                                                 <a href="{{ route('ink_edit', $list->ink_unique) }}"
@@ -150,11 +147,13 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label for="type" class="form-label">Input Type</label>
-                                <input type="text" name="type" id="edit" value="update" readonly class="form-control" />
+                                <input type="text" name="type" id="edit" value="update" readonly
+                                    class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="process" class="form-label">Input Process</label>
-                                <input type="text" name="process" id="process" value="" readonly class="form-control" />
+                                <input type="text" name="process" id="process" value="" readonly
+                                    class="form-control" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -165,7 +164,8 @@
                             </div>
                             <div class="col">
                                 <label for="ink_user" class="form-label col-md-3">Pengaju</label>
-                                <input type="text" name="ink_user" id="ink_user" value="{{Auth::user()->name}}" readonly class="form-control col-md" />
+                                <input type="text" name="ink_user" id="ink_user" value="{{ Auth::user()->name }}"
+                                    readonly class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -175,7 +175,8 @@
                             </div>
                             <div class="col">
                                 <label for="ink_name" class="form-label col-md-3">Nama Tinta</label>
-                                <input type="text" name="ink_name" id="ink_name" readonly class="form-control col-md" />
+                                <input type="text" name="ink_name" id="ink_name" readonly
+                                    class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -200,10 +201,70 @@
                         </div>
                         <div class="form-group row">
                             <label for="ink_status" class="form-label col-md-3"> Ink Status</label>
-                            <input type="text" name="ink_status" id="ink_status" readonly class="form-control col-md" />
+                            <input type="text" name="ink_status" id="ink_status" readonly
+                                class="form-control col-md" />
                         </div>
                         <div id="btntype">
                             <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Modal -->
+
+    <!-- Modal for Penambahan Stock Tinta-->
+
+
+    <div class="modal fade" id="addition_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="header">
+                    <h2>Tambah Stock</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('ink_update') }}" method="post" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                        @if ($errors->any())
+                            <p class="alert alert-danger">{{ $errors->first() }}</p>
+                        @endif
+                        <div style="display: none">
+                            <input name="ink_status" value="add" />
+                            <input name="type" value="update" />
+                            <input name="process" value="add" />
+                            <input name="ink_unique" id="add_unique" />
+                            <input name="ink_user" value="{{ Auth::user()->name }}" />
+                        </div>
+                        <div class="form-group row col-md-12">
+                            <div class="col-md-3">
+                                <label for="ink_code" class="form-label">Kode Tinta</label>
+                                <input type="text" name="ink_code" id="add_code" readonly class="form-control" />
+                            </div>
+                            <div class="col-md-5">
+                                <label for="ink_name" class="form-label">Nama Tinta</label>
+                                <input type="text" name="ink_name" id="add_name" readonly
+                                    class="form-control col-md" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ink_qty_old" class="form-label">Qty Sekarang</label>
+                                <input type="text" name="ink_qty_old" id="add_qty_old" readonly
+                                    class="form-control col-md" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ink_qty_new" class="form-label">Tambah Qty</label>
+                                <input type="number" required name="ink_qty_new" id="ink_qty_new"
+                                    class="form-control col-md" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-md-12">
+                            <label for="ink_desc" class="form-label col-md-2">Catatan</label>
+                            <input type="text"required name="ink_desc" class="form-control col-md-10" />
+                        </div>
+                        <br>
+                        <div id="btntype">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -237,7 +298,8 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label class="form-label col-md-3" for="ink_printer_unique_print">Printer</label>
-                                <input type="text" name="ink_printer_unique" id="ink_printer_unique_print" readonly class="form-control" />
+                                <input type="text" name="ink_printer_unique" id="ink_printer_unique_print" readonly
+                                    class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="ink_status" class="form-label col-md-3"> Ink Status</label>
@@ -252,7 +314,8 @@
                             </div>
                             <div class="col">
                                 <label for="ink_user" class="form-label col-md-3">Pengaju</label>
-                                <input type="text" readonly name="ink_user" value="{{Auth::user()->name}}" required class="form-control col-md" />
+                                <input type="text" readonly name="ink_user" value="{{ Auth::user()->name }}" required
+                                    class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -297,7 +360,6 @@
 
 
 @section('javascript')
-
     <script id="dataTables">
         $(document).ready(function() {
 
@@ -345,18 +407,18 @@
 
         function add_data(clicked_id) {
             let clicked = clicked_id + "add";
-            let ink_unique = document.getElementById(clicked).getAttribute("ink_unique");
-            let ink_code = document.getElementById(clicked).getAttribute("ink_code");
-            let ink_name = document.getElementById(clicked).getAttribute("ink_name");
-            let ink_qty = document.getElementById(clicked).getAttribute("ink_qty");
-            let ink_type = document.getElementById(clicked).getAttribute("ink_type");
-            $("#ink_unique").val(ink_unique);
+            let add_unique = document.getElementById(clicked).getAttribute("ink_unique");
+            let add_code = document.getElementById(clicked).getAttribute("ink_code");
+            let add_name = document.getElementById(clicked).getAttribute("ink_name");
+            let add_qty = document.getElementById(clicked).getAttribute("ink_qty");
+            let add_type = document.getElementById(clicked).getAttribute("ink_type");
+            $("#add_unique").val(add_unique);
             $("#ink_printer_unique").html(
                 "<input type='text' name='ink_printer_unique' readonly required class='form-control  col-md' value='Kosong'> "
             )
-            $("#ink_code").val(ink_code);
-            $("#ink_name").val(ink_name);
-            $("#ink_qty_old").val(ink_qty);
+            $("#add_code").val(add_code);
+            $("#add_name").val(add_name);
+            $("#add_qty_old").val(add_qty);
             $("#ink_type").val(ink_type);
             $("#ink_status").val("Add");
             $("#process").val("add");

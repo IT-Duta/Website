@@ -56,11 +56,13 @@ class ticketingController extends Controller
         $numberTicket = '' . $number . '/E-TICKET/' . $bulan . '/' . $tahun . '';
         if (!empty($request->file('file'))) {
             $fileName = $request->file('file')->getClientOriginalName();
+            // dd($request->file('file')->getClientOriginalName());
             $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
             $imageName = $number . '_eticket_' . $bulan . '_' . $tahun . '.' . $fileExt . '';
+            // $filePath = $request->file('file')->storeAs('public/images', $imageName);
             $filePath = $request->file('file')->move(public_path('storage\images'), $imageName);
+            // dd($name);
         }
-        // dd($imageName);
         DB::table('ticketing')->insert([
             'ticket_number' => $numberTicket,
             'urut' => $sequence,

@@ -8,15 +8,32 @@
 @section('content')
     <div class="card card-shadow">
         <div class="card-header">
-            <h3 class="text-center">List Request</h3>
+            <div class="text-center" id="teks" style="font-size: 24px">List Request</div>
+            <div class="text-center" id="teks2" style="font-size: 16px"></div>
         </div>
         <div class="card-body">
-            <button id="pengadaan" type="button" class="btn btn-sm btn-primary">Pengadaan Hardware</button>
-            <button id="perbaikan" type="button" class="btn btn-sm btn-primary">Perbaikan Hardware</button>
-            <button id="permintaan" type="button" class="btn btn-sm btn-primary">Permintaan Software</button>
-            <button id="reset" type="button" class="btn btn-sm btn-primary">Reset</button>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <button id="pengadaan" type="button" class="btn btn-sm btn-outline-primary"
+                        onclick="UbahJudul1()">Pengadaan Hardware</button>
+                    <button id="perbaikan" type="button" class="btn btn-sm btn-outline-primary"
+                        onclick="UbahJudul2()">Perbaikan Hardware</button>
+                    <button id="permintaan" type="button" class="btn btn-sm btn-outline-primary"
+                        onclick="UbahJudul3()">Permintaan
+                        Software</button>
+                    <button id="waiting" type="button" class="btn btn-sm btn-outline-success"
+                        onclick="UbahJudul4()">Waiting</button>
+                    <button id="progress" type="button" class="btn btn-sm btn-outline-success"
+                        onclick="UbahJudul5()">Progress</button>
+                    {{-- <button id="finish" type="button" class="btn btn-sm btn-outline-success"
+                        onclick="UbahJudul6()">Finish</button> --}}
+                    <button id="reset" type="button" class="btn btn-sm btn-outline-danger"
+                        onclick="UbahJudul0()">Reset</button>
+                </div>
+            </div>
+
             <div class="text-center ">
-                <table class="table table-striped table-bordered display table-responsive" id="list_request">
+                <table id="list_request" class="table table-striped table-bordered display table-responsive compact">
                     <caption>List Request</caption>
                     <thead>
                         <tr class="table-primary">
@@ -25,16 +42,14 @@
                             <th>Nomor Pengajuan</th>
                             <th>Tipe Pengajuan</th>
                             <th>User Pengaju</th>
-                            <th>Divisi</th>
-                            <th>Lokasi</th>
                             <th>Alasan</th>
                             <th>Status</th>
-                            <th>Tanggal Aju</th>
+                            <th>Tgl Buat</th>
+                            <th>Tgl Terima</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php $nomor = 1; ?>
                         {{-- This is for Hardreq View --}}
                         @foreach ($hardReq as $hardReq)
@@ -45,19 +60,23 @@
                                     <td class="req_no">{{ $hardReq->hard_req_number }}</td>
                                     <td class="req_type">Pengadaan Hardware</td>
                                     <td class="req_user">{{ $hardReq->hard_req_user }}</td>
-                                    <td>{{ $hardReq->hard_req_divisi }}</td>
-                                    <td>{{ $hardReq->hard_req_location }}</td>
-                                    <td class="req_alasan">{{ $hardReq->hard_req_alasan }}</td>
+                                    <td class="req_alasan">{{ Str::limit($hardReq->hard_req_alasan, 50, '...') }}</td>
                                     <td>{{ $hardReq->hard_req_status }}</td>
-                                    <td>{{ $hardReq->created_at }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($hardReq->created_at)->format('d M Y') }}</td>
+                                    @if ($hardReq->hard_req_progress == '')
+                                        <td class="req_progress">-</td>
+                                    @else
+                                        <td class="req_progress">
+                                            {{ \Carbon\Carbon::parse($hardReq->hard_req_progress)->format('d M Y') }}</td>
+                                    @endif
                                     <td>
                                         <a onClick="showData({{ $hardReq->id }})" data-toggle="modal" data-target="#showData"
                                             class="text-success"><i class="fas fa-desktop" data-toggle="tooltip"
                                                 data-placement="top" title="Show Data"></i>
                                         </a>
                                         <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                            <i class="fas fa-desktop" data-toggle="tooltip"
-                                            data-placement="top" title="Show Request"></i>
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
                                         </a>
                                         @can('HardReqView', $hardReq)
                                             <a target="__BLANK" href="{{ route('hard_req_print', $hardReq->hard_req_unique) }}"
@@ -71,7 +90,8 @@
                                             @endcan
                                         @endif --}}
                                         @can('isAdmin')
-                                            <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');" href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
+                                            <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');"
+                                                href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
                                                 class="text-danger"><i class="fa fa-trash" data-toggle="tooltip"
                                                     data-placement="top" title="Delete Data"></i></a>
                                         @endcan
@@ -88,19 +108,25 @@
                                     <td class="req_no">{{ $list->soft_req_number }}</td>
                                     <td class="req_type">Permintaan Software</td>
                                     <td class="req_user">{{ $list->soft_req_user }}</td>
-                                    <td>{{ $list->soft_req_divisi }}</td>
-                                    <td>{{ $list->soft_req_location }}</td>
-                                    <td class="req_alasan">{{ $list->soft_req_reason }}</td>
+                                    <td class="req_alasan">{{ Str::limit($list->soft_req_reason, 50, '...') }}</td>
                                     <td>{{ $list->soft_req_status }}</td>
-                                    <td>{{ $list->created_at }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($list->created_at)->format('d M Y') }}</td>
+                                    @if ($list->soft_req_progress == '')
+                                        <td class="req_progress">-</td>
+                                    @else
+                                        <td class="req_progress">
+                                            {{ \Carbon\Carbon::parse($list->Soft_req_progress)->format('d M Y') }}</td>
+                                    @endif
                                     <td>
                                         <a target="__BLANK" href="{{ route('soft_req_print', $list->soft_req_unique) }}"
                                             class="text-primary"><i class="fas fa-print" data-toggle="tooltip"
-                                                data-placement="top" title="Print Data"></i></a>
-                                                <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                                    <i class="fas fa-desktop" data-toggle="tooltip"
-                                                    data-placement="top" title="Show Request"></i>
-                                                </a>
+                                                data-placement="top" title="Print Data"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             @endcan
@@ -113,29 +139,33 @@
                                     <td class="req_no">{{ $list->hard_fix_number }}</td>
                                     <td class="req_type">Perbaikan Hardware</td>
                                     <td class="req_user">{{ $list->hard_fix_user }}</td>
-                                    <td>{{ $list->hard_fix_divisi }}</td>
-                                    <td>{{ $list->hard_fix_location }}</td>
-                                    <td class="req_alasan">{{ $list->hard_fix_uraian }}</td>
+                                    <td class="req_alasan">{{ Str::limit($list->hard_fix_uraian, 50, '...') }}</td>
                                     <td>{{ $list->hard_fix_status }}</td>
-                                    <td>{{ $list->created_at }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($list->created_at)->format('d M Y') }}</td>
+                                    @if ($list->hard_fix_progress == '')
+                                        <td class="req_progress">-</td>
+                                    @else
+                                        <td class="req_progress">
+                                            {{ \Carbon\Carbon::parse($list->hard_fix_progress)->format('d M Y') }}</td>
+                                    @endif
                                     <td>
                                         <a target="__BLANK"
                                             href="{{ route('hard_fix_print', $list->hard_fix_general_unique) }}"
                                             class="text-primary"><i class="fas fa-print" data-toggle="tooltip"
                                                 data-placement="top" title="Print Data"></i></a>
-                                                <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
-                                                    <i class="fas fa-desktop" data-toggle="tooltip"
-                                                    data-placement="top" title="Show Request"></i>
-                                                </a>
+                                        <a data-toggle="modal" data-target="#reqModal" class="text-success preview">
+                                            <i class="fas fa-desktop" data-toggle="tooltip" data-placement="top"
+                                                title="Show Request"></i>
+                                        </a>
 
-                                                <a href="{{ route('hard_fix_edit', $list->hard_fix_general_unique) }}" class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top" title="Edit Data"></i></a>
+                                        <a href="{{ route('hard_fix_edit', $list->hard_fix_general_unique) }}"
+                                            class="text-primary"><i class="fa fa-edit"data-toggle="tooltip"
+                                                data-placement="top" title="Edit Data"></i></a>
                                     </td>
                                 </tr>
                             @endcan
                         @endforeach
-
                     </tbody>
-
                 </table>
             </div>
         </div>
@@ -223,32 +253,36 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <table class="table table-stripped">
-                       <thead>
-                           <th>#</th>
-                           <th>Keterangan</th>
-                       </thead>
-                       <tbody>
-                           <tr>
-                               <td>Id</td>
-                               <td><input class="form-control" name="req_id" id="req_id" readonly></td>
-                           </tr>
-                           <tr>
-                               <td>Pengaju</td>
-                               <td><span id="req_user"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Nomor Pengajuan</td>
-                               <td><span id="req_no"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Tipe Pengajuan</td>
-                               <td><span id="req_type"></span></td>
-                           </tr>
-                           <tr>
-                               <td>Alasan</td>
-                               <td><span id="req_alasan"></span></td>
-                           </tr>
+                    <table class="table table-stripped">
+                        <thead>
+                            <th>#</th>
+                            <th>Keterangan</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Id</td>
+                                <td><input class="form-control" name="req_id" id="req_id" readonly></td>
+                            </tr>
+                            <tr>
+                                <td>Pengaju</td>
+                                <td><span id="req_user"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Nomor Pengajuan</td>
+                                <td><span id="req_no"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Tipe Pengajuan</td>
+                                <td><span id="req_type"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Alasan</td>
+                                <td><span id="req_alasan"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Terima</td>
+                                <td><span id="req_progress"></span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -265,7 +299,7 @@
 @section('javascript')
     <script id="dataTables">
         $(document).ready(function() {
-            $('#list_request').DataTable();
+            // $('#list_request').DataTable();
 
             $.ajaxSetup({
                 headers: {
@@ -273,20 +307,74 @@
                 }
             });
         });
-        var table=$('#list_request').DataTable();
-        $("#pengadaan").click(function(){
+        var table = $('#list_request').DataTable({
+            paging: false,
+            ordering: false,
+            info: false,
+        });
+        $("#pengadaan").click(function() {
             table.column(3).search("Pengadaan Hardware").draw();
         });
-        $("#perbaikan").click(function(){
+        $("#perbaikan").click(function() {
             table.column(3).search("Perbaikan Hardware").draw();
         });
-        $("#permintaan").click(function(){
+        $("#permintaan").click(function() {
             table.column(3).search("Permintaan Software").draw();
         });
-        $("#reset").click(function(){
-            table.column(3).search("").draw();
+        $("#waiting").click(function() {
+            table.column(6).search("waiting").draw();
+        });
+        $("#progress").click(function() {
+            table.column(6).search("progress").draw();
+        });
+        $("#finish").click(function() {
+            table.column(6).search("finish").draw();
+        });
+        $("#reset").click(function() {
+            table.column(3).search(" ").draw();
+            table.column(6).search("").draw();
         });
     </script>
+
+    <script>
+        function UbahJudul0() {
+            var teksElem = document.getElementById("teks");
+            teksElem.innerHTML = "List Request";
+            var teksElem2 = document.getElementById("teks2");
+            teksElem2.innerHTML = "";
+        }
+
+        function UbahJudul1() {
+            var teksElem = document.getElementById("teks");
+            teksElem.innerHTML = "List Request Pengadaan Hardware";
+        }
+
+        function UbahJudul2() {
+            var teksElem = document.getElementById("teks");
+            teksElem.innerHTML = "List Request Perbaikan Hardware";
+        }
+
+        function UbahJudul3() {
+            var teksElem = document.getElementById("teks");
+            teksElem.innerHTML = "List Request Permintaan Software";
+        }
+
+        function UbahJudul4() {
+            var teksElem = document.getElementById("teks2");
+            teksElem.innerHTML = "Waiting";
+        }
+
+        function UbahJudul5() {
+            var teksElem = document.getElementById("teks2");
+            teksElem.innerHTML = "Progress";
+        }
+
+        function UbahJudul6() {
+            var teksElem = document.getElementById("teks2");
+            teksElem.innerHTML = "Finish";
+        }
+    </script>
+
     <script>
         function showData(id) {
             $.get('{{ route('hard_req_data') }}', {
@@ -311,31 +399,39 @@
             });
         }
 
-        $('.preview').click(function(){
-        var req_id = $(this).parent().siblings('.req_id').text();
-        var req_no = $(this).parent().siblings('.req_no').text();
-        var req_type = $(this).parent().siblings('.req_type').text();
-        var req_user=$(this).parent().siblings('.req_user').text();
-        var req_alasan=$(this).parent().siblings('.req_alasan').text();
-        if (req_type =='Permintaan Software') {
-            var link="request/acc_soft/"+req_id;
-        }
-        if (req_type =='Pengadaan Hardware') {
-            var link="request/acc_hard/"+req_id;
-        }
-        if (req_type =='Perbaikan Hardware') {
-            // var link="request/acc_hard_fix/"+req_id;
-            var link="#";
-        }
-        $("#acc_link_req").attr("href",link);
-        $("#req_id").val(req_id);
-        $("#req_no").html(req_no);
-        $("#req_type").html(req_type);
-        $("#req_user").html(req_user);
-        $("#req_alasan").html(req_alasan);
+        $('.preview').click(function() {
+            var req_id = $(this).parent().siblings('.req_id').text();
+            var req_no = $(this).parent().siblings('.req_no').text();
+            var req_type = $(this).parent().siblings('.req_type').text();
+            var req_user = $(this).parent().siblings('.req_user').text();
+            var req_progress = $(this).parent().siblings('.req_progress').text();
+            var req_alasan = $(this).parent().siblings('.req_alasan').text();
+            if (req_type == 'Permintaan Software' && req_progress == '-') {
+                var link = "request/acc_soft/" + req_id;
+            }
+            if (req_type == 'Pengadaan Hardware' && req_progress == '-') {
+                var link = "request/acc_hard/" + req_id;
+            }
+            if (req_type == 'Perbaikan Hardware' && req_progress == '-') {
+                var link = "request/acc_hard_fix/" + req_id;
+            }
+            if (req_type == 'Permintaan Software' && req_progress != '-') {
+                var link = "request/acc_soft/finish/" + req_id;
+            }
+            if (req_type == 'Pengadaan Hardware' && req_progress != '-') {
+                var link = "request/acc_hard/finish/" + req_id;
+            }
+            if (req_type == 'Perbaikan Hardware' && req_progress != '-') {
+                var link = "request/acc_hard_fix/finish/" + req_id;
+            }
+            $("#acc_link_req").attr("href", link);
+            $("#req_id").val(req_id);
+            $("#req_no").html(req_no);
+            $("#req_type").html(req_type);
+            $("#req_user").html(req_user);
+            $("#req_alasan").html(req_alasan);
+            $("#req_progress").html(req_progress);
 
-    });
-
+        });
     </script>
-
 @endsection

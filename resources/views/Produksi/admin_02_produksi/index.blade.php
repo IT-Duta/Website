@@ -26,7 +26,6 @@
                         <th>SPV</th>
                         <th>Wiring</th>
                         <th>Mekanik</th>
-                        <th>Status Pekerjaan</th>
                         <th>Tanggal Serah</th>
                         <th>Status Komponen</th>
                         <th>MFD</th>
@@ -71,9 +70,6 @@
                         </td>
                         <td>
                             {{$list->mekanik}}
-                        </td>
-                        <td>
-                            {{$list->status}}
                         </td>
                         <td>
                             {{$list->tgl_serah_ke_qc}}

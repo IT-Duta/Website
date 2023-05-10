@@ -27,9 +27,8 @@
                         <th>PIC Test</th>
                         <th>Catatan Test</th>
                         <th>Status</th>
-                        <th>Tanggal Selesai</th>
-                        <th>Admin</th>
                         <th>Tanggal Input</th>
+                        <th>Admin</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -75,13 +74,10 @@
                             {{-- {{$list->created_at}} --}}
                         </td>
                         <td>
-                            {{$list->actual_qc_pass}}
+                            {{$list->created_at}}
                         </td>
                         <td>
                             {{$list->admin}}
-                        </td>
-                        <td>
-                            {{$list->created_at}}
                         </td>
                         <td>
                             <div class="form-button-action">

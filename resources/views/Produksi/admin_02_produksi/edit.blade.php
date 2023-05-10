@@ -188,10 +188,10 @@
                     <hr>
                     <div class="form-group">
                         <label for="">Tgl Serah produksi ke QC <span class="text-red">*Wajib</span></label>
-                        <input class="form-control" type="datetime-local" name="tgl_serah_ke_qc" id="tgl_serah_ke_qc"
+                        <input readonly class="form-control" type="datetime-local" name="tgl_serah_ke_qc" id="tgl_serah_ke_qc"
                         <?php
                         $current_datetime_1 = (new DateTime())->format('Y-m-d H:i:s');
-
+                        
                         $current_datetime_2 = ($list->tgl_serah_ke_qc == null) ? $current_datetime_1 : $list->tgl_serah_ke_qc ;
                         ?>
                         value="{{$current_datetime_2}}"
@@ -200,7 +200,7 @@
                         {{-- {{$current_datetime_1}}
                         {{$list->tgl_serah_ke_qc}} --}}
                     </div>
-
+                    
                 </div>
 
 
