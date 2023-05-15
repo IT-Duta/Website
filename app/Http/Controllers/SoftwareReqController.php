@@ -25,12 +25,36 @@ class SoftwareReqController extends Controller
     //==============================================================================================================
     public function create()
     {
+        //Nomor urut
+        $bulan = Carbon::now()->format('m');
+        $tahun = Carbon::now()->format('Y');
+        $countno = DB::table('soft_req')->count();
+        if ($countno == 0) {
+            $urut = '001';
+            $nomorform = $urut .  '/EDP-PPS/' . $bulan . '/' . $tahun;
+        } else {
+            $ambilno =
+                DB::table('soft_req')
+                ->select('soft_req_number')
+                ->orderByRaw('SUBSTR(soft_req_number, 1, 3) DESC')
+                ->where('soft_req_number', 'LIKE', '%' . $tahun)
+                ->first();
+            $urut = substr($ambilno->soft_req_number, 0, 3) + 1;
+            if (strlen($urut) == 1) {
+                $urutok = '00' . $urut;
+            } elseif (strlen($urut) == 2) {
+                $urutok = '0' . $urut;
+            } else {
+                $urutok = $urut;
+            }
+            $nomorform = $urutok . '/EDP-PPH/' . $bulan . '/' . $tahun;
+        };
         $lokasi = DB::table('duta_lokasi')->orderBy('id', 'asc')->get();
         $divisi = DB::table('duta_divisi')->orderBy('id', 'asc')->get();
         $list_pc = DB::table('inventaris_PC')->select('pc_unique', 'pc_user', 'pc_number')->whereNotNull('id')->get();
         $list_laptop = DB::table('inventaris_laptop')->select('laptop_unique', 'laptop_user', 'laptop_number')->whereNotNull('id')->get();
         $list_printer = DB::table('inventaris_printer')->select('printer_unique', 'printer_name', 'printer_number', 'printer_location')->whereNotNull('id')->get();
-        return view('Form.Software.Permintaan.soft_req_create')->with(compact('list_pc', 'list_laptop', 'list_printer', 'divisi', 'lokasi'));
+        return view('Form.Software.Permintaan.soft_req_create')->with(compact('nomorform', 'list_pc', 'list_laptop', 'list_printer', 'divisi', 'lokasi'));
     }
     //==============================================================================================================
     public function edit($id)
@@ -56,14 +80,14 @@ class SoftwareReqController extends Controller
     {
         switch ($request->get('type')) {
             case 'create':
-                $soft_req_number = $this->soft_number();
-                $soft_urut = $this->noUrut();
-                $soft_req_unique = 'pps' . md5($soft_req_number);
+                // $soft_req_number = $this->soft_number();
+                // $soft_urut = $this->noUrut();
+                $soft_req_unique = 'pps' . md5($request->get('soft_req_number'));
                 $soft_req_unique = substr($soft_req_unique, 0, 25);
                 DB::table('soft_req')->insert([
-                    'soft_urut' => $soft_urut,
+                    'soft_urut' => '0',
                     'soft_req_unique' => $soft_req_unique,
-                    'soft_req_number' => $soft_req_number,
+                    'soft_req_number' => $request->get('soft_req_number'),
                     'soft_req_user' => $request->get('soft_req_user'),
                     'soft_req_user_id' => Auth::user()->id,
                     'soft_req_divisi' => $request->get('soft_req_divisi'),
@@ -76,7 +100,7 @@ class SoftwareReqController extends Controller
                     'soft_req_reason' => $request->get('soft_req_reason'),
                     'soft_req_other' => $request->get('soft_req_other'),
                     'soft_req_date' => $request->get('soft_req_date'),
-                    'soft_req_status' => 'Progress'
+                    'soft_req_status' => 'Waiting'
 
                 ]);
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')

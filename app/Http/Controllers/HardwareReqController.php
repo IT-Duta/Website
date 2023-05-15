@@ -22,7 +22,7 @@ class HardwareReqController extends Controller
     //=====================================================================================================================
     public function create()
     {
-        //Nomor urut bq
+        //Nomor urut
         $bulan = Carbon::now()->format('m');
         $tahun = Carbon::now()->format('Y');
         $countno = DB::table('hard_req')->count();
@@ -36,7 +36,6 @@ class HardwareReqController extends Controller
                 ->orderByRaw('SUBSTR(hard_req_number, 1, 3) DESC')
                 ->where('hard_req_number', 'LIKE', '%' . $tahun)
                 ->first();
-            // DB::table('hard_req')->orderByDesc(substr('hard_req_number', 0, 3))->first();
             $urut = substr($ambilno->hard_req_number, 0, 3) + 1;
             if (strlen($urut) == 1) {
                 $urutok = '00' . $urut;
@@ -88,7 +87,7 @@ class HardwareReqController extends Controller
                 $hard_req_unique = 'pph' . md5($request->get('hard_req_number'));
                 $hard_req_unique = substr($hard_req_unique, 0, 25);
                 DB::table('hard_req')->insert([
-                    'hard_req_urut' => '1',
+                    'hard_req_urut' => '0',
                     'hard_req_unique' => $hard_req_unique,
                     'hard_req_number' =>  $request->get('hard_req_number'),
                     'hard_req_name' => $request->get('hard_req_name'),
