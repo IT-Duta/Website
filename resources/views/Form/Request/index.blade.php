@@ -62,7 +62,8 @@
                                     <td class="req_user">{{ $hardReq->hard_req_user }}</td>
                                     <td class="req_alasan">{{ Str::limit($hardReq->hard_req_alasan, 50, '...') }}</td>
                                     <td>{{ $hardReq->hard_req_status }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($hardReq->created_at)->format('d M Y') }}</td>
+                                    <td class="req_create">{{ \Carbon\Carbon::parse($hardReq->created_at)->format('d M Y') }}
+                                    </td>
                                     @if ($hardReq->hard_req_progress == '')
                                         <td class="req_progress">-</td>
                                     @else
@@ -259,7 +260,7 @@
                             <th>Keterangan</th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr style="display: none">
                                 <td>Id</td>
                                 <td><input class="form-control" name="req_id" id="req_id" readonly></td>
                             </tr>
@@ -280,6 +281,10 @@
                                 <td><span id="req_alasan"></span></td>
                             </tr>
                             <tr>
+                                <td>Tanggal Buat</td>
+                                <td><span id="req_create"></span></td>
+                            </tr>
+                            <tr>
                                 <td>Tanggal Terima</td>
                                 <td><span id="req_progress"></span></td>
                             </tr>
@@ -287,6 +292,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    {{-- <input class="form-control col-md-6" type="date" value="{{ $now }}" name="tanggal"> --}}
                     <a href="#" id="acc_link_req" class="btn btn-success">Accept</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -404,6 +410,7 @@
             var req_no = $(this).parent().siblings('.req_no').text();
             var req_type = $(this).parent().siblings('.req_type').text();
             var req_user = $(this).parent().siblings('.req_user').text();
+            var req_create = $(this).parent().siblings('.req_create').text();
             var req_progress = $(this).parent().siblings('.req_progress').text();
             var req_alasan = $(this).parent().siblings('.req_alasan').text();
             if (req_type == 'Permintaan Software' && req_progress == '-') {
@@ -430,6 +437,7 @@
             $("#req_type").html(req_type);
             $("#req_user").html(req_user);
             $("#req_alasan").html(req_alasan);
+            $("#req_create").html(req_create);
             $("#req_progress").html(req_progress);
 
         });

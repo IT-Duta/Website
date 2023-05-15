@@ -48,14 +48,17 @@
                                             class="text-primary"><i class="fas fa-print"data-toggle="tooltip"
                                                 data-placement="top" title="Print Data"></i></a>
                                     @endcan
-                                    @if ($hardReq->hard_req_status === 'Progress')
+                                    {{-- @if ($hardReq->hard_req_status === 'Progress')
                                         @can('HardReqUpdate', $hardReq)
                                             <a target="__BLANK" href="{{ route('hard_req_edit', $hardReq->hard_req_unique) }}"
                                                 class="text-primary"><i class="fa fa-edit"data-toggle="tooltip"
                                                     data-placement="top" title="Edit Data"></i></a>
                                         @endcan
-                                    @endif
+                                    @endif --}}
                                     @can('isAdmin')
+                                        <a target="__BLANK" href="{{ route('hard_req_edit', $hardReq->hard_req_unique) }}"
+                                            class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top"
+                                                title="Edit Data"></i></a>
                                         <a onclick="return confirm('Are you sure to delete {{ $hardReq->hard_req_number }} ?');"
                                             href="{{ route('hard_req_delete', $hardReq->hard_req_unique) }}"
                                             class="text-danger"><i class="fa fa-trash"data-toggle="tooltip" data-placement="top"

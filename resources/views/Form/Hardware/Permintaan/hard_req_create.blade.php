@@ -13,39 +13,37 @@
                 @if ($errors->any())
                     <p class="alert alert-danger">{{ $errors->first() }}</p>
                 @endif
-
+                <div style="display: none">
+                    <input name="type" value="create">
+                </div>
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Informasi Header</h5>
                         <br>
                         <div class="mb-3 row col-md-12">
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="Tanggal">Nomor Form</label>
                                 <input readonly name="hard_req_number" type="text" value="{{ $nomorform }}"
                                     class="form-control">
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="hard_req_user">Nama Pengaju</label>
                                 <input type="text" readonly value="{{ Auth::user()->name }}" class="form-control"
                                     name="hard_req_user">
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="Tanggal">Tanggal</label>
                                 <input readonly name="trDate" type="text" value="{{ date('d/m/Y') }}"
                                     class="form-control">
                             </div>
-                            <div class="form-group col-3">
-                                <label for="type">Tipe</label>
-                                <input readonly name="type" type="text" value="create" class="form-control">
-                            </div>
                         </div>
                         <div class="mb-3 row col-md-12">
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="hard_req_referensi">Nomor Referensi</label>
                                 <input name="hard_req_referensi" type="text" value="Kosong" class="form-control"
                                     data-toggle="tooltip" data-placement="top" title="Nomor Referensi Perbaikan Hardware">
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="lokasi">Lokasi</label>
                                 <select required name="hard_req_location" id="hard_req_location"
                                     class="form-control custom-select" style="width:100%">
@@ -55,7 +53,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="hard_req_divisi">Divisi</label>
                                 <select required name="hard_req_divisi" id="hard_req_divisi"
                                     class="form-control custom-select" style="width:100%">
@@ -65,7 +63,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group">
                                 <label for="jenis_barang">Template</label>
                                 <select onChange="showData(this)" id="jenis_barang" class="form-control custom-select"
                                     style="width:100%">
@@ -172,13 +170,15 @@
                     <div class="card-body">
                         <h5 class="card-title">Informasi Lainnya</h5>
                         <br>
-                        <div class="form-group">
-                            <label for="hard_req_other">Permintaan Lainnya</label>
-                            <textarea class="form-control" name="hard_req_other">Tidak Ada</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="hard_req_alasan">Alasan Permintaan</label>
-                            <textarea required class="form-control" name="hard_req_alasan"></textarea>
+                        <div class="mb-3 row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="hard_req_other">Permintaan Lainnya</label>
+                                <textarea class="form-control" name="hard_req_other">Tidak Ada</textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="hard_req_alasan">Alasan Permintaan</label>
+                                <textarea required class="form-control" name="hard_req_alasan"></textarea>
+                            </div>
                         </div>
                         <br>
                         <div class="text-center">

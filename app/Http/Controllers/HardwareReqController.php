@@ -57,8 +57,6 @@ class HardwareReqController extends Controller
     {
         $hardReq = HardReq::where('hard_req_unique', $id)->first();
         $this->authorize('HardReqUpdate', $hardReq);
-        // $list = DB::table('hard_req_general')->where('hard_req_general_unique', '=', $id)->first();
-        // $detail = DB::table('hard_req_detail')->where('hard_req_general_unique', '=', $id)->get();
         return view('Form.Hardware.permintaan.hard_req_edit')->with(compact('hardReq'));
     }
     //=====================================================================================================================
@@ -109,7 +107,6 @@ class HardwareReqController extends Controller
                     'hard_req_printer' => $request->get('hard_req_printer'),
                     'hard_req_other' => $request->get('hard_req_other'),
                     'hard_req_alasan' => $request->get('hard_req_alasan'),
-
                 ]);
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')
                 // ->send(new newFormRequest);
@@ -124,6 +121,8 @@ class HardwareReqController extends Controller
                 $this->authorize('HardReqUpdate', $hardReq);
                 DB::table('hard_req')->where('hard_req_unique', $request->get('hard_req_unique'))->update([
                     'hard_req_status' => $request->get('hard_req_status'),
+                    'hard_req_progress' => $request->get('hard_req_progress'),
+                    'hard_req_finish' => $request->get('hard_req_finish'),
                     'updated_at' => Carbon::now(),
                 ]);
                 return redirect()->back()->with('status', 'Data has been updated');
@@ -136,7 +135,6 @@ class HardwareReqController extends Controller
                     'hard_req_price' => $request->get('hard_req_price'),
                     'hard_req_vendor' => $request->get('hard_req_vendor'),
                     'hard_req_date' => $request->get('hard_req_date')
-
                 ]);
                 return redirect()->back()->with('status', 'Data has been updated');
                 break;
