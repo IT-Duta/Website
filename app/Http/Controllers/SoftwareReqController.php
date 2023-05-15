@@ -47,7 +47,7 @@ class SoftwareReqController extends Controller
             } else {
                 $urutok = $urut;
             }
-            $nomorform = $urutok . '/EDP-PPH/' . $bulan . '/' . $tahun;
+            $nomorform = $urutok . '/EDP-PPS/' . $bulan . '/' . $tahun;
         };
         $lokasi = DB::table('duta_lokasi')->orderBy('id', 'asc')->get();
         $divisi = DB::table('duta_divisi')->orderBy('id', 'asc')->get();

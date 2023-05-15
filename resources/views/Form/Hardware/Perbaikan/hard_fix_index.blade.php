@@ -1,8 +1,8 @@
 @extends('layout.main')
 @section('title')
     Permintaan Perbaikan Hardware
-    @endsection
-    @section('main_header')
+@endsection
+@section('main_header')
     Permintaan Perbaikan Hardware
 @endsection
 @section('header')
@@ -34,9 +34,8 @@
                     </thead>
                     <tbody>
                         <?php $nomor = 1; ?>
-                        {{-- @can('HardFixView',$hardFixG) --}}
+                        {{-- @can('HardFixView', $hardFixG) --}}
                         @foreach ($hardFixG as $hardFixG)
-
                             <tr>
                                 <td><?php echo $nomor; ?></td>
                                 <td>{{ $hardFixG->hard_fix_number }}</td>
@@ -48,14 +47,22 @@
                                 <td>{{ $hardFixG->hard_fix_penyelesaian }}</td>
                                 <td>{{ $hardFixG->hard_fix_status }}</td>
                                 <td>
-                                    @if ($hardFixG->hard_fix_status === 'Progress')
-                                    @can('isAdmin',$hardFixG)
-                                    <a href="{{ route('hard_fix_edit', $hardFixG->hard_fix_general_unique) }}" class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top" title="Edit Data"></i></a>
+                                    {{-- @if ($hardFixG->hard_fix_status === 'Progress') --}}
+                                    @can('isAdmin', $hardFixG)
+                                        <a href="{{ route('hard_fix_edit', $hardFixG->hard_fix_general_unique) }}"
+                                            class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top"
+                                                title="Edit Data"></i></a>
                                     @endcan
-                                    @endif
-                                    <a target="_BLANK" href="{{ route('hard_fix_print', $hardFixG->hard_fix_general_unique) }}" class="text-success"><i class="fas fa-print"data-toggle="tooltip" data-placement="top" title="Print Data"></i></a>
+                                    {{-- @endif --}}
+                                    <a target="_BLANK"
+                                        href="{{ route('hard_fix_print', $hardFixG->hard_fix_general_unique) }}"
+                                        class="text-success"><i class="fas fa-print"data-toggle="tooltip"
+                                            data-placement="top" title="Print Data"></i></a>
                                     @can('isAdmin')
-                                    <a onclick="return confirm('Are you sure to delete {{ $hardFixG->hard_fix_number }} ?');" href="{{ route('hard_fix_delete', $hardFixG->hard_fix_general_unique) }}" class="text-danger"><i class="fas fa-trash"data-toggle="tooltip" data-placement="top" title="Delete Data"></i></a>
+                                        <a onclick="return confirm('Are you sure to delete {{ $hardFixG->hard_fix_number }} ?');"
+                                            href="{{ route('hard_fix_delete', $hardFixG->hard_fix_general_unique) }}"
+                                            class="text-danger"><i class="fas fa-trash"data-toggle="tooltip"
+                                                data-placement="top" title="Delete Data"></i></a>
                                     @endcan
                                 </td>
                             </tr>
@@ -69,14 +76,11 @@
         </div>
 
     </div>
-
 @endsection
 @section('javascript')
-
     <script>
         $(document).ready(function() {
-    $('#perbaikan_master').DataTable();
-} );
+            $('#perbaikan_master').DataTable();
+        });
     </script>
-
 @endsection

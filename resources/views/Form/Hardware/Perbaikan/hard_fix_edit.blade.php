@@ -23,8 +23,7 @@
                         </h5>
                     </div>
 
-                    <div id="hardware_general" class="collapse" aria-labelledby="headingOne"
-                        data-parent="#accordionOne">
+                    <div id="hardware_general" class="collapse" aria-labelledby="headingOne" data-parent="#accordionOne">
                         <div class="card-body">
                             <form method='post' action="{{ route('hard_fix_update') }}" enctype="multipart/form-data">
                                 {!! csrf_field() !!}
@@ -45,21 +44,21 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="hard_fix_user" class="col-md">Nama User</label>
-                                            <input readonly required type="text" class="col-md form-control" name="hard_fix_user"
-                                                value="{{ $list->hard_fix_user }}">
+                                            <input readonly required type="text" class="col-md form-control"
+                                                name="hard_fix_user" value="{{ $list->hard_fix_user }}">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group row">
                                             <label for="hard_fix_divisi" class="col-md">Divisi</label>
-                                            <input readonly required type="text" class="col-md form-control" name="hard_fix_divisi"
-                                                value="{{ $list->hard_fix_divisi }}">
+                                            <input readonly required type="text" class="col-md form-control"
+                                                name="hard_fix_divisi" value="{{ $list->hard_fix_divisi }}">
                                         </div>
                                         <div class="form-group row">
                                             <label for="hard_fix_location" class="col-md">Lokasi</label>
-                                            <input readonly required type="text" class="col-md form-control" name="hard_fix_location"
-                                                value="{{ $list->hard_fix_location }}">
+                                            <input readonly required type="text" class="col-md form-control"
+                                                name="hard_fix_location" value="{{ $list->hard_fix_location }}">
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +83,6 @@
                                         id="hard_fix_hardware_unique">
                                 </div>
 
-
                                 <div class="form-group row">
                                     <label for="hardware_fix_number" class="col-md-3">No Perbaikan</label>
                                     <input required readonly type="text" class="col-md form-control"
@@ -101,28 +99,36 @@
 
                                 <div class="form-group row">
                                     <label for="hard_fix_uraian" class="col-md-3">Uraian</label>
-                                    <textarea name="hard_fix_uraian" required
-                                        class="col-md form-control">{{ $list->hard_fix_uraian }}</textarea>
+                                    <textarea name="hard_fix_uraian" required class="col-md form-control">{{ $list->hard_fix_uraian }}</textarea>
                                 </div>
                                 <div class="form-group row">
                                     <label for="hard_fix_analisa" class="col-md-3">Analisa</label>
-                                    <textarea name="hard_fix_analisa" required
-                                        class="col-md form-control">{{ $list->hard_fix_analisa }}</textarea>
+                                    <textarea name="hard_fix_analisa" required class="col-md form-control">{{ $list->hard_fix_analisa }}</textarea>
                                 </div>
                                 <div class="form-group row">
                                     <label for="hard_fix_penyelesaian" class="col-md-3">Penyelesaian</label>
-                                    <textarea name="hard_fix_penyelesaian" required
-                                        class="col-md form-control">{{ $list->hard_fix_penyelesaian }}</textarea>
+                                    <textarea name="hard_fix_penyelesaian" required class="col-md form-control">{{ $list->hard_fix_penyelesaian }}</textarea>
                                 </div>
                                 <div class="form-group row">
                                     <label for="hard_fix_status" class="col-md-3">Status</label>
                                     <select class="custom-select col-md" name="hard_fix_status">
-
                                         <option>{{ $list->hard_fix_status }}</option>
                                         <option value="Progress">Progress</option>
-                                        <option value="Selesai">Selesai</option>
+                                        <option value="Finish">Finish</option>
                                         <option value="Batal">Batal</option>
                                     </select>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Tanggal" class="col-md-3">Tanggal Progress</label>
+                                    <input name="hard_fix_progress" type="text" class="form-control col-md"
+                                        value="{{ $list->hard_fix_progress }}">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Tanggal" class="col-md-3">Tanggal Finish</label>
+                                    <input name="hard_fix_finish" type="text" class="form-control col-md"
+                                        value="{{ $list->hard_fix_finish }}">
                                 </div>
 
                                 <div class="text-center">
@@ -138,15 +144,14 @@
                 <div class="card">
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
-                            <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#hardware_detail"
-                                aria-expanded="false" aria-controls="hardware_detail">
+                            <button class="btn btn-primary btn-block" data-toggle="collapse"
+                                data-target="#hardware_detail" aria-expanded="false" aria-controls="hardware_detail">
                                 Detail
                             </button>
                         </h5>
                     </div>
 
-                    <div id="hardware_detail" class="collapse" aria-labelledby="headingTwo"
-                        data-parent="#accordionTwo">
+                    <div id="hardware_detail" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionTwo">
                         <div class="card-body">
                             <div class="d-flex justify-content-end py-1">
 
@@ -213,7 +218,8 @@
                             @endif
                             <div class=" form-group row">
                                 <label for="type" class=" col">Tipe</label>
-                                <input name="type" type="text" required value="detail" readonly class="form-control col">
+                                <input name="type" type="text" required value="detail" readonly
+                                    class="form-control col">
                             </div>
                             <div class=" form-group row">
                                 <label for="hardware_fix_unique_id" class=" col">Perbaikan ID </label>
@@ -255,8 +261,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('javascript')
     <script>
