@@ -18,9 +18,9 @@ class RequestViewController extends Controller
     public function index()
     {
         $now = Carbon::now()->format('Y-m-d');
-        $hardReq = HardReq::whereNotIn('hard_req_status', ['Finish'])->get();
-        $hardFix = HardFixG::whereNotIn('hard_fix_status', ['Finish'])->get();
-        $SoftReq = SoftReq::whereNotIn('soft_req_status', ['Finish'])->get();
+        $hardReq = HardReq::whereNotIn('hard_req_status', ['Finish', 'Batal'])->get();
+        $hardFix = HardFixG::whereNotIn('hard_fix_status', ['Finish', 'Batal'])->get();
+        $SoftReq = SoftReq::whereNotIn('soft_req_status', ['Finish', 'Batal'])->get();
         //    $ink=InkReport::whereNotIn('ink_status',['Selesai','Batal'])->get();
         return view('Form.Request.index')->with(compact('hardReq', 'hardFix', 'SoftReq', 'now'));
     }
