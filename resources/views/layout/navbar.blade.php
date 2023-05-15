@@ -3,7 +3,7 @@
             <div class="logo-header" data-background-color="blue">
 
                 <a href="{{ route('dashboard') }}" class="logo">
-                   <img src="{{asset('images/logo.png')}}" alt="logo edp" width="100%" height="100%">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo edp" width="100%" height="100%">
                 </a>
 
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
@@ -32,12 +32,11 @@
 
                         {{-- Untuk Admin --}}
                         @can('isAdmin')
-
-
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="notification"> {{ $hard_req_progress + $hard_fix_progress + $soft_req_progress }} </span>
+                                    <span class="notification">
+                                        {{ $hard_req_progress + $hard_fix_progress + $soft_req_progress }} </span>
                                     <i class="fa fa-bell"></i>
                                     Notification
                                 </a>
@@ -55,12 +54,13 @@
                                                     </div>
                                                     <div class="notif-content">
                                                         <span class="block">
-                                                            You have {{ $hard_req_progress }} of Hardware request in progress
+                                                            You have {{ $hard_req_progress }} of Hardware request in
+                                                            progress
                                                         </span>
                                                         {{-- <span class="time">5 minutes ago</span> --}}
                                                     </div>
                                                 </a>
-                                                <a href="{{ route('hard_fix_index') }}"  class="notif-hover">
+                                                <a href="{{ route('hard_fix_index') }}" class="notif-hover">
                                                     <div class="notif-icon notif-success"> <i class="fas fa-archive"></i>
                                                     </div>
                                                     <div class="notif-content">
@@ -71,7 +71,7 @@
                                                     </div>
                                                 </a>
 
-                                                <a href="{{ route('soft_req_index') }}"  class="notif-hover">
+                                                <a href="{{ route('soft_req_index') }}" class="notif-hover">
                                                     <div class="notif-icon notif-danger"> <i class="fab fa-accusoft"></i>
                                                     </div>
                                                     <div class="notif-content">
@@ -81,8 +81,9 @@
                                                         {{-- <span class="time">17 minutes ago</span> --}}
                                                     </div>
                                                 </a>
-                                                <a href="{{ route('request') }}"  class="notif-hover">
-                                                    <div class="notif-icon notif-success"> <i class="fas fa-exclamation"></i>
+                                                <a href="{{ route('request') }}" class="notif-hover">
+                                                    <div class="notif-icon notif-success"> <i
+                                                            class="fas fa-exclamation"></i>
                                                     </div>
                                                     <div class="notif-content">
                                                         <span class="block">
@@ -97,23 +98,23 @@
 
                                 </ul>
                             </li>
-                            @endcan
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('ticket-create')}}">
-                                    <i class="fas fa-ticket-alt"></i>
-                                    <span>
-                                        New Ticket
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('procurement_index')}}">
-                                    <i class="fas fa-ticket-alt"></i>
-                                    <span>
-                                        PPB Track
-                                    </span>
-                                </a>
-                            </li>
+                        @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('ticket-create') }}">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>
+                                    New Ticket
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('procurement_index') }}">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>
+                                    PPB Track
+                                </span>
+                            </a>
+                        </li>
                         <li class="nav-item dropdown hidden-caret">
                             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                                 <i class="fas fa-box"></i>
@@ -128,26 +129,28 @@
                                     <div class="quick-actions-items">
                                         <div class="row m-0">
                                             @can('isGA')
-                                            <a class="col-6 col-md-6 p-0"href="{{ route('ga.masterItem') }}">
-                                                <div class="quick-actions-item notif-hover">
-                                                    <i class="flaticon-database"></i>
-                                                    <span class="text">Daftar Barang</span>
-                                                </div>
-                                            </a>
-                                            <a class="col-6 col-md-6 p-0" href="{{ route('ga.masterWarehouse') }}">
-                                                <div class="quick-actions-item notif-hover">
-                                                    <i class="flaticon-pen"></i>
-                                                    <span class="text">Daftar Gudang</span>
-                                                </div>
-                                            </a>
+                                                <a class="col-6 col-md-6 p-0"href="{{ route('ga.masterItem') }}">
+                                                    <div class="quick-actions-item notif-hover">
+                                                        <i class="flaticon-database"></i>
+                                                        <span class="text">Daftar Barang</span>
+                                                    </div>
+                                                </a>
+                                                <a class="col-6 col-md-6 p-0" href="{{ route('ga.masterWarehouse') }}">
+                                                    <div class="quick-actions-item notif-hover">
+                                                        <i class="flaticon-pen"></i>
+                                                        <span class="text">Daftar Gudang</span>
+                                                    </div>
+                                                </a>
                                             @endcan
-                                            <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('ga.ItemWarehouse') }}">
+                                            <a class="col-6 col-md-6 p-0"
+                                                accesskey="f"href="{{ route('ga.ItemWarehouse') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-interface-1"></i>
                                                     <span class="text">Stok Barang</span>
                                                 </div>
                                             </a>
-                                            <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('ga.reportIndex') }}">
+                                            <a class="col-6 col-md-6 p-0"
+                                                accesskey="f"href="{{ route('ga.reportIndex') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-interface-1"></i>
                                                     <span class="text">Report Permintaan Barang</span>
@@ -172,25 +175,30 @@
                                 <div class="quick-actions-scroll scrollbar-outer">
                                     <div class="quick-actions-items">
                                         <div class="row m-0">
-                                            <a class="col-6 col-md-6 p-0"accesskey="s"href="{{ route('soft_req_create') }}">
+                                            <a
+                                                class="col-6 col-md-6 p-0"accesskey="s"href="{{ route('soft_req_create') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-database"></i>
                                                     <span class="text">Pengadaan Software<br> (Alt + S)</span>
                                                 </div>
                                             </a>
-                                            <a class="col-6 col-md-6 p-0" accesskey="h" href="{{ route('hard_req_create') }}">
+                                            <a class="col-6 col-md-6 p-0" accesskey="h"
+                                                href="{{ route('hard_req_create') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-pen"></i>
                                                     <span class="text">Pengadaan Hardware<br> (Alt + H)</span>
                                                 </div>
                                             </a>
-                                            <a class="col-6 col-md-6 p-0" accesskey="f"href="{{ route('hard_fix_create') }}">
+                                            <a class="col-6 col-md-6 p-0"
+                                                accesskey="f"href="{{ route('hard_fix_create') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-interface-1"></i>
-                                                    <span class="text">Perbaikan Hardware <br>(Alt + Shift + F)</span>
+                                                    <span class="text">Perbaikan Hardware <br>(Alt + Shift +
+                                                        F)</span>
                                                 </div>
                                             </a>
-                                            <a class="col-6 col-md-6 p-0" accesskey="t"href="{{ route('ink_index') }}">
+                                            <a class="col-6 col-md-6 p-0"
+                                                accesskey="t"href="{{ route('ink_index') }}">
                                                 <div class="quick-actions-item notif-hover">
                                                     <i class="flaticon-list"></i>
                                                     <span class="text">Permintaan Tinta <br>(Alt + T)</span>
@@ -226,7 +234,8 @@
                                     <li>
                                         <div class="user-box">
                                             <div class="u-text">
-                                               <a class="dropdown-item" href="{{route('users.view',Auth::user()->id)}}">My Profile</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('users.view', Auth::user()->id) }}">My Profile</a>
                                             </div>
                                         </div>
                                     </li>
@@ -345,7 +354,7 @@
                                         </li>
                                         <li>
                                             <a href="{{ route('soft_req_index') }}">
-                                                <span class="sub-item">List Software</span>
+                                                <span class="sub-item">List Permintaan Software</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -521,27 +530,27 @@
                             </li>
                         @endcan
 
-                            <li class="nav-section">
-                                <span class="sidebar-mini-icon">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </span>
-                                <h4 class="text-section">Produksi</h4>
-                            </li>
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">Produksi</h4>
+                        </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('pn_00_panel_display') }}">
+                        <li class="nav-item">
+                            <a href="{{ route('pn_00_panel_display') }}">
                                 {{-- <a href="{{ route('produksi_index') }}"> --}}
-                                    <i class="fas fa-tv"></i>
-                                    <p>View</p>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ Request::is('*/panel/*') ? 'active' : '' }}">
-                                {{-- <a href="{{ route('pro_index_panel') }}"> --}}
-                                <a href="{{ route('pn_00_panel') }}">
-                                    <i class="fas fa-list"></i>
-                                    <p>Panel</p>
-                                </a>
-                            </li>
+                                <i class="fas fa-tv"></i>
+                                <p>View</p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ Request::is('*/panel/*') ? 'active' : '' }}">
+                            {{-- <a href="{{ route('pro_index_panel') }}"> --}}
+                            <a href="{{ route('pn_00_panel') }}">
+                                <i class="fas fa-list"></i>
+                                <p>Panel</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
