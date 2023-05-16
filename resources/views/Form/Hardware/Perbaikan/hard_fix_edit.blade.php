@@ -17,9 +17,7 @@
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                             <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#hardware_general"
-                                aria-expanded="false" aria-controls="hardware_general">
-                                General
-                            </button>
+                                aria-expanded="false" aria-controls="hardware_general">General</button>
                         </h5>
                     </div>
 
@@ -48,7 +46,6 @@
                                                 name="hard_fix_user" value="{{ $list->hard_fix_user }}">
                                         </div>
                                     </div>
-
                                     <div class="col">
                                         <div class="form-group row">
                                             <label for="hard_fix_divisi" class="col-md">Divisi</label>
@@ -62,7 +59,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="type" class="col-md-3">Type</label>
                                     <input required readonly type="text" class="col-md form-control" name="type"
@@ -73,7 +69,6 @@
                                     <input required readonly type="text" class="col-md form-control"
                                         value="{{ $list->hard_fix_hardware_name }}" name="hard_fix_hardware_name"
                                         id="hard_fix_hardware_name">
-
                                 </div>
 
                                 <div class="form-group row">

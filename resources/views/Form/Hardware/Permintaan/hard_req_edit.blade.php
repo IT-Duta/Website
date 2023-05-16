@@ -164,12 +164,12 @@
                         <div class="row col-md-12">
                             <div class="form-group">
                                 <label for="Tanggal">Tanggal Progress</label>
-                                <input name="soft_req_progress" type="text" class="form-control"
+                                <input name="hard_req_progress" type="text" class="form-control"
                                     value="{{ $hardReq->hard_req_progress }}">
                             </div>
                             <div class="form-group">
                                 <label for="Tanggal">Tanggal Finish</label>
-                                <input name="soft_req_finish" type="text" class="form-control"
+                                <input name="hard_req_finish" type="text" class="form-control"
                                     value="{{ $hardReq->hard_req_finish }}">
                             </div>
                             <div class="form-group">
@@ -177,7 +177,7 @@
                                 <select class="custom-select col-md" name="hard_req_status">
                                     <option>{{ $hardReq->hard_req_status }}</option>
                                     <option value="Progress">Progress</option>
-                                    <option value="Selesai">Selesai</option>
+                                    <option value="Finish">Finish</option>
                                     <option value="Batal">Batal</option>
                                 </select>
                             </div>

@@ -104,8 +104,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/monitor-{id}', 'monitorController@edit')->name('monitor_edit');
     Route::post('/inventaris/monitor-update', 'monitorController@update')->name('monitor_update');
     Route::get('/inventaris/monitor/d/{id}', 'monitorController@destroy')->name('monitor_destroy');
+    Route::get('/inventaris/monitor_qr/{id}', 'monitorController@monitor_pc_generator')->name('monitor_qr');
     Route::get('/inventaris/monitor/export', 'monitorController@export')->name('monitor_export');
     Route::post('/inventaris/monitor/import', 'monitorController@import')->name('monitor_import');
+
     // Untuk Inventaris Printer
     Route::get('/inventaris/printer', 'PrinterController@index')->name('printer_index');
     Route::get('/inventaris/printer-create', 'PrinterController@create')->name('printer_create');

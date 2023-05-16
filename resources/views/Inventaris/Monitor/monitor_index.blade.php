@@ -12,11 +12,10 @@
         <a href="{{ route('monitor_create') }}" class="btn btn-secondary btn-round">Add Monitor</a>
         <button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#importModal">
             Import
-          </button>
+        </button>
     @endsection
 @endcan
 @section('content')
-
     <div class="card card-shadow">
         <div class="card-shadow">
             <div class="table-responsive text-center ">
@@ -40,7 +39,7 @@
                     <tbody>
                         <?php $nomor = 1; ?>
                         @foreach ($list as $list)
-                        {{-- {{dd($list->monitor_number)}} --}}
+                            {{-- {{dd($list->monitor_number)}} --}}
 
                             <tr>
                                 <td><?php echo $nomor; ?></td>
@@ -55,56 +54,64 @@
                                 <td>{{ $list->created_at }}</td>
                                 <td>
                                     @can('isAdmin')
-                                        <a href="{{ route('monitor_edit', $list->id) }}" class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top" title="Edit Data"></i></a>
-                                        <a  onclick="return confirm('Are you sure to delete {{ $list->monitor_number }} ?');" href="{{ route('monitor_destroy', $list->id) }}" class="text-danger"><i class="fa fa-trash"data-toggle="tooltip" data-placement="top" title="Delete Data"></i></a>
+                                        <a href="{{ route('monitor_edit', $list->id) }}" class="text-primary"><i
+                                                class="fa fa-edit"data-toggle="tooltip" data-placement="top"
+                                                title="Edit Data"></i></a>
+                                        <a onclick="return confirm('Are you sure to delete {{ $list->monitor_number }} ?');"
+                                            href="{{ route('monitor_destroy', $list->id) }}" class="text-danger"><i
+                                                class="fa fa-trash"data-toggle="tooltip" data-placement="top"
+                                                title="Delete Data"></i></a>
+                                        <a target="__blank"
+                                            onclick="return confirm('Yakin ingin Print {{ $list->monitor_number }} ?')"
+                                            href="{{ route('monitor_qr', ['id' => $list->monitor_unique]) }}"
+                                            class="btn btn-sm btn-primary">Print QR</a>
                                     @endcan
                                     {{-- <a href="{{ route('pc_report', $list->pc_unique) }}" class="text-success"><i class="fa fa-print"data-toggle="tooltip" data-placement="top" title="Report"></i></a> --}}
                                     {{-- <a target="__blank" onclick="return confirm('Yakin ingin Print {{$list->pc_number}} ?')" href="{{ route('pc_qr', ['id' => $list->pc_unique]) }}" --}}
-                                        {{-- class="btn btn-sm btn-primary">Print QR</a> --}}
+                                    {{-- class="btn btn-sm btn-primary">Print QR</a> --}}
                                 </td>
                             </tr>
 
                             <?php $nomor++; ?>
-
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-<!-- Modal -->
-<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="importModalLabel">Import</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method="POST" action="{{route('monitor_import')}}" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                <div class="form-group">
-                  <label for="exampleFormControlFile1"><h3>Import File Monitor</h3></label>
-                  <input type="file" class="form-control-file form-control" name="your_file"id="exampleFormControlFile1">
+    <!-- Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('monitor_import') }}" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">
+                                <h3>Import File Monitor</h3>
+                            </label>
+                            <input type="file" class="form-control-file form-control"
+                                name="your_file"id="exampleFormControlFile1">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success mt-3 btn-block">Confirm</button>
+                    </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-success mt-3 btn-block">Confirm</button>
-            </form>
         </div>
-      </div>
     </div>
-  </div>
-
-
-    @endsection
-    @section('javascript')
-
-        <script>
-            $(document).ready(function() {
-        $('#monitor_master').DataTable();
-    } );
-        </script>
-        @endsection
+@endsection
+@section('javascript')
+    <script>
+        $(document).ready(function() {
+            $('#monitor_master').DataTable();
+        });
+    </script>
+@endsection
