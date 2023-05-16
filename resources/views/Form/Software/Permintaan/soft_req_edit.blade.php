@@ -81,12 +81,12 @@
                 <div class="row col-md-12">
                     <div class="form-group">
                         <label for="Tanggal">Tanggal Progress</label>
-                        <input name="soft_req_progress" type="text" class="form-control"
+                        <input name="soft_req_progress" type="date" class="form-control"
                             value="{{ $softReq->soft_req_progress }}">
                     </div>
                     <div class="form-group">
                         <label for="Tanggal">Tanggal Finish</label>
-                        <input name="soft_req_finish" type="text" class="form-control"
+                        <input name="soft_req_finish" type="date" class="form-control"
                             value="{{ $softReq->soft_req_finish }}">
                     </div>
                     <div class="form-group">

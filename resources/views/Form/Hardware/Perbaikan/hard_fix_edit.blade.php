@@ -116,13 +116,13 @@
 
                                 <div class="form-group row">
                                     <label for="Tanggal" class="col-md-3">Tanggal Progress</label>
-                                    <input name="hard_fix_progress" type="text" class="form-control col-md"
+                                    <input name="hard_fix_progress" type="date" class="form-control col-md"
                                         value="{{ $list->hard_fix_progress }}">
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="Tanggal" class="col-md-3">Tanggal Finish</label>
-                                    <input name="hard_fix_finish" type="text" class="form-control col-md"
+                                    <input name="hard_fix_finish" type="date" class="form-control col-md"
                                         value="{{ $list->hard_fix_finish }}">
                                 </div>
 
