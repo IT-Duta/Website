@@ -18,6 +18,7 @@ class HardwareFixController extends Controller
         $hardFixG = DB::table('hard_fix_general')->orderByRaw('SUBSTR(hard_fix_number, -2) DESC')->orderByRaw('SUBSTR(hard_fix_number, 1, 3) DESC')->get();
         return view('Form.Hardware.Perbaikan.hard_fix_index')->with(compact('hardFixG'));
     }
+    //==========================================================================================
     public function create()
     {
         //Nomor urut
@@ -51,6 +52,7 @@ class HardwareFixController extends Controller
         $list_printer = DB::table('inventaris_printer')->select('printer_unique', 'printer_name', 'printer_number', 'printer_location')->whereNotNull('id')->get();
         return view('Form.Hardware.Perbaikan.hard_fix_create')->with(compact('nomorform', 'list_pc', 'list_laptop', 'list_printer', 'lokasi', 'divisi'));
     }
+    //==========================================================================================
     public function edit($id, HardFixG $hardFixG)
     {
         // $this->authorize('HardFixUpdate',$hardFixG);
@@ -58,6 +60,7 @@ class HardwareFixController extends Controller
         $detail = DB::table('hard_fix_detail')->where('hard_fix_general_unique', '=', $id)->get();
         return view('Form.Hardware.Perbaikan.hard_fix_edit')->with(compact('list', 'detail', 'hardFixG'));
     }
+    //==========================================================================================
     public function destroy($id)
     {
         // $this->authorize('isAdmin');
@@ -105,7 +108,7 @@ class HardwareFixController extends Controller
             case 'create':
                 // $hard_fix_number = $this->hard_number();
                 // $hard_urut = $this->noUrut();
-                $hard_fix_general_unique = 'phs' . md5($request->get('soft_fix_number'));
+                $hard_fix_general_unique = 'phs' . md5($request->get('hard_fix_number'));
                 $hard_fix_general_unique = substr($hard_fix_general_unique, 0, 25);
                 DB::table('hard_fix_general')->insert([
                     'hard_urut' => '0',

@@ -47,13 +47,11 @@
                                 <td>{{ $hardFixG->hard_fix_penyelesaian }}</td>
                                 <td>{{ $hardFixG->hard_fix_status }}</td>
                                 <td>
-                                    {{-- @if ($hardFixG->hard_fix_status === 'Progress') --}}
                                     @can('isAdmin', $hardFixG)
                                         <a href="{{ route('hard_fix_edit', $hardFixG->hard_fix_general_unique) }}"
                                             class="text-primary"><i class="fa fa-edit"data-toggle="tooltip" data-placement="top"
                                                 title="Edit Data"></i></a>
                                     @endcan
-                                    {{-- @endif --}}
                                     <a target="_BLANK"
                                         href="{{ route('hard_fix_print', $hardFixG->hard_fix_general_unique) }}"
                                         class="text-success"><i class="fas fa-print"data-toggle="tooltip"
