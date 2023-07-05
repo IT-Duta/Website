@@ -122,7 +122,7 @@ class HardwareFixController extends Controller
                     'hard_fix_hardware_name' => $request->get('hard_fix_hardware_name'),
                     'hard_fix_uraian' => $request->get('hard_fix_uraian'),
                     'hard_fix_status' => 'Waiting',
-                    'create_at' => $request->get('hardware_fix_tanggal'),
+                    // 'create_at' => $request->get('hardware_fix_tanggal'),
                 ]);
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')
                 // ->send(new newFormRequest);
