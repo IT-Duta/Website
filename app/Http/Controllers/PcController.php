@@ -48,13 +48,15 @@ class PcController extends Controller
         $list = DB::table('inventaris_pc')->where('pc_unique', '=', $id)->first();
         $report = DB::table('inventaris_pc_log')->where('pc_unique', '=', $id)->get();
         $fix = DB::table('hard_fix_general')->where('hard_fix_hardware_unique', '=', $id)->get();
-        $rawat = DB::table('maintenance as m')
-            ->select('m.*', 'ip.pc_user', 'loc.loc_name', 'kar.k_nama')
-            ->join('inventaris_pc as ip', 'ip.id', '=', 'm.id_pc')
-            ->join('duta_lokasi as loc', 'loc.id', '=', 'm.id_lokasi')
-            ->join('duta_karyawan as kar', 'kar.id', '=', 'm.id_pic')
-            ->get();
-        // dd($rawat);
+        $rawat = DB::table('it_perawatanpc as m')
+            ->select('m.*', 'ip.pc_user', 'ip.pc_unique', 'ip.pc_number','ip.pc_location')
+             ->join('inventaris_pc as ip', 'ip.pc_number', '=', 'm.nomor_cpu')
+            // ->join('duta_lokasi as loc', 'loc.loc_name', '=', 'm.lokasi')
+             //  ->join('duta_karyawan as kar', 'kar.k_nama', '=', 'm.user')
+             ->where('ip.pc_unique', '=', $id)
+             ->get();
+         // dd($rawat);
+          //dd($id);
         return view('Inventaris.PC.pc_report')->with(compact('list', 'report', 'fix', 'rawat'));
     }
     //=================================================================================================
