@@ -161,9 +161,9 @@
                     <div class="col">: {{ $general->hard_fix_hardware_name }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">Jam Permohonan</div>
+                    {{-- <div class="col-5">Jam Permohonan</div> --}}
                     {{-- <div class="col">: {{ date('h:i:s A'), strtotime($general->created_at) }}</div> --}}
-                    <div class="col">: {{ date('d-m-Y', strtotime($general->created_at . ' + 7 days')) }}</div>
+                    {{-- <div class="col">: {{ date('d-m-Y', strtotime($general->created_at . ' + 7 days')) }}</div> --}}
                 </div>
 
             </div>
