@@ -8,7 +8,7 @@
 @can('isAdmin')
     @section('header')
         <a href="{{ route('pc_export') }}" class="btn btn-primary btn-round">Export PC</a>
-        <a href="{{ route('pc_import_view') }}" class="btn btn-primary btn-round">Import PC</a>
+        <a href="{{ route('pc_import_view') }}" class="btn btn-secondary btn-round">Import PC</a>
         <a href="{{ route('pc_create') }}" class="btn btn-secondary btn-round">Add PC</a>
     @endsection
 @endcan

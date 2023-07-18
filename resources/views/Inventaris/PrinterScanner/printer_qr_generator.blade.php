@@ -10,7 +10,8 @@
     <div style='text-align: center;'>
         <!-- insert your custom barcode setting your data in the GET parameter "data" -->
         <img alt='Barcode Generator TEC-IT'
-             src='https://barcode.tec-it.com/barcode.ashx?data={{ url('http://116.197.128.230/qr-printer-view/'.$id) }}&code=QRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&codepage=Default&qunit=Mm&quiet=0&hidehrt=False&eclevel=L'/>
+             src='https://barcode.tec-it.com/barcode.ashx?data={{ url('http://116.197.128.230/inventaris/printer-report/'.$id) }}&code=QRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&codepage=Default&qunit=Mm&quiet=0&hidehrt=False&eclevel=L'/>
+             <p>{{ $printer_no->printer_number }}</p>
       </div>
       <div style='padding-top:8px; text-align:center; font-size:15px; font-family: Source Sans Pro, Arial, sans-serif;'>
         <!-- back-linking to www.tec-it.com is required -->

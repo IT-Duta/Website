@@ -112,11 +112,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/printer', 'PrinterController@index')->name('printer_index');
     Route::get('/inventaris/printer-create', 'PrinterController@create')->name('printer_create');
     Route::get('/inventaris/printer-edit/{id}', 'PrinterController@edit')->name('printer_edit');
-
     Route::get('/inventaris/printer-ink/{id}', 'PrinterController@printer_ink')->name('printer_ink');
     Route::get('/inventaris/printer-report/{id}', 'PrinterController@report')->name('printer_report');
     Route::get('/inventaris/printer-del/{id}', 'PrinterController@destroy')->name('printer_del');
     Route::post('/inventaris/printer-update', 'PrinterController@update')->name('printer_update');
+    Route::get('/inventaris/printer-qr/{id}', 'PrinterController@printer_qr_generator')->name('printer_qr');
 
     // Export Stock Tinta
     Route::get('/inventaris/tinta/export', 'InkController@export')->name('ink_export');

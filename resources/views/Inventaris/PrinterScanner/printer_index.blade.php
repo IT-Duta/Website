@@ -45,6 +45,7 @@
                                     <a href="{{ route('printer_del', $list->printer_unique) }}" class="text-danger"><i class="fa fa-trash"data-toggle="tooltip" data-placement="top" title="Delete Data"></i></a>
                                     @endcan
                                     <a href="{{ route('printer_report', $list->printer_unique) }}" class="text-success"><i class="fa fa-print"data-toggle="tooltip" data-placement="top" title="Report"></i></a>
+                                    <a href="{{ route('printer_qr', $list->printer_unique) }}" class="text-secondaryx`"><i class="fa fa-qrcode"data-toggle="tooltip" data-placement="top" title="QR Print"></i></a>
                                 </td>
                             </tr>
                         @endforeach
