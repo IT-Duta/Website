@@ -111,8 +111,8 @@ class PrinterController extends Controller
                 return redirect()->back()->with('status','Ink has been added');
                 break;
             default:
-                # code...
-                break;
+            # code...
+            break;
         }
     }
     public function printer_urut()
@@ -139,5 +139,11 @@ class PrinterController extends Controller
         $printer_no = substr(str_repeat(0, 3) . $printer_no_urut, -3);
         $printer_number = '' . $printer_no . '/' . $lokasisub . '/PRINT/' . $tahun . '';
         return $printer_number;
+    }
+    public function printer_qr_generator($id)
+    {
+        $id = $id;
+        $printer_no = DB::table('inventaris_printer')->select('printer_number')->where('printer_unique', $id)->first();
+        return view('Inventaris.PrinterScanner.printer_qr_generator')->with(compact('id', 'printer_no'));
     }
 }

@@ -8,7 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="{{ asset('plugins/accountingnumber/accounting.min.js') }}"></script>
+    <script src="{{ asset('plugins/accountingnumber/accounting.min.js') }}"></script>
     <style>
         body {
             /* display: grid; */
@@ -36,9 +36,11 @@
         .bg-lightgray {
             background-color: lightgray !important;
         }
-        .f-13{
+
+        .f-13 {
             font-size: 13px;
         }
+
         .border-right {
             border-right: 1px solid black;
         }
@@ -72,7 +74,8 @@
         .box {
             height: 100px;
         }
-        .box-sm{
+
+        .box-sm {
             height: 75px;
         }
 
@@ -90,18 +93,24 @@
             margin: 0px;
 
         }
-        .price{
-            font-size:small;
+
+        .price {
+            font-size: small;
         }
+
         @page {
-        size: A4;
-        margin: 0;
+            size: A4;
+            margin: 0;
         }
+
         @media print {
-            html, body {
-            width: 210mm;
-            height: 297mm;
-        }
+
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+
             hr {
                 color: black;
                 background-color: black;
@@ -112,11 +121,11 @@
             .bg-lightgray {
                 -webkit-print-color-adjust: exact;
             }
-            .price{
-            font-size:small;
-        }
-        }
 
+            .price {
+                font-size: small;
+            }
+        }
     </style>
 
 </head>
@@ -152,9 +161,9 @@
                     <div class="col">: {{ $general->hard_fix_hardware_name }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">Jam Permohonan</div>
+                    {{-- <div class="col-5">Jam Permohonan</div> --}}
                     {{-- <div class="col">: {{ date('h:i:s A'), strtotime($general->created_at) }}</div> --}}
-                    <div class="col">: {{ date('d-m-Y', strtotime($general->created_at. ' + 7 days')) }}</div>
+                    {{-- <div class="col">: {{ date('d-m-Y', strtotime($general->created_at . ' + 7 days')) }}</div> --}}
                 </div>
 
             </div>
@@ -165,15 +174,10 @@
             <div class="head bg-lightgray border-top font-bold">I. Uraian Perbaikan Hardware</div>
 
             <div class="border-top">
-
-
-
                 <div class="row">
                     <div class="col-8">
                         <strong>Uraian Masalah : </strong>{{ $general->hard_fix_uraian }}
-
                         <br>
-
                     </div>
                     <div class="col-4 px-0">
                         <div class="row">
@@ -318,7 +322,7 @@
                 </div>
                 <div class="row">
                     <div class="col-8">
-                        </div>
+                    </div>
                     <div class="col-2 border-left box-sm border-bottom"></div>
                     <div class="col-2 border-left box-sm border-bottom"></div>
                 </div>
@@ -336,14 +340,15 @@
         for (let i = 0; i < loops; i++) {
             let hargaid = document.getElementsByName('harga')[i].innerText;
             let
-                convert = accounting.formatMoney(hargaid, "Rp. ",0);
-                // convert = accounting.formatMoney(hargaid, {
-                //     symbol: "Rp. ",
-                //     thousand: ".",
-                //     decimal: ",",
-                // });
+                convert = accounting.formatMoney(hargaid, "Rp. ", 0);
+            // convert = accounting.formatMoney(hargaid, {
+            //     symbol: "Rp. ",
+            //     thousand: ".",
+            //     decimal: ",",
+            // });
             document.getElementsByName('harga')[i].innerText = convert;
         }
     </script>
 </body>
+
 </html>

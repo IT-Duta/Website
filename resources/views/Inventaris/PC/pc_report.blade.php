@@ -276,37 +276,37 @@
                                 @foreach ($rawat as $rawat)
                                 <?php
                                     $temp="";
-                                    if ($rawat->check_mainboard == "NOT") {
+                                    if ($rawat->kondisi_mainboard == "NOT") {
                                         $temp .= "Mainboard Bad, ";
                                     };
-                                    if ($rawat->check_hdd == "NOT") {
+                                    if ($rawat->kondisi_penyimpanan == "NOT") {
                                         $temp .= "HDD Bad, ";
                                     };
-                                    if ($rawat->check_acc == "NOT") {
+                                    if ($rawat->kondisi_keyboardmouse == "NOT") {
                                         $temp .= "Keyboard Mouse Bad, ";
                                     };
-                                    if ($rawat->check_prosessor == "NOT") {
+                                    if ($rawat->kondisi_processor == "NOT") {
                                         $temp .= "Processor and PSU are Bad, ";
                                     };
-                                    if ($rawat->check_ram == "NOT") {
+                                    if ($rawat->kondisi_ram == "NOT") {
                                         $temp .= "RAM Bad, ";
                                     };
-                                    if ($rawat->check_jaringan == "NOT") {
+                                    if ($rawat->kondisi_jaringan == "NOT") {
                                         $temp .= "Network Bad, ";
                                     };
-                                    if ($rawat->op_os == "NOT") {
+                                    if ($rawat->optimasi_os == "NOT") {
                                         $temp .= "OS Bad, ";
                                     };
-                                    if ($rawat->os_software == "NOT") {
+                                    if ($rawat->optimasi_software == "NOT") {
                                         $temp .= "Software and Data are Bad, ";
                                     };
-                                    if ($rawat->check_antivirus == "NOT") {
+                                    if ($rawat->optimasi_antivirus == "NOT") {
                                         $temp .= "Antivirus Bad, ";
                                     };
                                     if ($rawat->backup_email == "NOT") {
                                         $temp .= "Email not backup, ";
                                     };
-                                    if ($rawat->clean_cpu_monitor == "NOT") {
+                                    if ($rawat->kebersihan_pc == "NOT") {
                                         $temp .= "CPU & Monitor Not Cleaned, ";
                                     };
                                     if ($temp == "") {
@@ -315,13 +315,13 @@
                                 ?>
                                 <tr>
                                     <td>{{ $nomor++}}</td>
-                                    <td>{{$rawat->loc_name}}</td>
+                                    <td>{{$rawat->pc_location}}</td>
                                     <td>{{$rawat->pc_user}}</td>
-                                    <td>{{$rawat->k_nama}}</td>
+                                    <td>{{$rawat->pic}}</td>
                                     <td>{{$temp}}</td>
                                     <td>{{$rawat->created_at}}</td>
                                     <td>-</td>
-                                    <td>{{$rawat->note}}</td>
+                                    <td>{{$rawat->keterangan}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
