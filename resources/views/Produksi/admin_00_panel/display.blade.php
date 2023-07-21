@@ -59,11 +59,11 @@
         <thead class="bg-white bg-opacity-50 text-center align-middle">
             <tr>
                 <th rowspan="2" style="width: 6ch;">NO</th>
-                <th rowspan="2" style="width:20ch">NO SERI PANEL</th>
+                <th rowspan="2" style="width:15ch">NO SERI PANEL</th>
                 <th rowspan="2">NAMA PANEL</th>
                 <th rowspan="2" style="width:5ch">CELL</th>
                 <th rowspan="2">NAMA PROYEK</th>
-                <th rowspan="2" style="width: 20ch">SPV</th>
+                <th rowspan="2" style="width: 12ch">SPV</th>
                 <th rowspan="1" colspan="2">TIM PRODUKSI</th>
                 <th rowspan="1" colspan="2">DEADLINE</th>
                 <th rowspan="2" style="width: 10ch">KOMPONEN</th>
@@ -71,8 +71,8 @@
             <tr>
                 <th style="width: 20ch">WIRING</th>
                 <th style="width: 20ch">MEKANIK</th>
-                <th style="width: 20ch">PRODUKSI</th>
-                <th style="width: 20ch">QC</th>
+                <th style="width: 14ch">PRODUKSI</th>
+                <th style="width: 14ch">QC</th>
             </tr>
         </thead>
         <tbody class="text-center align-middle border-black" id="list">
@@ -242,7 +242,7 @@
             setTimeout("location.reload(true);",time);
 
 
-            var rowsToAdd = 10 - (numRows % 10);
+            var rowsToAdd = 5 - (numRows % 5);
             var rowIndex = 0;
 
             // Add blank rows if needed
@@ -254,14 +254,14 @@
             numRows = tableRows.length;
             // Hide all rows except the first 10
             tableRows.hide();
-            tableRows.slice(0, 10).show();
+            tableRows.slice(0, 5).show();
 
             setInterval(function(){
                 // Hide the previous 10 rows
-                tableRows.slice(rowIndex, rowIndex + 10).hide();
+                tableRows.slice(rowIndex, rowIndex + 5).hide();
 
                 // Increment the row index
-                rowIndex += 10;
+                rowIndex += 5;
 
                 // If we've reached the end of the table, reset the row index
                 if(rowIndex >= numRows){
@@ -269,7 +269,7 @@
                 }
 
                 // Show the next 10 rows
-                tableRows.slice(rowIndex, rowIndex + 10).show();
+                tableRows.slice(rowIndex, rowIndex + 5).show();
                 // $('marquee[behavior=""][direction=""]').marquee('destroy').marquee();
 
             }, 12000); // 5 seconds
