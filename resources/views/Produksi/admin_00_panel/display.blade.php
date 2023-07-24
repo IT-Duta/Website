@@ -59,11 +59,11 @@
         <thead class="bg-white bg-opacity-50 text-center align-middle">
             <tr>
                 <th rowspan="2" style="width: 6ch;">NO</th>
-                <th rowspan="2" style="width:15ch">NO SERI PANEL</th>
+                <th rowspan="2" style="width:12ch">NO SERI PANEL</th>
                 <th rowspan="2">NAMA PANEL</th>
-                <th rowspan="2" style="width:5ch">CELL</th>
+                <th rowspan="2" style="width:4ch">CELL</th>
                 <th rowspan="2">NAMA PROYEK</th>
-                <th rowspan="2" style="width: 12ch">SPV</th>
+                <th rowspan="2" style="width: 10ch">SPV</th>
                 <th rowspan="1" colspan="2">TIM PRODUKSI</th>
                 <th rowspan="1" colspan="2">DEADLINE</th>
                 <th rowspan="2" style="width: 10ch">KOMPONEN</th>
@@ -71,8 +71,8 @@
             <tr>
                 <th style="width: 20ch">WIRING</th>
                 <th style="width: 20ch">MEKANIK</th>
-                <th style="width: 14ch">PRODUKSI</th>
-                <th style="width: 14ch">QC</th>
+                <th style="width: 12ch">PRODUKSI</th>
+                <th style="width: 12ch">QC</th>
             </tr>
         </thead>
         <tbody class="text-center align-middle border-black" id="list">
