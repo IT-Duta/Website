@@ -69,7 +69,7 @@
                 <th rowspan="2" style="width: 10ch">KOMPONEN</th>
             </tr>
             <tr>
-                <th style="width: 20ch">WIRING</th>
+                <th style="width: 10ch">WIRING</th>
                 <th style="width: 20ch">MEKANIK</th>
                 <th style="width: 12ch">PRODUKSI</th>
                 <th style="width: 12ch">QC</th>
