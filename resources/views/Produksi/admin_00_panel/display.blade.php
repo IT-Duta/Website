@@ -63,14 +63,14 @@
                 <th rowspan="2">NAMA PANEL</th>
                 <th rowspan="2" style="width: 3ch">CELL</th>
                 <th rowspan="2">NAMA PROYEK</th>
-                <th rowspan="2" style="width: 10ch">SPV</th>
+                <th rowspan="2" style="width: 8ch">SPV</th>
                 <th rowspan="1" colspan="2">TIM PRODUKSI</th>
                 <th rowspan="1" colspan="2">DEADLINE</th>
-                <th rowspan="2" style="width: 10ch">KOMPONEN</th>
+                <th rowspan="2" style="width: 8ch">KOMPONEN</th>
             </tr>
             <tr>
                 <th style="width: 10ch">WIRING</th>
-                <th style="width: 20ch">MEKANIK</th>
+                <th style="width: 18ch">MEKANIK</th>
                 <th style="width: 10ch">PRODUKSI</th>
                 <th style="width: 10ch">QC</th>
             </tr>
