@@ -35,9 +35,9 @@ background-color: yellow;
         Buat PPB Baru
       </a>
       {{-- @if (Auth::user()->divisi =="PROCUREMENT") --}}
-      <a href="{{route('procurement_export')}}" class="btn btn-primary btn-round" >
+      <button class="btn btn-primary btn-round btn-export-modal">
         Export PPB
-    </a>
+    </button>
     {{-- @endif --}}
 @endsection
 @section('content')
@@ -266,8 +266,50 @@ background-color: yellow;
       </div>
     </div>
   </div>
-
   {{-- End modal change Status --}}
+
+  {{-- Export Modal --}}
+  <div class="modal fade" id="export-ppb-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-primary">
+          <div class="modal-header rounded-0 bg-primary">
+              <h5 class="modal-title">Export PPB</h5>
+              <button class="close text-white" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                    <div class="col-lg-12 col-12 col-md-12">
+                        <form action="{{ route('procurement_export') }}" enctype="multipart/form-data" class="mb-md-0 mb-0">
+                            @csrf
+                            @method('POST')
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label for="tanggal-awal">Tanggal awal <span class="text-danger">*</span></label>
+                                    <input type="date" name="tanggal-awal" class="form-control" value="{{ old('tanggal-awal') }}" required>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <label for="tanggal-awal">Tanggal akhir <span class="text-danger">*</span></label>
+                                    <input type="date" name="tanggal-akhir" class="form-control" value="{{ old('tanggal-akhir') }}" required>
+                                </div>
+                            </div>
+                            <div class="form-row d-flex justify-content-end mt-md-2 mt-3">
+                                <div class="d-flex justify-content-end col-md-12 col-12 mt-md-2 mt-3">
+                                    <button type="submit" class="btn btn-sm btn-success border-success mr-1">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                    <button class="btn btn-sm btn-danger border-danger mr-0" data-dismiss="modal">
+                                        <i class="fa fa-window-close"></i> Close
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+{{-- End Export Modal --}}
   @endsection
 @section('javascript')
 <script>
@@ -330,5 +372,14 @@ background-color: yellow;
    function givedata(id){
     $("#modalPengajuan").val(id);
    }
+</script>
+<script>
+    $('.btn-export-modal').on('click', function() {
+        $("#export-ppb-modal").modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    });
 </script>
 @endsection

@@ -308,12 +308,15 @@ class ProcController extends Controller
         DB::table('proc_ppb_detail')->where('id_pengajuan', '=', $id)->delete();
         return redirect()->back()->with('status', 'Pengajuan telah di hapus');
     }
-    public function export()
+    public function export(Request $request)
     {
+        
+        $from = $request->get('export-ppb-date-awal');
+        $to = $request->get('export-ppb-date-akhir');
+
         $time = Carbon::now();
-        $time = date_format($time, 'd-m-y, H.i.s');
         $filename = 'PPB Track ' . $time . '.xlsx';
-        return Excel::download(new ppbExport, $filename, \Maatwebsite\Excel\Excel::XLSX, [
+        return Excel::download(new ppbExport($from, $to), $filename, \Maatwebsite\Excel\Excel::XLSX, [
             'setAutoSize' => true,
             'Content-Type' => 'text/css',
             'Access-Control-Expose-Headers' => ['Content-Disposition'],
@@ -321,6 +324,7 @@ class ProcController extends Controller
             'FromView' => asset('css/exportppb.css'),
         ]);
     }
+    
     public function exportIndv($id)
     {
         $time = Carbon::now();

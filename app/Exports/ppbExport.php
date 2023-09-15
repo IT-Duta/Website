@@ -10,6 +10,15 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 class ppbExport implements FromView, WithMapping, WithColumnFormatting
 {
+    protected $minDate;
+    protected $maxDate;
+
+    public function __construct($from, $to)
+    {
+        $this->minDate = $from;
+        $this->maxDate = $to;
+    }
+
     public function view(): View
     {
         $collection = DB::table('proc_ppb_header as pph')
@@ -18,10 +27,13 @@ class ppbExport implements FromView, WithMapping, WithColumnFormatting
                 pph.ppb_tipe, pph.ppb_alasan, pph.ppb_divisi, pph.ppb_proyek, pph.ppb_nrp, pph.ppb_npp, pph.ppb_tgl_terima,
                 pph.ppb_tgl_selesai, pph.ppb_status, pph.ppb_tgl_coa, pph.ppb_coa'))
             ->join('proc_ppb_detail as ppd', 'ppd.id_pengajuan', '=', 'pph.id_pengajuan')
+            ->whereBetween('pph.ppb_tgl_pengajuan', [$this->minDate, $this->maxDate])
             ->groupBy('pph.ppb_no', 'pph.ppb_tgl_pengajuan', 'pph.ppb_tgl_deadline', 'ppb_pengaju', 'ppb_tipe', 'ppb_alasan', 'ppb_divisi', 'ppb_proyek', 'ppb_nrp', 'ppb_npp', 'ppb_tgl_terima', 'ppb_tgl_selesai', 'ppb_status', 'ppb_tgl_coa', 'ppb_coa')
             ->get();
+
         return view('procurement.export')->with(compact('collection'));
     }
+    
     public function map($data): array
 {
     return [
