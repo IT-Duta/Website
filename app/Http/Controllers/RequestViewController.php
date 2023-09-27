@@ -31,10 +31,12 @@ class RequestViewController extends Controller
         return view('Form.Request.indexTinta')->with(compact('ink'));
     }
     //======================================================================================================
-    public function ink_req($id)
+    public function ink_req(Request $request, $id)
     {
+        $print_total = $request->get('print_total');
         DB::table('inventaris_ink_report')->where('id', $id)->update([
-            'ink_status' => 'Selesai'
+            'ink_status' => 'Selesai',
+            'print_total' => $print_total,
         ]);
         return redirect()->route('request_ink')->with('status', 'Request has been approved');
     }

@@ -101,11 +101,24 @@
                                <td>Nama Printer</td>
                                <td><span id="ink_printer"></span></td>
                            </tr>
+                           <tr>
+                                <form action="" id="acc_link" enctype="multipart/form-data" validate>
+                                <td>
+                                    Print total <span class="text-danger">*</span>
+                                </td>
+                                    <td>
+                                        <div class="col-md-12" style="padding-left: 0px !important;">
+                                            <input id="print_total" type="number" class="form-control" name="print_total" value="{{ old('print_total') }}" placeholder="0-999,999..." required>
+                                        </div>
+                                    </td>
+                                </div>
+                           </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="acc_link" class="btn btn-success">Accept</a>
+                    <button type="submit" class="btn btn-success">Accept</button>
+                    </form>
                     <a href="#" id="dec_link" class="btn btn-danger">Decline</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -145,7 +158,7 @@
                     $("#ink_printer").html(value.ink_printer);
                     var link="request/acc_ink/"+id_ini;
                     var link2="request/dec_ink/"+id_ini+"/"+ink_code+"/"+ink_total;
-                    $("#acc_link").attr("href",link);
+                    $("#acc_link").attr("action",link);
                     $("#dec_link").attr("href",link2);
                 });
             });
