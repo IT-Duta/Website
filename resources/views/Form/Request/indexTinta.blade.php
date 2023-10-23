@@ -29,31 +29,26 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        <?php $nomor = 1; ?>
                         {{-- This is for Hardreq View --}}
-                        @foreach ($ink as $ink)
+                        @foreach ($ink as $no => $item)
                             <tr>
-                                <td><?php echo $nomor++; ?></td>
-                                <td>{{ $ink->id }}</td>
-                                <td>{{ $ink->ink_user }}</td>
-                                <td>{{ $ink->ink_name }}</td>
-                                <td>{{ $ink->ink_printer }}</td>
-                                <td>{{ ($ink->ink_qty_new) - ($ink->ink_qty_old)}}</td>
-                                <td>{{ $ink->ink_desc }}</td>
-                                <td>{{ $ink->ink_status }}</td>
-                                <td>{{ $ink->created_at }}</td>
+                                <td>{{ ++$no }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->ink_user }}</td>
+                                <td>{{ $item->ink_name }}</td>
+                                <td>{{ $item->ink_printer }}</td>
+                                <td>{{ ($item->ink_qty_new) - ($item->ink_qty_old)}}</td>
+                                <td>{{ $item->ink_desc }}</td>
+                                <td>{{ $item->ink_status }}</td>
+                                <td>{{ $item->created_at }}</td>
                                 <td>
-                                    <a onclick="showink({{$ink->id}})" data-toggle="modal" data-target="#inkModal" class="text-success">
-                                        <i class="fas fa-desktop" data-toggle="tooltip"
-                                        data-placement="top" title="Show Request"></i>
-                                    </a>
-
+                                    <button class="btn btn-sm btn-white" onclick="showink({{$item->id}})" title="Show Request">
+                                        <i class="fas fa-desktop text-success"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
         </div>
@@ -77,10 +72,14 @@
                            <th>Keterangan</th>
                        </thead>
                        <tbody>
-                           <tr>
-                               <td>Id</td>
-                               <td><input class="form-control" name="id" id="ink_id" readonly></td>
-                           </tr>
+                            <tr>
+                                <td>ID</td>
+                                <td>
+                                    <div class="col-md-12" style="padding-left: 0px !important;">
+                                        <input class="form-control" name="id" id="ink_id" readonly>
+                                    </div>
+                                </td>
+                            </tr>
                            <tr>
                                <td>Pengaju</td>
                                <td><span id="ink_user"></span></td>
@@ -101,24 +100,21 @@
                                <td>Nama Printer</td>
                                <td><span id="ink_printer"></span></td>
                            </tr>
-                           <tr>
-                                <form action="" id="acc_link" enctype="multipart/form-data" validate>
-                                <td>
-                                    Print total <span class="text-danger">*</span>
-                                </td>
-                                    <td>
-                                        <div class="col-md-12" style="padding-left: 0px !important;">
-                                            <input id="print_total" type="number" class="form-control" name="print_total" value="{{ old('print_total') }}" placeholder="0-999,999..." required>
-                                        </div>
-                                    </td>
+                           <tr class="tr-form-print-total">
+                            <td>
+                                Print total <span class="text-danger">*</span>
+                            </td>
+                            <td>
+                                <div class="col-md-12" style="padding-left: 0px !important;">
+                                    <input type="text" class="form-control" name="print_total" placeholder="0-9..." required>
                                 </div>
-                           </tr>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Accept</button>
-                    </form>
+                    <a href="#" id="acc_link" class="btn btn-success">Accept</a>
                     <a href="#" id="dec_link" class="btn btn-danger">Decline</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -139,10 +135,20 @@
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
             });
+
+            /*INPUT PRINT TOTAL HANYA TERIMA INPUT NUMBER*/
+            $("input[name=print_total]").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
         });
-    </script>
-    <script>
+
         function showink(id) {
+            $("#inkModal").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+
             $.get('{{ route('ink_data') }}', {
                 'id': id
             }, function(response) {
@@ -155,15 +161,36 @@
                     $("#ink_name").html(value.ink_name);
                     var ink_total=value.ink_qty_old - value.ink_qty_new;
                     $("#ink_total").html(ink_total);
+                    $("#ink_status").html(value.ink_status);
                     $("#ink_printer").html(value.ink_printer);
-                    var link="request/acc_ink/"+id_ini;
-                    var link2="request/dec_ink/"+id_ini+"/"+ink_code+"/"+ink_total;
-                    $("#acc_link").attr("action",link);
-                    $("#dec_link").attr("href",link2);
+                    var dec_link="request/dec_ink/"+id_ini+"/"+ink_code+"/"+ink_total;
+                    if(value.ink_status=="Request"){
+                        $(".tr-form-print-total").removeClass("d-none");
+                        $("input[name=print_total]").on("keyup", function() {
+                            $("input[name=print_total]").val($(this).val());
+                        });
+                        $("#acc_link").on("click", function(e) {
+                            var print_total = $("input[name=print_total]").val();
+                            if(print_total!=""){
+                                var acc_link="request/acc_ink/"+id_ini+"/"+print_total;
+                                $("#acc_link").attr("href", acc_link);
+                                $("input[name=print_total]").val("");
+                                $("#inkModal").modal('hide');
+                            }else if(print_total==""){
+                                Swal.fire({
+                                    icon: 'warning',
+                                    text: "Mohon isikan Print Total pada input yang telah disediakan!"
+                                });
+                            }
+                        });
+                    }else if(value.ink_status=="add"){
+                        $(".tr-form-print-total").addClass("d-none");
+                        var acc_link="request/acc_ink/"+id_ini;
+                        $("#acc_link").attr("href", acc_link);
+                    }
+                    $("#dec_link").attr("href", dec_link);
                 });
             });
         }
-
     </script>
-
 @endsection
