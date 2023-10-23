@@ -311,8 +311,8 @@ class ProcController extends Controller
     public function export(Request $request)
     {
         
-        $from = $request->get('export-ppb-date-awal');
-        $to = $request->get('export-ppb-date-akhir');
+        $from = $request->get('tanggal-awal');
+        $to = $request->get('tanggal-akhir');
 
         $time = Carbon::now();
         $filename = 'PPB Track ' . $time . '.xlsx';
