@@ -33,11 +33,18 @@ class RequestViewController extends Controller
     //======================================================================================================
     public function ink_req(Request $request, $id)
     {
-        $print_total = $request->get('print_total');
-        DB::table('inventaris_ink_report')->where('id', $id)->update([
-            'ink_status' => 'Selesai',
-            'print_total' => $print_total,
-        ]);
+        if (!empty($request->print)) {
+            $print_total = $request->print;
+            
+            DB::table('inventaris_ink_report')->where('id', $id)->update([
+                'ink_status' => "Selesai",
+                'print_total' => $print_total,
+            ]);
+        }else{
+            DB::table('inventaris_ink_report')->where('id', $id)->update([
+                'ink_status' => 'Selesai'
+            ]);
+        }
         return redirect()->route('request_ink')->with('status', 'Request has been approved');
     }
     //======================================================================================================

@@ -139,7 +139,8 @@ Route::middleware('auth')->group(function () {
     // Halaman Request
     Route::get('/dashboard/request', 'RequestViewController@index')->name('request');
     Route::get('/dashboard/request_ink', 'RequestViewController@index_ink')->name('request_ink');
-    Route::get('/dashboard/request/acc_ink/{id}', 'RequestViewController@ink_req')->name('ink_req_acc');
+    Route::get('/dashboard/request/acc_ink/{id}', 'RequestViewController@ink_req');
+    Route::get('/dashboard/request/acc_ink/{id}/{print}', 'RequestViewController@ink_req')->name('ink_req_acc');
     Route::get('/dashboard/request/dec_ink/{id}/{ink}/{qty}', 'RequestViewController@ink_dec')->name('ink_req_dec');
     Route::get('/dashboard/request/acc_soft/{id}', 'RequestViewController@soft_req')->name('soft_req_acc');
     Route::get('/dashboard/request/acc_soft/finish/{id}', 'RequestViewController@soft_req_finish')->name('soft_req_acc_finish');
