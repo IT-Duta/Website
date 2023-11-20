@@ -496,6 +496,29 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item {{ Request::is('*/alat-it*') ? 'active' : '' }}">
+                            <a data-toggle="collapse" href="#alat_it">
+                                <i class="fas fa-toolbox"></i> Alat IT
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="alat_it">
+                                <ul class="nav nav-collapse">
+                                    @can('isAdmin')
+                                        <li>
+                                            <a href="{{ route('ait_create') }}">
+                                                <span class="sub-item">Tambah Alat IT</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    <li>
+                                        <a href="{{ route('ait_index') }}">
+                                            <span class="sub-item">List Alat IT</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
                         @can('isAdmin')
                             <li class="nav-section">
                                 <span class="sidebar-mini-icon">

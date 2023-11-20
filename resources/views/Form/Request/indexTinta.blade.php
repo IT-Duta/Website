@@ -185,7 +185,7 @@
                         });
                     }else if(value.ink_status=="add"){
                         $(".tr-form-print-total").addClass("d-none");
-                        var acc_link="request/acc_ink/"+id_ini;
+                        var acc_link="request/acc_ink/"+id_ini+"/0";
                         $("#acc_link").attr("href", acc_link);
                     }
                     $("#dec_link").attr("href", dec_link);
