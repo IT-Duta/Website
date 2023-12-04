@@ -136,19 +136,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/ink-data', 'InkController@getData')->name('ink_getData');
     Route::get('/inventaris/ink-data/show', 'InkController@showink')->name('ink_data');
 
-    //INVENTARIS ALAT IT
-    Route::get('/inventaris/alat-it', 'AitController@index')->name('ait_index');
-    Route::get('/inventaris/alat-it/create', 'AitController@create')->name('ait_create');
-    Route::post('/inventaris/alat-it/store', 'AitController@store')->name('ait_store');
-    Route::get('/inventaris/alat-it/edit/{id}', 'AitController@edit')->name('ait_edit');
-    Route::post('/inventaris/alat-it/update/{id}', 'AitController@update')->name('ait_update');
-    Route::get('/inventaris/alat-it/destroy/{id}', 'AitController@destroy')->name('ait_destroy');
-    Route::get('/inventaris/alat-it/pinjam/create/{id?}', 'AitController@pinjamAitCreate')->name('ait_create_pinjam');
-    Route::get('/inventaris/alat-it/pinjam/store', 'AitController@pinjamAitStore')->name('ait_store_pinjam');
-    Route::post('/inventaris/alat-it/pinjam/request', 'AitController@request')->name('ait_request_pinjam');
-    Route::get('/inventaris/alat-it/qr/{id}', 'AitController@qr_generator')->name('ait_qr_generator');
-    Route::get('/inventaris/alat-it/report/{id}', 'AitController@report')->name('ait_report');
-
     // Halaman Request
     Route::get('/dashboard/request', 'RequestViewController@index')->name('request');
     Route::get('/dashboard/request_ink', 'RequestViewController@index_ink')->name('request_ink');
