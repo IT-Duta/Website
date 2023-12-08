@@ -24,6 +24,11 @@
         td.selesai,td.diterima{
             color: black;
         }
+        
+        table.dataTable thead tr {
+            background-color: #0084bd;
+        }
+
         .badge-navy {
             background-color: #014361;
 

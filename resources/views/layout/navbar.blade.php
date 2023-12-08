@@ -99,13 +99,35 @@
                                 </ul>
                             </li>
                         @endcan
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ticket-create') }}">
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link" data-toggle="dropdown" href="" aria-expanded="false">
                                 <i class="fas fa-ticket-alt"></i>
-                                <span>
-                                    New Ticket
-                                </span>
+                                Ticket
                             </a>
+                            <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+                                <div class="quick-actions-scroll scrollbar-outer">
+                                    <div class="quick-actions-items">
+                                        <div class="row justify-content-center m-0">
+                                            <div class="col-6 col-md-4 p-0">
+                                                <a accesskey="a" href="{{ route('ticket-create') }}">
+                                                    <div class="quick-actions-item notif-hover">
+                                                        <i class="fas fa-ticket-alt"></i>
+                                                        <span class="text">New Ticket <br>(Alt + A)</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            {{-- <div class="col-12 col-md-4 p-0">
+                                                <a accesskey="b" href="{{ route('pinjam_ait_index') }}">
+                                                    <div class="quick-actions-item notif-hover">
+                                                        <i class="fas fa-exchange-alt"></i>
+                                                        <span class="text">Pinjam (Alat IT) <br>(Alt + B)</span>
+                                                    </div>
+                                                </a>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('procurement_index') }}">
@@ -493,6 +515,33 @@
                                         </a>
                                     </li>
 
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item {{ Request::is('*/alat-it*') ? 'active' : '' }}">
+                            <a data-toggle="collapse" href="#alat_it">
+                                <i class="fas fa-toolbox"></i> Alat IT
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="alat_it">
+                                <ul class="nav nav-collapse">
+                                    @can('isAdmin')
+                                        <li>
+                                            <a href="{{ route('ait_create') }}">
+                                                <span class="sub-item">Tambah Alat IT</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    <li>
+                                        <a href="{{ route('ait_index') }}">
+                                            <span class="sub-item">List Alat IT</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('pinjam_ait_index') }}">
+                                            <span class="sub-item">Pinjam Alat IT</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
