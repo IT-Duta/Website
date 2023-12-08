@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+date_default_timezone_set('Asia/Jakarta');
+
 class AitController extends Controller
 {
     public function index()
@@ -65,8 +67,7 @@ class AitController extends Controller
             "ait_description" => "required",
             "ait_price" => "required",
             "ait_location" => "required",
-            "ait_buy_date" => "required",
-            "ait_quantity" => "required"
+            "ait_buy_date" => "required"
         ]);
 
         $ait_number = $this->ait_number();
@@ -83,11 +84,11 @@ class AitController extends Controller
             'serial_number' => $request->get('ait_serial_number'),
             'description' => $request->get('ait_description'),
             'location' => $request->get('ait_location'),
+            'buy_date' => $request->get('ait_buy_date'),
             'price' => $request->get('ait_price'),
             'condition' => $request->get('ait_condition'),
-            'buy_date' => $request->get('ait_buy_date'),
-            'quantity' => $request->get('ait_quantity'),
-            'status' => $request->get('ait_quantity') > 0 ? 1 : 0,
+            'status' => 1,
+            // 'status' => $request->get('status') > 0 ? 1 : 0,
             'created_by' => Auth::user()->name,
             'created_at' => Carbon::now(),
         ]);
@@ -113,8 +114,7 @@ class AitController extends Controller
             "ait_description" => "required",
             "ait_price" => "required",
             "ait_location" => "required",
-            "ait_buy_date" => "required",
-            "ait_quantity" => "required"
+            "ait_buy_date" => "required"
         ]);
 
         DB::table('ait')->where('id', $request->id)->update([
@@ -127,7 +127,6 @@ class AitController extends Controller
             'price' => $request->ait_price,
             'condition' => $request->ait_condition,
             'buy_date' => $request->ait_buy_date,
-            'quantity' => $request->ait_quantity,
             'updated_by' => Auth::user()->name,
             'updated_at' => Carbon::now(),
         ]);
@@ -156,13 +155,5 @@ class AitController extends Controller
         //     ->get();
         // // dd($rawat);
         // return view('Inventaris.PC.pc_report')->with(compact('list', 'report', 'fix', 'rawat'));
-    }
-
-    public function pinjamAitCreate($id)
-    {
-        $type = DB::table('ait_type')->orderBy('id', 'asc')->get();
-        $lokasi = DB::table('duta_lokasi')->orderBy('id', 'asc')->get();
-        return view('Inventaris.alat_it.ait-pinjam');
-        // ->with(compact('type', 'lokasi'));
     }
 }

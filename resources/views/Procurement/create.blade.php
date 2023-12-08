@@ -145,8 +145,8 @@
                                 <span class="selectgroup-button">Non Inventory</span>
                             </label>
                             <label class="selectgroup-item">
-                                <input type="radio" name="ppb_tipe" value="Inventory & Non" class="selectgroup-input">
-                                <span class="selectgroup-button">Inventory & Non</span>
+                                <input type="radio" name="ppb_tipe" value="Asset" class="selectgroup-input">
+                                <span class="selectgroup-button">Asset</span>
                             </label>
                         </div>
                     </div>

@@ -15,9 +15,9 @@ class AitPinjam extends Model
         'user_id',
         'description',
         'status',
-        'lend_date',
+        'tanggal_pinjam',
         'submitted_by',
-        'returned_date',
+        'tanggal_kembali',
         'received_by',
     ];
 

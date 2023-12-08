@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
         body {
             font-family: 'DM Sans', sans-serif;
             padding: 0 10px;
@@ -48,6 +49,11 @@
             text-decoration: underline;
 
         }
+
+        #kiri {
+            margin-left: 10px;
+        }
+        
         /* Table Barang */
         table#barang,#barang tr,#barang th,#barang td{
             border: 1px solid black;
@@ -101,11 +107,37 @@
             margin: 0 px 10px;
             padding: 0 px 10px;
         }
+
         /* Print */
         @page {
             size: landscape;
             margin:25px 0px;
+            margin: 25% auto;
+            color: dimgray;
+            font-size: 20px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            padding: 5px 8px;
+            border: 5px solid dimgray;
+            border-radius: 10px;
         }
+
+        #asset {
+            border: 4px solid dimgray;
+            border-radius: 10px;
+            margin: 5px 8px 0 0;
+        }
+
+        .text-asset {
+            font-family: 'Poppins', sans-serif;
+            margin: 0 auto;
+            text-align: center;
+            color: dimgray;
+            font-size: 20px;
+            letter-spacing: 5px;
+            font-weight:bold;
+        }
+
         /* Add */
 
     </style>
@@ -172,6 +204,11 @@
                         $ppb_tgl_deadline = date("d-m-Y", strtotime($ppb_tgl_deadline));?>
                         <span>{{$ppb_tgl_deadline}}</span>
                     </div>
+                    @if($pph->ppb_tipe==="Asset" || $pph->ppb_tipe==="Inventory & Non")
+                    <div id="asset">
+                        <h1 class="text-asset">ASSET</h1>
+                    </div>
+                    @endif
                 </div>
             </div>
 

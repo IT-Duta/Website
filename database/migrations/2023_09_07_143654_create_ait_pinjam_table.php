@@ -19,10 +19,10 @@ class CreateAitPinjamTable extends Migration
             $table->unsignedBigInteger('user_id')->default(0);
             $table->string('description');
             $table->string('status');
-            $table->string('lend_date');
-            $table->string('submitted_by');
-            $table->string('returned_date');
-            $table->string('received_by');
+            $table->string('tanggal_pinjam');
+            $table->string('submitted_by')->nullable();
+            $table->string('tanggal_kembali');
+            $table->string('received_by')->nullable();
             $table->timestamps();
         });
     }

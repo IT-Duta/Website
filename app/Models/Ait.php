@@ -23,23 +23,14 @@ class Ait extends Model
         'condition',
         'location',
         'buy_date',
-        'quantity',
         'user',
-        'status' //Available or Not availble.
+        'status',
+        'created_by',
+        'updated_by'
     ];
 
     public function ait_type()
     {
         return $this->belongsTo(AitType::class, 'type_id', 'id');
-    }
-
-    public function ait_pinjam()
-    {
-        return $this->hasOne(AitPinjam::class, 'pinjam_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->hasMany(User::class);
     }
 }

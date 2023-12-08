@@ -124,7 +124,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">RP.</span>
                                 </div>
-                                <input type="number" class="form-control @error('ait_price') is-invalid @enderror" name="ait_price" value="{{ old('ait_price') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Harga beli alat ..." required>
+                                <input type="text" class="form-control @error('ait_price') is-invalid @enderror" name="ait_price" value="{{ old('ait_price') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Harga beli alat ..." required>
                             </div>
                         </div>
                     </div>
@@ -136,25 +136,14 @@
                             <label for="ait_buy_date">Tanggal Beli <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <input class="form-control @error('ait_buy_date') is-invalid @enderror" value="<?php echo date('Y-m-d'); ?>" name="ait_buy_date" required
+                            <input class="form-control @error('ait_buy_date') is-invalid @enderror" value="{!! date('Y-m-d'); !!}" name="ait_buy_date" required
                                 type="date">
                         </div>
                     </div>
                     @error('ait_buy_date') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="ait_quantity">Qty <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md">
-                            <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control @error('ait_quantity') is-invalid @enderror" name="ait_quantity" value="{{ old('ait_quantity') }}" placeholder="Jumlah stok alat ..." required>
-                        </div>
-                    </div>
-                    @error('ait_quantity') <code class="font-weight-bold">{{ $message }}</code> @enderror
-                </div>
 
-                <div class="mt-3">
+                <div class="mt-3 mb-0">
                     <button type="submit" class="btn btn-primary btn-shadow btn-block">Submit</button>
                 </div>
             </form>

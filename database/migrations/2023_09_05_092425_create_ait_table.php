@@ -17,7 +17,6 @@ class CreateAitTable extends Migration
         Schema::create('ait', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('type_id')->default(0);
-            $table->unsignedBigInteger('pinjam_id')->default(0);
             $table->string('no_urut');
             $table->string('unique');
             $table->string('name');
@@ -28,9 +27,8 @@ class CreateAitTable extends Migration
             $table->string('location');
             $table->string('price');
             $table->string('condition');
-            $table->string('buy_date');
-            $table->integer('quantity')->default(0);
-            $table->boolean('status')->nullable()->comment('0 Not Available, 1 = Available');
+            $table->date('buy_date')->default(null);
+            $table->boolean('status')->default(0)->comment('0 Not Available, 1 = Available');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
