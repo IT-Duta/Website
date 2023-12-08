@@ -19,19 +19,23 @@
     <div class="card shadow-lg">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered" id="ait_master">
+                <table class="table table-sm table-striped table-bordered" id="ait_master">
                     <caption>List Alat IT</caption>
                     <thead class="text-center">
                         <tr class="table-primary">
                             <th>No</th>
-                            <th>Nama Alat</th>
-                            <th>Serial No.</th>
+                            <th class="w-100">Nama Alat</th>
+                            @can('isAdmin')
+                                <th class="d-sm-none d-md-none d-lg-table-cell">Serial No.</th>
+                            @endcan
                             <th>Type</th>
-                            <th>Harga</th>
+                            @can('isAdmin')
+                                <th class="d-sm-none d-md-none d-lg-table-cell">Harga</th>
+                            @endcan
                             <th>Kondisi</th>
                             <th>Lokasi</th>
-                            <th>Stok</th>
-                            <th width=140>Aksi</th>
+                            <th>Stok (Item)</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,9 +44,9 @@
                                 <tr>
                                     <td class="text-center">{{ ++$no }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->serial_number }}</td>
+                                    @can('isAdmin')<td class="text-center d-sm-none d-md-none d-lg-table-cell">{{ $item->serial_number }}</td>@endcan
                                     <td>{{ $item->ait_type_name }}</td>
-                                    <td class="text-right">Rp. {!! number_format($item->price, 0, '.', ',') !!}</td>
+                                    @can('isAdmin')<td class="text-right d-sm-none d-md-none d-lg-table-cell">Rp. {!! number_format($item->price, 0, '.', ',') !!}</td>@endcan
                                     <td>{{ $item->condition }}</td>
                                     <td>{{ $item->location }}</td>
                                     <td class="text-center">{{ $item->quantity }}</td>
@@ -58,11 +62,11 @@
                                             href="{{ route('ait_destroy', $item->id) }}" class="btn btn-xs btn-danger text-white">
                                             <i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i>
                                         </a>
-                                        @endcan
                                         <a target="__blank" onclick="return confirm('Yakin ingin Print QR Alat IT dengan Nomor {{$item->number}} ?')" href="{{ route('ait_qr_generator', ['id' => $item->unique]) }}"
                                             class="btn btn-xs btn-dark text-white">
                                             <i class="fas fa-qrcode" data-toggle="tooltip" data-placement="top" title="Print QR"></i>
                                         </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

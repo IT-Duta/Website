@@ -254,7 +254,7 @@ background-color: yellow;
                 @csrf
                 <div class="form-group">
                   <label for="Change">Status</label>
-                  <input type="text" class="form-control" id="modalPengajuan" name="id_pengajuan" readonly ">
+                  <input type="text" class="form-control" id="modalPengajuan" name="id_pengajuan" readonly>
                   <input type="text" class="form-control" name="status" readonly value="Diterima">
                 </div>
             </div>

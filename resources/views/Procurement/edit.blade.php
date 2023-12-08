@@ -245,7 +245,7 @@ table td input {
                     <tr>
                         <td>
                             <input type="hidden"value="{{$ppd->id}}" name="ppb_id[]">
-                            <input required type="number" min=0 value="{{$ppd->ppb_qty}}" name="ppb_qty[]"></td>
+                            <input required type="number" step="any" min=0 value="{{$ppd->ppb_qty}}" name="ppb_qty[]"></td>
                         <td><input required type="text" value="{{$ppd->ppb_satuan}}"name="ppb_satuan[]">Pcs</td>
                         <td><textarea required type="text" class="form-control" placeholder="Deskripsi"name="ppb_deskripsi[]">{{$ppd->ppb_deskripsi}}</textarea></td>
                         <td><input required type="text" value="{{$ppd->ppb_tipe_barang}}" placeholder="Tipe"name="ppb_tipe_barang[]"></td>

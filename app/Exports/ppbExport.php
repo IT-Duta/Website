@@ -23,7 +23,10 @@ class ppbExport implements FromView, WithMapping, WithColumnFormatting
     {
         $collection = DB::table('proc_ppb_header as pph')
             ->select(DB::raw('pph.ppb_no, pph.ppb_tgl_pengajuan, month(pph.ppb_tgl_pengajuan) as bulan, pph.ppb_tgl_deadline, pph.ppb_pengaju,
-                GROUP_CONCAT(ppd.ppb_qty, " ", ppd.ppb_satuan, " ", ppd.ppb_deskripsi, " ", ppd.ppb_tipe_barang, " ", ppd.ppb_merek SEPARATOR "; ") as barang,
+                GROUP_CONCAT(CASE
+                WHEN ppb_qty % 1 = 0 THEN FORMAT(ppb_qty, 0)
+                ELSE FORMAT(ppb_qty, 1)
+            END, " ", ppd.ppb_satuan, " ", ppd.ppb_deskripsi, " ", ppd.ppb_tipe_barang, " ", ppd.ppb_merek SEPARATOR "; ") as barang,
                 pph.ppb_tipe, pph.ppb_alasan, pph.ppb_divisi, pph.ppb_proyek, pph.ppb_nrp, pph.ppb_npp, pph.ppb_tgl_terima,
                 pph.ppb_tgl_selesai, pph.ppb_status, pph.ppb_tgl_coa, pph.ppb_coa'))
             ->join('proc_ppb_detail as ppd', 'ppd.id_pengajuan', '=', 'pph.id_pengajuan')
