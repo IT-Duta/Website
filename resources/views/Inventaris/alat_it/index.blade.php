@@ -24,27 +24,17 @@
                     <thead class="text-center">
                         <tr class="table-primary">
                             <th>No</th>
-<<<<<<< HEAD
                             <th class="w-100">Nama Alat</th>
                             @can('isAdmin')
                                 <th class="d-sm-none d-md-none d-lg-table-cell">Serial No.</th>
                             @endcan
-=======
-                            <th >Nama Alat</th>
-                            <th>Serial No.</th>
->>>>>>> 89322402a445f9dbf1dc001c1ea51c4efb15ca6b
                             <th>Type</th>
                             @can('isAdmin')
                                 <th class="d-sm-none d-md-none d-lg-table-cell">Harga</th>
                             @endcan
                             <th>Kondisi</th>
                             <th>Lokasi</th>
-<<<<<<< HEAD
-                            <th>Stok (Item)</th>
-                            <th>Aksi</th>
-=======
                             <th width=140>Aksi</th>
->>>>>>> 89322402a445f9dbf1dc001c1ea51c4efb15ca6b
                         </tr>
                     </thead>
                     <tbody>
@@ -52,13 +42,8 @@
                             @foreach ($list as $no => $item)
                                 <tr>
                                     <td class="text-center">{{ ++$no }}</td>
-<<<<<<< HEAD
-                                    <td>{{ $item->name }}</td>
-                                    @can('isAdmin')<td class="text-center d-sm-none d-md-none d-lg-table-cell">{{ $item->serial_number }}</td>@endcan
-=======
-                                    <td >{{ $item->name }}</td>
-                                    <td>{{ $item->serial_number }}</td>
->>>>>>> 89322402a445f9dbf1dc001c1ea51c4efb15ca6b
+                                    <td >{{ $item->name }}</td>@endcan
+                                    @can('isAdmin')<td>{{ $item->serial_number }}</td>
                                     <td>{{ $item->ait_type_name }}</td>
                                     @can('isAdmin')<td class="text-right d-sm-none d-md-none d-lg-table-cell">Rp. {!! number_format($item->price, 0, '.', ',') !!}</td>@endcan
                                     <td>{{ $item->condition }}</td>
