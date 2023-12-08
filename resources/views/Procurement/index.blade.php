@@ -8,21 +8,25 @@
 @section('head')
     <style>
         .selesai{
-background-color: greenyellow;
+            background-color: greenyellow;
         }
         .batal{
-background-color: rgb(75, 74, 74);
-color: white;
-}
-.menunggu{
-    background-color: rgb(83, 83, 195);
-    color: white;
+            background-color: rgb(75, 74, 74);
+            color: white;
+        }
+        .menunggu{
+            background-color: rgb(83, 83, 195);
+            color: white;
         }
         .diterima{
-background-color: yellow;
+            background-color: yellow;
         }
         td.selesai,td.diterima{
             color: black;
+        }
+        .badge-navy {
+            background-color: #014361;
+
         }
     </style>
 @endsection
@@ -74,7 +78,7 @@ background-color: yellow;
                             <th>Tgl PPB</th>
                             <th>Tgl Diperlukan</th>
                             <th>Nama</th>
-                            <th>Inventory/Non Inventory</th>
+                            <th>Tipe PPB <br><span class="badge badge-navy text-white text-xs p-1">*Inventory / Non Inventory / Asset</span></th>
                             <th>Keperluan</th>
                             <th>Divisi</th>
                             <th>Project</th>
