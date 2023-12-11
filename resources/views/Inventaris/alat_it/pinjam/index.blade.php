@@ -51,46 +51,50 @@
                     </thead>
                     <tbody>
                         @if (count($list) > 0)
-                            @foreach ($list as $no => $pinjam)
-                                <tr>
-                                    <td class="text-center">{{ ++$no }}</td>
-                                    <td class="ait-name-{{ $pinjam->id }}">{{ $pinjam->ait_name }}</td>
-                                    <td class="align-middle">
-                                        <span class="pinjam-user-{{ $pinjam->id }}">{{ $pinjam->user_name }}</span> 
-                                        <span class="badge badge-dark text-xs text-wrap p-1 user-email-{{ $pinjam->id }}">{{ $pinjam->user_email }}</span>
-                                    </td>
-                                    <td width="100" class="text-center tanggal-pinjam-{{ $pinjam->id }}">{{ $pinjam->tanggal_pinjam ? $pinjam->tanggal_pinjam : '-'}}</td>
-                                    <td width="100" class="text-center tanggal-kembali-{{ $pinjam->id }}">{{ $pinjam->tanggal_kembali ? $pinjam->tanggal_kembali : '-' }}</td>
-                                    <td class="text-center @if($pinjam->status==0) text-white bg-danger @elseif($pinjam->status==1) text-white bg-info @elseif($pinjam->status==2) text-white bg-primary @elseif($pinjam->status==3) text-white bg-success @endif">
-                                        @php
-                                            if($pinjam->status==0) echo "Declined";
-                                            elseif($pinjam->status==1) echo "Requested";
-                                            elseif($pinjam->status==2) echo "Approved";
-                                            elseif($pinjam->status==3) echo "Returned";
-                                        @endphp
-                                    </td>
-                                    @can('isAdmin')
-                                        <td class="text-center">
-                                            <a id="show-request-{{ $pinjam->id }}" class="btn btn-sm btn-primary text-white m-1" onclick="showPinjam({{ $pinjam->id }})"
-                                                data-ait="{{ $pinjam->ait_id }}"
-                                                data-description="{{ $pinjam->description }}"
-                                                data-peminjam="{{ $pinjam->submitted_by }}"
-                                                data-penerima="{{ $pinjam->received_by ? $pinjam->received_by : '-' }}"
-                                                data-status="{{ $pinjam->status }}"
-                                            >
-                                                <i class="fas fa-search-plus" data-toggle="tooltip" data-placement="top" title="Show Data"></i>
-                                            </a>
-                                            <form action="{{ route('pinjam_ait_destroy', $pinjam->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" onclick="return confirm('Are you sure want to delete {{ $pinjam->id }} ?');" class="btn btn-sm btn-danger text-white m-1"
-                                                    data-id={{ $pinjam->id }}
-                                                >
-                                                    <i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete Data"></i>
-                                                </button>
-                                            </form>
+                            @php $no = 1; @endphp
+                            @foreach ($list as $pinjam)
+                                @can('aitPinjamView', $pinjam)
+                                    <tr>
+                                        <td class="text-center">{{ $no++ }}</td>
+                                        <td class="pinjam-{{ $pinjam->id }}-ait-name">{{ $pinjam->ait_name }} <span class="d-none pinjam-{{ $pinjam->id }}-ait-id">{{ $pinjam->ait_id }}</span></td>
+                                        <td class="align-middle">
+                                            <span class="d-none pinjam-{{ $pinjam->id }}-user-id">{{ $pinjam->user_id }}</span>
+                                            <span class="pinjam-{{ $pinjam->id }}-user-name">{{ $pinjam->user_name }}</span> 
+                                            <span class="badge badge-dark text-xs text-wrap p-1 pinjam-{{ $pinjam->id }}-user-email">{{ $pinjam->user_email }}</span>
                                         </td>
-                                    @endcan
-                                </tr>
+                                        <td width="100" class="text-center pinjam-{{ $pinjam->id }}-tanggal-pinjam">{{ $pinjam->tanggal_pinjam ? date('d-m-Y', strtotime($pinjam->tanggal_pinjam)) : '-'}}</td>
+                                        <td width="100" class="text-center pinjam-{{ $pinjam->id }}-tanggal-kembali">{{ $pinjam->tanggal_kembali ? date('d-m-Y', strtotime($pinjam->tanggal_kembali)) : '-' }}</td>
+                                        <td class="text-center @if($pinjam->status==0) text-white bg-danger @elseif($pinjam->status==1) text-white bg-info @elseif($pinjam->status==2) text-white bg-warning @elseif($pinjam->status==3) text-white bg-success @endif">
+                                            @php
+                                                if($pinjam->status==0) echo "Declined";
+                                                elseif($pinjam->status==1) echo "Requested";
+                                                elseif($pinjam->status==2) echo "Approved";
+                                                elseif($pinjam->status==3) echo "Returned";
+                                            @endphp
+                                        </td>
+                                        @can('isAdmin')
+                                            <td class="text-center">
+                                                <a id="pinjam-{{ $pinjam->id }}-show-request" class="btn btn-sm btn-primary text-white m-1" onclick="showPinjam({{ $pinjam->id }})"
+                                                    data-ait="{{ $pinjam->ait_id }}"
+                                                    data-description="{{ $pinjam->description }}"
+                                                    data-peminjam="{{ $pinjam->submitted_by }}"
+                                                    data-penerima="{{ $pinjam->received_by ? $pinjam->received_by : '-' }}"
+                                                    data-status="{{ $pinjam->status }}"
+                                                >
+                                                    <i class="fas fa-search-plus" data-toggle="tooltip" data-placement="top" title="Show Data"></i>
+                                                </a>
+                                                <form action="{{ route('pinjam_ait_destroy', $pinjam->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" onclick="return confirm('Are you sure want to delete {{ $pinjam->id }} ?');" class="btn btn-sm btn-danger text-white m-1"
+                                                        data-id={{ $pinjam->id }}
+                                                    >
+                                                        <i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete Data"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endcan
                             @endforeach
                         @endif
                     </tbody>
@@ -153,15 +157,16 @@
             });
 
             var pinjamID = id;
-            var aitID = $("#show-request-"+pinjamID).attr("data-ait");
-            var aitName = $(".ait-name-"+pinjamID).text();
-            var user = $(".pinjam-user-"+pinjamID).text();
-            var email = $(".user-email-"+pinjamID).text();
-            var description = $("#show-request-"+pinjamID).attr("data-description");
-            var status = parseInt($("#show-request-"+pinjamID).attr("data-status"));
+            var aitID = $("#pinjam-"+pinjamID+"-show-request").attr("data-ait");
+            var aitName = $(".pinjam-"+pinjamID+"-ait-name").text();
+            var userId = $(".pinjam-"+pinjamID+"-user-id").text();
+            var userName = $(".pinjam-"+pinjamID+"-user-name").text();
+            var email = $(".pinjam-"+pinjamID+"-user-email").text();
+            var description = $("#pinjam-"+pinjamID+"-show-request").attr("data-description");
+            var status = parseInt($("#pinjam-"+pinjamID+"-show-request").attr("data-status"));
             $(".id-pinjam").text("#"+pinjamID);
             $(".nama-alat").text(aitName);
-            $(".pengaju").text(user);
+            $(".pengaju").text(userName);
             $(".email").text(email);
             $(".deskripsi").text(description);
             if(status===1) {
@@ -169,15 +174,15 @@
                     '<a id="decline" href="#" role="button" class="btn btn-sm btn-secondary"><i class="fa fa-window-close"></i> Decline</a>';
                 $(".modal-footer").removeClass('d-none');
                 $(".modal-footer").html(modalFooter);
-                var acc_link = "/inventaris/alat-it/pinjam/accept/"+pinjamID+"/ait/"+aitID;
+                var acc_link = "/inventaris/alat-it/pinjam/accept/"+pinjamID+"/ait/"+aitID+"/user/"+userId;
                 var dec_link = "/inventaris/alat-it/pinjam/decline/"+pinjamID+"/ait/"+aitID;
                 $("#accept").attr("href", acc_link);
                 $("#decline").attr("href", dec_link);
             } else if(status===2) {
-                var modalFooter = '<a id="returned" href="#" role="button" class="btn btn-sm btn-primary"><i class="fas fa-undo-alt"></i> Kembali</a>';
+                var modalFooter = '<a id="returned" href="#" role="button" class="btn btn-sm btn-primary"><i class="fas fa-undo-alt"></i> Dikembalikan</a>';
                 $(".modal-footer").removeClass('d-none');
                 $(".modal-footer").html(modalFooter);
-                var returned_link = "/inventaris/alat-it/pinjam/return/"+pinjamID+"/ait/"+aitID;
+                var returned_link = "/inventaris/alat-it/pinjam/return/"+pinjamID+"/ait/"+aitID+"/user/"+userId;
                 $("#returned").attr("href", returned_link);
             } else {
                 $(".modal-footer").addClass('d-none');

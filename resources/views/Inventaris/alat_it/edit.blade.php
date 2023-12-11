@@ -9,7 +9,7 @@
 
     <div class="card card-shadow">
         <div class="card-body">
-            <form method="POST" action="{{ route('ait_update', $ait->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('ait_update', $ait->id) }}" enctype="multipart/form-data" novalidate>
                 {!! csrf_field() !!}
                 @if ($errors->any())
                     <p class="alert alert-danger">{{ $errors->first() }}</p>
@@ -20,9 +20,10 @@
                             <label for="ait_name">Nama Alat <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <input required type="text" class="form-control"  value="{{ $ait->name }}" name="ait_name">
+                            <input required type="text" class="form-control @error('ait_name') is-invalid @enderror"  value="{{ $ait->name }}" name="ait_name">
                         </div>
                     </div>
+                    @error('ait_name') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -30,9 +31,10 @@
                             <label for="ait_serial_number">Serial Number <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <input required type="text" class="form-control" value="{{ $ait->serial_number }}" name="ait_serial_number">
+                            <input required type="text" class="form-control @error('ait_serial_number') is-invalid @enderror" value="{{ $ait->serial_number }}" name="ait_serial_number">
                         </div>
                     </div>
+                    @error('ait_serial_number') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -47,6 +49,7 @@
                             @endforeach
                         </select>
                         </div>
+                        @error('ait_type') <code class="font-weight-bold">{{ $message }}</code> @enderror
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,9 +58,10 @@
                             <label for="ait_description">Description <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <textarea required type="text" class="form-control" name="ait_description" rows="3">{{ $ait->description }}</textarea>
+                            <textarea required type="text" class="form-control @error('ait_description') is-invalid @enderror" name="ait_description" rows="3">{{ $ait->description }}</textarea>
                         </div>
                     </div>
+                    @error('ait_description') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -77,6 +81,7 @@
                             </select>
                         </div>
                     </div>
+                    @error('ait_condition') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -84,7 +89,7 @@
                             <label for="ait_number">Number <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <input required type="text" class="form-control" value="@if(!empty($ait->number)) {{ $ait->number }} @else {{ $ait->old_number }} @endif" name="ait_number"/>
+                            <input required type="text" class="form-control @error('ait_number') is-invalid @enderror" value="@if(!empty($ait->number)) {{ $ait->number }} @else {{ $ait->old_number }} @endif" name="ait_number"/>
                         </div>
                     </div>
                 </div>
@@ -101,7 +106,8 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div> 
+                    </div>
+                    @error('ait_location') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -113,10 +119,11 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">Rp.</span>
                                 </div>
-                                <input required type="text" class="form-control" value="{{ $ait->price }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="ait_price">
+                                <input required type="text" class="form-control @error('ait_price') is-invalid @enderror" value="{{ $ait->price }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="ait_price">
                             </div>
                         </div>
                     </div>
+                    @error('ait_price') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -124,10 +131,11 @@
                             <label for="ait_buy_date">Tanggal Beli <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md">
-                            <input class="form-control" value="{{ $ait->buy_date }}" onfocus="(this.type='text')"
+                            <input class="form-control @error('ait_buy_date') is-invalid @enderror" value="{{ $ait->buy_date }}" onfocus="(this.type='text')"
                             onblur="(this.type='date')" name="ait_buy_date" type="text" required>
                         </div>
                     </div>
+                    @error('ait_buy_date') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -142,6 +150,7 @@
                         </select>
                         </div>
                     </div>
+                    @error('ait_status') <code class="font-weight-bold">{{ $message }}</code> @enderror
                 </div>
 
                 <div class="text-right mt-3 mb-0">

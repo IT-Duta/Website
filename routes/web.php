@@ -133,9 +133,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/alat-it/pinjam/create/{ait?}', 'AitPinjamController@create')->name('pinjam_ait_create');
     Route::post('/inventaris/alat-it/pinjam/store', 'AitPinjamController@store')->name('pinjam_ait_store');
     Route::post('/inventaris/alat-it/pinjam/destroy/{id}', 'AitPinjamController@destroy')->name('pinjam_ait_destroy');
-    Route::get('/inventaris/alat-it/pinjam/accept/{id}/ait/{ait}', 'AitPinjamController@accept')->name('pinjam_ait_accept');
+    Route::get('/inventaris/alat-it/pinjam/accept/{id}/ait/{ait}/user/{user}', 'AitPinjamController@accept')->name('pinjam_ait_accept');
     Route::get('/inventaris/alat-it/pinjam/decline/{id}/ait/{ait}', 'AitPinjamController@decline')->name('pinjam_ait_decline');
-    Route::get('/inventaris/alat-it/pinjam/return/{id}/ait/{ait}', 'AitPinjamController@return')->name('pinjam_ait_return');
+    Route::get('/inventaris/alat-it/pinjam/return/{id}/ait/{ait}/user/{user}', 'AitPinjamController@return')->name('pinjam_ait_return');
     
     // Export Stock Tinta
     Route::get('/inventaris/tinta/export', 'InkController@export')->name('ink_export');

@@ -12,7 +12,11 @@ class AitPinjam extends Model
     protected $fillable = [
         'id',
         'ait_id',
+        'ait_name',
         'user_id',
+        'user_name',
+        'user_email',
+        'user_location',
         'description',
         'status',
         'tanggal_pinjam',

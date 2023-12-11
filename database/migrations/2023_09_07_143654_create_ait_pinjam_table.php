@@ -17,8 +17,12 @@ class CreateAitPinjamTable extends Migration
             $table->id();
             $table->unsignedBigInteger('ait_id')->default(0);
             $table->unsignedBigInteger('user_id')->default(0);
+            $table->string('user_name');
+            $table->string('user_email');
+            $table->string('user_location');
             $table->string('description');
             $table->string('status');
+            $table->string('reason');
             $table->string('tanggal_pinjam');
             $table->string('submitted_by')->nullable();
             $table->string('tanggal_kembali');

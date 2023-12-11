@@ -60,7 +60,7 @@
                         <div class="col-md-3">
                             <label for="ait_description">Description <span class="text-danger">*</span></label>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-9">
                             <textarea type="text" class="form-control @error('ait_description') is-invalid @enderror" name="ait_description" rows="3"
                                 placeholder="Deskripsi alat ...">{{ old('ait_description') }}</textarea>
                         </div>
@@ -103,7 +103,7 @@
                         <div class="col-md-3">
                             <label for="ait_location">Lokasi <span class="text-danger">*</span></label>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-9">
                             <select name="ait_location" class="form-control @error('ait_location') is-invalid @enderror" @error('ait_location') style="border: 1px solid #ff0000 !important;" @enderror>
                                 <option value="">-- Pilih Lokasi --</option>
                                 @foreach ($lokasi as $list)

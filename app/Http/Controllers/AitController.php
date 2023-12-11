@@ -114,6 +114,7 @@ class AitController extends Controller
             "ait_description" => "required",
             "ait_price" => "required",
             "ait_location" => "required",
+            "ait_status" => "required",
             "ait_buy_date" => "required"
         ]);
 
@@ -127,6 +128,7 @@ class AitController extends Controller
             'price' => $request->ait_price,
             'condition' => $request->ait_condition,
             'buy_date' => $request->ait_buy_date,
+            'status' => $request->ait_status,
             'updated_by' => Auth::user()->name,
             'updated_at' => Carbon::now(),
         ]);
