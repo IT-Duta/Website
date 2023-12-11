@@ -42,8 +42,8 @@
                             @foreach ($list as $no => $item)
                                 <tr>
                                     <td class="text-center">{{ ++$no }}</td>
-                                    <td >{{ $item->name }}</td>@endcan
-                                    @can('isAdmin')<td>{{ $item->serial_number }}</td>
+                                    <td >{{ $item->name }}</td>
+                                    @can('isAdmin')<td>{{ $item->serial_number }}</td>@endcan
                                     <td>{{ $item->ait_type_name }}</td>
                                     @can('isAdmin')<td class="text-right d-sm-none d-md-none d-lg-table-cell">Rp. {!! number_format($item->price, 0, '.', ',') !!}</td>@endcan
                                     <td>{{ $item->condition }}</td>
