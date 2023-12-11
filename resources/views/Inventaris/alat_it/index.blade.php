@@ -24,8 +24,10 @@
                     <thead class="text-center">
                         <tr class="table-primary">
                             <th>No</th>
-                            <th >Nama Alat</th>
-                            <th>Serial No.</th>
+                            <th class="w-100">Nama Alat</th>
+                            @can('isAdmin')
+                                <th class="d-sm-none d-md-none d-lg-table-cell">Serial No.</th>
+                            @endcan
                             <th>Type</th>
                             <th>Harga</th>
                             <th>Kondisi</th>
@@ -39,7 +41,7 @@
                                 <tr>
                                     <td class="text-center">{{ ++$no }}</td>
                                     <td >{{ $item->name }}</td>
-                                    <td>{{ $item->serial_number }}</td>
+                                    @can('isAdmin')<td>{{ $item->serial_number }}</td>@endcan
                                     <td>{{ $item->ait_type_name }}</td>
                                     <td class="text-right">Rp. {!! number_format($item->price, 0, '.', ',') !!}</td>
                                     <td>{{ $item->condition }}</td>

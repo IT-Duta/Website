@@ -197,7 +197,7 @@ table td input {
                     }else {
                         $ninv="";
                     }
-                    if ($tipe=="Inventory & Non") {
+                    if ($tipe=="Asset") {
                         $nninv="checked";
                     }else {
                         $nninv="";
@@ -214,8 +214,8 @@ table td input {
                         <span class="selectgroup-button">Non Inventory</span>
                         </label>
                         <label class="selectgroup-item">
-                        <input type="radio" name="ppb_tipe" value="Inventory & Non" <?php echo $nninv;?>  class="selectgroup-input">
-                        <span class="selectgroup-button">Inventory & Non</span>
+                        <input type="radio" name="ppb_tipe" value="Asset" <?php echo $nninv;?>  class="selectgroup-input">
+                        <span class="selectgroup-button">Asset</span>
                         </label>
                     </div>
                 </div>
