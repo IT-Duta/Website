@@ -17,6 +17,7 @@ class InkController extends Controller
         $printer = DB::table('inventaris_printer')->orderBy('printer_name', 'asc')->get();
         $printermodal = DB::table('inventaris_printer')->orderBy('printer_name', 'asc')->get();
         $ink = DB::table('inventaris_ink')->orderBy('ink_code', 'asc')->get();
+
         return view('Inventaris.Ink.ink_index')->with(compact('ink', 'printer', 'printermodal'));
     }
     //==============================================================================================
@@ -79,6 +80,7 @@ class InkController extends Controller
                     'ink_code' => $request->get('ink_code'),
                     'ink_name' => $request->get('ink_name'),
                     'ink_qty' => $request->get('ink_qty'),
+                    'min_qty' => $request->get('min_qty'),
                     'updated_at' => Carbon::now()
                 ]);
                 return redirect()->route('ink_index');

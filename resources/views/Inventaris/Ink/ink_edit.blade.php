@@ -30,8 +30,12 @@
                     <input required class="col-md form-control" value="{{$list->ink_name}}" name="ink_name" type="text">
                 </div>
                 <div class="form-group row">
-                    <label for="ink_qty " class="col-md-3">Jumlah</label>
-                    <input required class="col-md form-control" value="{{$list->ink_qty}}" name="ink_qty" type="text">
+                    <label for="ink_qty " class="col-md-3">Stock</label>
+                    <input required class="col-md form-control" value="{{$list->ink_qty}}" name="ink_qty" type="number">
+                </div>
+                <div class="form-group row">
+                    <label for="ink_qty " class="col-md-3">Minimum Stock</label>
+                    <input required class="col-md form-control" value="{{$list->min_qty}}" name="min_qty" type="number">
                 </div>
                 <button type="submit" class="btn-block btn btn-primary">Submit</button>
             </form>

@@ -16,15 +16,13 @@
         <div class="card-body">
             <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-pills-icons" id="pills-tab-with-icon" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon"
-                        role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                    <a class="nav-link active" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
                         <i class="fas fa-print"></i>
                         Printer
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab"
-                        aria-controls="pills-home-icon" aria-selected="true">
+                    <a class="nav-link" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
                         <i class="fas fa-pen-nib"></i>
                         Tinta
                     </a>
@@ -42,7 +40,8 @@
                                     <th>No</th>
                                     <th>Kode</th>
                                     <th>Nama</th>
-                                    <th>Jumlah</th>
+                                    <th>Stock</th>
+                                    <th>Min Stock</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -57,28 +56,21 @@
                                         <td>{{ $list->ink_code }}</td>
                                         <td>{{ $list->ink_name }}</td>
                                         <td>{{ $list->ink_qty }}</td>
+                                        <td>{{ $list->min_qty }}</td>
                                         <td>
-                                            <button id="{{ $list->ink_unique }}req" ink_code="{{ $list->ink_code }}"
-                                                ink_name="{{ $list->ink_name }}" ink_qty="{{ $list->ink_qty }}"
-                                                ink_type="Request" onClick="request_data('{{ $list->ink_unique }}')"
-                                                ink_unique={{ $list->ink_unique }} type="button"
-                                                class="btn btn-primary btn-sm" data-toggle="modal"
+                                            <button id="{{ $list->ink_unique }}req" ink_code="{{ $list->ink_code }}" ink_name="{{ $list->ink_name }}" ink_qty="{{ $list->ink_qty }}" ink_type="Request"
+                                                onClick="request_data('{{ $list->ink_unique }}')" ink_unique={{ $list->ink_unique }} type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                                 data-target="#request_modal">
                                                 Request
                                             </button>
                                             @can('isAdmin')
-                                                <button id="{{ $list->ink_unique }}add" ink_code="{{ $list->ink_code }}"
-                                                    ink_name="{{ $list->ink_name }}" ink_qty="{{ $list->ink_qty }}"
-                                                    ink_type="Add" ink_printer="-" ink_unique={{ $list->ink_unique }}
-                                                    onClick="add_data('{{ $list->ink_unique }}')" type="button"
-                                                    class="btn btn-success btn-sm" data-toggle="modal"
-                                                    data-target="#addition_modal">
+                                                <button id="{{ $list->ink_unique }}add" ink_code="{{ $list->ink_code }}" ink_name="{{ $list->ink_name }}" ink_qty="{{ $list->ink_qty }}" ink_type="Add"
+                                                    ink_printer="-" ink_unique={{ $list->ink_unique }} onClick="add_data('{{ $list->ink_unique }}')" type="button" class="btn btn-success btn-sm"
+                                                    data-toggle="modal" data-target="#addition_modal">
                                                     Add
                                                 </button>
-                                                <a href="{{ route('ink_edit', $list->ink_unique) }}"
-                                                    class="btn btn-sm btn-danger">Edit</a>
-                                                <a href="{{ route('ink_del', $list->ink_unique) }}"
-                                                    class="btn btn-sm btn-danger">Delete</a>
+                                                <a href="{{ route('ink_edit', $list->ink_unique) }}" class="btn btn-sm btn-danger">Edit</a>
+                                                <a href="{{ route('ink_del', $list->ink_unique) }}" class="btn btn-sm btn-danger">Delete</a>
                                             @endcan
                                         </td>
                                     </tr>
@@ -90,8 +82,7 @@
                     </div>
                 </div>
                 {{-- Isi dari Nav Printer --}}
-                <div class="tab-pane fade  show active" id="pills-profile-icon" role="tabpanel"
-                    aria-labelledby="pills-profile-tab-icon">
+                <div class="tab-pane fade  show active" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
                     <div class="table-responsive text-center ">
                         <table class="table table-striped table-bordered" id="printer_master">
                             <thead>
@@ -112,9 +103,7 @@
                                         <td>{{ $printer->printer_name }}</td>
                                         <td>{{ $printer->printer_location }}</td>
                                         <td>
-                                            <button id="{{ $printer->printer_unique }}req" type="button"
-                                                class="btn btn-primary btn-sm" data-toggle="modal"
-                                                data-target="#request_modal_print"
+                                            <button id="{{ $printer->printer_unique }}req" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#request_modal_print"
                                                 onClick="request_ink('{{ $printer->printer_unique }}')">
                                                 Request
                                             </button>
@@ -133,8 +122,7 @@
     <!-- Modal for Ajukan Tinta by Tinta-->
 
 
-    <div class="modal fade" id="request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" id="header"></div>
@@ -147,25 +135,21 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label for="type" class="form-label">Input Type</label>
-                                <input type="text" name="type" id="edit" value="update" readonly
-                                    class="form-control" />
+                                <input type="text" name="type" id="edit" value="update" readonly class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="process" class="form-label">Input Process</label>
-                                <input type="text" name="process" id="process" value="" readonly
-                                    class="form-control" />
+                                <input type="text" name="process" id="process" value="" readonly class="form-control" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col">
                                 <label for="ink_unique" class="form-label">Ink Unique</label>
-                                <input type="text" name="ink_unique" id="ink_unique" value="" readonly
-                                    class="form-control" />
+                                <input type="text" name="ink_unique" id="ink_unique" value="" readonly class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="ink_user" class="form-label col-md-3">Pengaju</label>
-                                <input type="text" name="ink_user" id="ink_user" value="{{ Auth::user()->name }}"
-                                    readonly class="form-control col-md" />
+                                <input type="text" name="ink_user" id="ink_user" value="{{ Auth::user()->name }}" readonly class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -175,20 +159,17 @@
                             </div>
                             <div class="col">
                                 <label for="ink_name" class="form-label col-md-3">Nama Tinta</label>
-                                <input type="text" name="ink_name" id="ink_name" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_name" id="ink_name" readonly class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col">
                                 <label for="ink_qty_old" class="form-label">Saat Ini</label>
-                                <input type="text" name="ink_qty_old" id="ink_qty_old" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_qty_old" id="ink_qty_old" readonly class="form-control col-md" />
                             </div>
                             <div class="col">
                                 <label for="ink_qty_new" class="form-label">Permintaan</label>
-                                <input type="number" required name="ink_qty_new" id="ink_qty_new"
-                                    class="form-control col-md" />
+                                <input type="number" required name="ink_qty_new" id="ink_qty_new" class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -201,8 +182,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="ink_status" class="form-label col-md-3"> Ink Status</label>
-                            <input type="text" name="ink_status" id="ink_status" readonly
-                                class="form-control col-md" />
+                            <input type="text" name="ink_status" id="ink_status" readonly class="form-control col-md" />
                         </div>
                         <div id="btntype">
                             <button type="submit" class="btn btn-primary btn-block">Save changes</button>
@@ -217,8 +197,7 @@
     <!-- Modal for Penambahan Stock Tinta-->
 
 
-    <div class="modal fade" id="addition_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addition_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" id="header">
@@ -244,18 +223,15 @@
                             </div>
                             <div class="col-md-5">
                                 <label for="ink_name" class="form-label">Nama Tinta</label>
-                                <input type="text" name="ink_name" id="add_name" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_name" id="add_name" readonly class="form-control col-md" />
                             </div>
                             <div class="col-md-2">
                                 <label for="ink_qty_old" class="form-label">Qty Sekarang</label>
-                                <input type="text" name="ink_qty_old" id="add_qty_old" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_qty_old" id="add_qty_old" readonly class="form-control col-md" />
                             </div>
                             <div class="col-md-2">
                                 <label for="ink_qty_new" class="form-label">Tambah Qty</label>
-                                <input type="number" required name="ink_qty_new" id="ink_qty_new"
-                                    class="form-control col-md" />
+                                <input type="number" required name="ink_qty_new" id="ink_qty_new" class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row col-md-12">
@@ -274,8 +250,7 @@
     <!-- end Modal -->
 
     <!-- Modal for Ajukan Tinta by Tinta-->
-    <div class="modal fade" id="request_modal_print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="request_modal_print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" id="header_print"></div>
@@ -298,8 +273,7 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label class="form-label col-md-3" for="ink_printer_unique_print">Printer</label>
-                                <input type="text" name="ink_printer_unique" id="ink_printer_unique_print" readonly
-                                    class="form-control" />
+                                <input type="text" name="ink_printer_unique" id="ink_printer_unique_print" readonly class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="ink_status" class="form-label col-md-3"> Ink Status</label>
@@ -309,13 +283,11 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label for="ink_unique" class="form-label">Ink Unique</label>
-                                <input type="text" name="ink_unique" id="ink_unique_print" value="" readonly
-                                    class="form-control" />
+                                <input type="text" name="ink_unique" id="ink_unique_print" value="" readonly class="form-control" />
                             </div>
                             <div class="col">
                                 <label for="ink_user" class="form-label col-md-3">Pengaju</label>
-                                <input type="text" readonly name="ink_user" value="{{ Auth::user()->name }}" required
-                                    class="form-control col-md" />
+                                <input type="text" readonly name="ink_user" value="{{ Auth::user()->name }}" required class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -326,20 +298,17 @@
                             </div>
                             <div class="col">
                                 <label for="ink_name" class="form-label col-md-3">Nama Tinta</label>
-                                <input type="text" name="ink_name" id="ink_name_print" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_name" id="ink_name_print" readonly class="form-control col-md" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col">
                                 <label for="ink_qty_old" class="form-label">Saat Ini</label>
-                                <input type="text" name="ink_qty_old" id="ink_qty_old_print" readonly
-                                    class="form-control col-md" />
+                                <input type="text" name="ink_qty_old" id="ink_qty_old_print" readonly class="form-control col-md" />
                             </div>
                             <div class="col">
                                 <label for="ink_qty_new" class="form-label">Permintaan</label>
-                                <input type="number" required name="ink_qty_new" id="ink_qty_new_print" min="1"
-                                    class="form-control col-md" />
+                                <input type="number" required name="ink_qty_new" id="ink_qty_new_print" min="1" class="form-control col-md" />
                             </div>
                         </div>
 
