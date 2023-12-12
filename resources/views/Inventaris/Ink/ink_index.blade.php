@@ -50,7 +50,7 @@
                                 <?php $nomor = 1; ?>
 
                                 @foreach ($ink as $list)
-                                    <tr class="{{ $list->ink_qty == 0 ? 'bg-warning' : '' }}">
+                                    <tr class="{{ $list->min_qty > $list->ink_qty ? 'bg-warning' : '' }}">
 
                                         <td><?php echo $nomor; ?></td>
                                         <td>{{ $list->ink_code }}</td>
