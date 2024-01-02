@@ -24,7 +24,7 @@ class HardwareFixController extends Controller
         //Nomor urut
         $bulan = Carbon::now()->format('m');
         $tahun = Carbon::now()->format('Y');
-        $countno = DB::table('hard_fix_general')->count();
+        $countno = DB::table('hard_fix_general')->where(DB::raw('RIGHT(hard_fix_number, 4)'), $tahun)->count();
         if ($countno == 0) {
             $urut = '001';
             $nomorform = $urut .  '/EDP-PHS/' . $bulan . '/' . $tahun;

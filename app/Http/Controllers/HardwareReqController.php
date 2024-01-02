@@ -25,7 +25,7 @@ class HardwareReqController extends Controller
         //Nomor urut
         $bulan = Carbon::now()->format('m');
         $tahun = Carbon::now()->format('Y');
-        $countno = DB::table('hard_req')->count();
+        $countno = DB::table('hard_req')->where(DB::raw('RIGHT(hard_req_number, 4)'), $tahun)->count();
         if ($countno == 0) {
             $urut = '001';
             $nomorform = $urut .  '/EDP-PPH/' . $bulan . '/' . $tahun;

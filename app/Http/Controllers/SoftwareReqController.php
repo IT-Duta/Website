@@ -20,6 +20,7 @@ class SoftwareReqController extends Controller
             ->orderByRaw('SUBSTR(soft_req_number, -2) DESC')
             ->orderByRaw('SUBSTR(soft_req_number, 1, 3) DESC')
             ->get();
+
         return view('Form.Software.Permintaan.soft_req_index')->with(compact('softReq'));
     }
     //==============================================================================================================
@@ -28,7 +29,7 @@ class SoftwareReqController extends Controller
         //Nomor urut
         $bulan = Carbon::now()->format('m');
         $tahun = Carbon::now()->format('Y');
-        $countno = DB::table('soft_req')->count();
+        $countno = DB::table('soft_req')->where(DB::raw('RIGHT(soft_req_number, 4)'), $tahun)->count();
         if ($countno == 0) {
             $urut = '001';
             $nomorform = $urut .  '/EDP-PPS/' . $bulan . '/' . $tahun;
