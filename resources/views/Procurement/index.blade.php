@@ -133,7 +133,7 @@
                                             $statsCoa="";
                                         }
                                         break;
-                                    case 'Inventory & Non':
+                                    case 'Asset':
                                     if ($list->ppb_coa == "") {
                                             $rowCol="bg-danger text-white need_coa";
                                             $statsCoa="Butuh";
