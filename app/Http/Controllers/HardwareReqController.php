@@ -80,34 +80,41 @@ class HardwareReqController extends Controller
     {
         switch ($request->get('type')) {
             case 'create':
+
                 // $hard_req_number = $this->hard_number();
                 // $hard_urut = $this->noUrut();
                 $hard_req_unique = 'pph' . md5($request->get('hard_req_number'));
                 $hard_req_unique = substr($hard_req_unique, 0, 25);
-                DB::table('hard_req')->insert([
-                    'hard_req_urut' => '0',
-                    'hard_req_unique' => $hard_req_unique,
-                    'hard_req_number' =>  $request->get('hard_req_number'),
-                    'hard_req_name' => $request->get('hard_req_name'),
-                    'hard_req_user' => $request->get('hard_req_user'),
-                    'hard_req_user_id' => Auth::user()->id,
-                    'hard_req_referensi' => $request->get('hard_req_referensi'),
-                    'hard_req_divisi' => $request->get('hard_req_divisi'),
-                    'hard_req_location' => $request->get('hard_req_location'),
-                    'hard_req_mainboard' => $request->get('hard_req_mainboard'),
-                    'hard_req_processor' => $request->get('hard_req_processor'),
-                    'hard_req_memory' => $request->get('hard_req_memory'),
-                    'hard_req_hdd' => $request->get('hard_req_hdd'),
-                    'hard_req_ssd' => $request->get('hard_req_ssd'),
-                    'hard_req_vga' => $request->get('hard_req_vga'),
-                    'hard_req_casing' => $request->get('hard_req_casing'),
-                    'hard_req_keyboard' => $request->get('hard_req_keyboard'),
-                    'hard_req_mouse' => $request->get('hard_req_mouse'),
-                    'hard_req_monitor' => $request->get('hard_req_monitor'),
-                    'hard_req_printer' => $request->get('hard_req_printer'),
-                    'hard_req_other' => $request->get('hard_req_other'),
-                    'hard_req_alasan' => $request->get('hard_req_alasan'),
-                ]);
+
+                $cek = DB::table('hard_req')->where('hard_req_unique', $hard_req_unique)->value('id');
+
+                if (!$cek) {
+                    DB::table('hard_req')->insert([
+                        'hard_req_urut' => '0',
+                        'hard_req_unique' => $hard_req_unique,
+                        'hard_req_number' =>  $request->get('hard_req_number'),
+                        'hard_req_name' => $request->get('hard_req_name'),
+                        'hard_req_user' => $request->get('hard_req_user'),
+                        'hard_req_user_id' => Auth::user()->id,
+                        'hard_req_referensi' => $request->get('hard_req_referensi'),
+                        'hard_req_divisi' => $request->get('hard_req_divisi'),
+                        'hard_req_location' => $request->get('hard_req_location'),
+                        'hard_req_mainboard' => $request->get('hard_req_mainboard'),
+                        'hard_req_processor' => $request->get('hard_req_processor'),
+                        'hard_req_memory' => $request->get('hard_req_memory'),
+                        'hard_req_hdd' => $request->get('hard_req_hdd'),
+                        'hard_req_ssd' => $request->get('hard_req_ssd'),
+                        'hard_req_vga' => $request->get('hard_req_vga'),
+                        'hard_req_casing' => $request->get('hard_req_casing'),
+                        'hard_req_keyboard' => $request->get('hard_req_keyboard'),
+                        'hard_req_mouse' => $request->get('hard_req_mouse'),
+                        'hard_req_monitor' => $request->get('hard_req_monitor'),
+                        'hard_req_printer' => $request->get('hard_req_printer'),
+                        'hard_req_other' => $request->get('hard_req_other'),
+                        'hard_req_alasan' => $request->get('hard_req_alasan'),
+                    ]);
+                }
+
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')
                 // ->send(new newFormRequest);
                 // Mengambil data yang terakhir kali di input, kemudian menampilkannya delam bentuk printou

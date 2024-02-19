@@ -85,25 +85,30 @@ class SoftwareReqController extends Controller
                 // $soft_urut = $this->noUrut();
                 $soft_req_unique = 'pps' . md5($request->get('soft_req_number'));
                 $soft_req_unique = substr($soft_req_unique, 0, 25);
-                DB::table('soft_req')->insert([
-                    'soft_urut' => '0',
-                    'soft_req_unique' => $soft_req_unique,
-                    'soft_req_number' => $request->get('soft_req_number'),
-                    'soft_req_user' => $request->get('soft_req_user'),
-                    'soft_req_user_id' => Auth::user()->id,
-                    'soft_req_divisi' => $request->get('soft_req_divisi'),
-                    'soft_req_location' => $request->get('soft_req_location'),
-                    'soft_req_email' => $request->get('soft_req_email'),
-                    'soft_req_email_forward' => $request->get('soft_req_email_forward'),
-                    'soft_req_akses_fina' => $request->get('soft_req_akses_fina'),
-                    'soft_req_akses_server' => $request->get('soft_req_akses_server'),
-                    'soft_req_akses_internet' => $request->get('soft_req_akses_internet'),
-                    'soft_req_reason' => $request->get('soft_req_reason'),
-                    'soft_req_other' => $request->get('soft_req_other'),
-                    'soft_req_date' => $request->get('soft_req_date'),
-                    'soft_req_status' => 'Waiting'
 
-                ]);
+                $cek = DB::table('soft_req')->where('soft_req_unique', $soft_req_unique)->value('id');
+
+                if (!$cek) {
+                    DB::table('soft_req')->insert([
+                        'soft_urut' => '0',
+                        'soft_req_unique' => $soft_req_unique,
+                        'soft_req_number' => $request->get('soft_req_number'),
+                        'soft_req_user' => $request->get('soft_req_user'),
+                        'soft_req_user_id' => Auth::user()->id,
+                        'soft_req_divisi' => $request->get('soft_req_divisi'),
+                        'soft_req_location' => $request->get('soft_req_location'),
+                        'soft_req_email' => $request->get('soft_req_email'),
+                        'soft_req_email_forward' => $request->get('soft_req_email_forward'),
+                        'soft_req_akses_fina' => $request->get('soft_req_akses_fina'),
+                        'soft_req_akses_server' => $request->get('soft_req_akses_server'),
+                        'soft_req_akses_internet' => $request->get('soft_req_akses_internet'),
+                        'soft_req_reason' => $request->get('soft_req_reason'),
+                        'soft_req_other' => $request->get('soft_req_other'),
+                        'soft_req_date' => $request->get('soft_req_date'),
+                        'soft_req_status' => 'Waiting'
+
+                    ]);
+                }
                 // \Illuminate\Support\Facades\Mail::to('edp@ptduta.com','IT Staff')
                 // ->send(new softreqFormNotif);
                 $list = DB::table('soft_req')->orderBy('id', 'desc')->first();
