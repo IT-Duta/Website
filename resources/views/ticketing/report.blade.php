@@ -21,8 +21,9 @@
             <th>Penyelesaian</th>
             <th>PIC</th>
             <th>Status</th>
-            <th>Tanggal Buat</th>
-            <th>Tanggal Update</th>
+            <th>Case Start</th>
+            <th>Case Finish</th>
+            <th>Kecepatan Solve</th>
         </tr>
     </thead>
     <tbody>
@@ -38,8 +39,9 @@
         <td>{{$list->ticket_solve}}</td>
         <td>{{$list->ticket_solver}}</td>
         <td>{{$list->ticket_status}}</td>
-        <td>{{$list->updated_at}}</td>
-        <td>{{$list->created_at}}</td>
+        <td>{{$list->case_start}}</td>
+        <td>{{$list->case_finish}}</td>
+        <td>{{$list->time_difference}}</td>
     </tr>
     @endforeach
 </tbody>

@@ -18,6 +18,22 @@ class ticketingController extends Controller
     public function index()
     {
         $list = DB::table('ticketing')->orderByDesc('id')->get();
+
+        // Menambahkan kolom baru untuk menyimpan selisih waktu
+        foreach ($list as $item) {
+            $case_start = strtotime($item->case_start);
+            $case_finish = strtotime($item->case_finish);
+
+            $difference = abs($case_finish - $case_start);
+
+            $days = floor($difference / (60 * 60 * 24));
+            $hours = floor(($difference - $days * 60 * 60 * 24) / (60 * 60));
+            $minutes = floor(($difference - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
+            $seconds = $difference % 60;
+
+            $item->time_difference = "$days hari, $hours jam, $minutes menit";
+        }
+
         return view('ticketing.index', compact('list'));
     }
     public function create()
@@ -73,7 +89,8 @@ class ticketingController extends Controller
             'ticket_detail' => $request->ticket_detail,
             'ticket_filename' => $imageName,
             'ticket_filepath' => $filePath,
-            'ticket_status' => 'Waiting'
+            'ticket_status' => 'Waiting',
+            'case_start' => now()
         ]);
         // Send Email
 
@@ -100,6 +117,9 @@ class ticketingController extends Controller
             // $fileName = pathinfo($fileName, PATHINFO_EXTENSION);
             $request->file('ticket_file_solve')->storeAs('public/images', $fileName);
         }
+
+        $caseFinish = $request->case_finish ? $request->case_finish : Carbon::now();
+
         DB::table('ticketing')->where('id', $request->id)->update([
             'ticket_judul' => $request->ticket_judul,
             'ticket_type' => $request->ticket_type,
@@ -109,6 +129,8 @@ class ticketingController extends Controller
             'ticket_solve' => $request->ticket_solve,
             'ticket_file_solve' => $fileName,
             'ticket_status' => $request->ticket_status,
+            'case_start' => $request->case_start,
+            'case_finish' => $caseFinish,
             'updated_at' => Carbon::now(),
         ]);
         return redirect()->route('ticket')->with('status', 'Data has been updated');
@@ -145,13 +167,28 @@ class ticketingController extends Controller
         $filepath = public_path('storage/images/' . $file . '');
         return Response::download($filepath);
     }
-    public function export()
+    // public function export()
+    // {
+    //     $time = Carbon::now();
+    //     $time = date_format($time, 'd-m-y, H.i.s');
+    //     $filename = 'Laporan Tiket ' . $time . '.xlsx';
+    //     return Excel::download(new ticketExport, $filename);
+    // }
+
+    public function export(Request $request)
     {
-        $time = Carbon::now();
-        $time = date_format($time, 'd-m-y, H.i.s');
+        // Ambil nilai bulan dan tahun dari permintaan
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        // Membuat nama file dengan format yang sesuai
+        $time = Carbon::now()->format('d-m-y_H.i.s');
         $filename = 'Laporan Tiket ' . $time . '.xlsx';
-        return Excel::download(new ticketExport, $filename);
+
+        // Mendownload file Excel menggunakan ticketExport dengan bulan dan tahun yang dipilih
+        return Excel::download(new ticketExport($bulan, $tahun), $filename);
     }
+
     public function getTitle(Request $request)
     {
         // Get the search term from the request
