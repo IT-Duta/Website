@@ -80,33 +80,33 @@
                 <div class="modal-body">
                     <form action="{{ route('ticket_export') }}" method="GET">
                         <div class="form-group">
-                            <label for="bulan">Bulan:</label>
-                            <select name="bulan" id="bulan" class="form-control">
-                                <option value="all">Semua Bulan</option>
-                                <?php
-                                $bulanSekarang = date('m');
-                                $namaBulan = [
-                                    '01' => 'Januari',
-                                    '02' => 'Februari',
-                                    '03' => 'Maret',
-                                    '04' => 'April',
-                                    '05' => 'Mei',
-                                    '06' => 'Juni',
-                                    '07' => 'Juli',
-                                    '08' => 'Agustus',
-                                    '09' => 'September',
-                                    '10' => 'Oktober',
-                                    '11' => 'November',
-                                    '12' => 'Desember',
-                                ];
+        <label for="bulan">Bulan:</label>
+        <select name="bulan" id="bulan" class="form-control">
+            <?php
+            $bulanSekarang = date('m');
+            $namaBulan = [
+                'all' => ' - Semua - ',
+                '01' => 'Januari',
+                '02' => 'Februari',
+                '03' => 'Maret',
+                '04' => 'April',
+                '05' => 'Mei',
+                '06' => 'Juni',
+                '07' => 'Juli',
+                '08' => 'Agustus',
+                '09' => 'September',
+                '10' => 'Oktober',
+                '11' => 'November',
+                '12' => 'Desember',
+            ];
 
-                                foreach ($namaBulan as $kodeBulan => $nama) {
-                                    $selected = $kodeBulan == $bulanSekarang ? 'selected' : '';
-                                    echo "<option value=\"$kodeBulan\" $selected>$nama</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+            foreach ($namaBulan as $kodeBulan => $nama) {
+                $selected = $kodeBulan == $bulanSekarang ? 'selected' : '';
+                echo "<option value=\"$kodeBulan\" $selected>$nama</option>";
+            }
+            ?>
+        </select>
+    </div>
 
                         <div class="form-group">
                             <label for="tahun">Tahun:</label>

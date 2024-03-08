@@ -10,8 +10,8 @@ use Maatwebsite\Excel\Concerns\FromView;
 class ticketExport implements FromView
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     // public function collection()
     // {
     //     //
@@ -27,7 +27,7 @@ class ticketExport implements FromView
 
     public function view(): View
     {
-        if ($this->bulan = 'all') {
+        if ($this->bulan == 'all') {
             $exportData = DB::table('ticketing')
                 ->whereYear('case_start', $this->tahun)
                 ->get();
@@ -37,8 +37,6 @@ class ticketExport implements FromView
                 ->whereMonth('case_start', $this->bulan)
                 ->get();
         }
-
-
 
         // Menambahkan kolom baru untuk menyimpan selisih waktu
         foreach ($exportData as $item) {
