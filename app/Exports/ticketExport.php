@@ -27,10 +27,18 @@ class ticketExport implements FromView
 
     public function view(): View
     {
-        $exportData = DB::table('ticketing')
-        ->whereYear('case_start', $this->tahun)
-            ->whereMonth('case_start', $this->bulan)
-            ->get();
+        if ($this->bulan = 'all') {
+            $exportData = DB::table('ticketing')
+                ->whereYear('case_start', $this->tahun)
+                ->get();
+        } else {
+            $exportData = DB::table('ticketing')
+                ->whereYear('case_start', $this->tahun)
+                ->whereMonth('case_start', $this->bulan)
+                ->get();
+        }
+
+
 
         // Menambahkan kolom baru untuk menyimpan selisih waktu
         foreach ($exportData as $item) {

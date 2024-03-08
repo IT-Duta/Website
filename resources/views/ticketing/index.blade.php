@@ -82,6 +82,7 @@
                         <div class="form-group">
                             <label for="bulan">Bulan:</label>
                             <select name="bulan" id="bulan" class="form-control">
+                                <option value="all">Semua Bulan</option>
                                 <?php
                                 $bulanSekarang = date('m');
                                 $namaBulan = [
