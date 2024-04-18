@@ -255,6 +255,8 @@ class dashboardController extends Controller
             $jar_data[$key] = json_decode(json_encode($value));
         }
 
+        // dd($jar_data);
+
         //================================================================================================
 
         return view('dashboard')

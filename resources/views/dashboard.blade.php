@@ -128,25 +128,25 @@
         </div>
     </div>
 
-    <h1>Performa Jaringan</h1>
+    <h1 class="text-center mb-4">Analisis Performa Jaringan</h1>
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center bg-secondary text-light">
-                    Waktu internet down bulan ini
-                    ( <b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtime[0]->monthYear)->format('F Y') }} </b> )
-                    ( {{ $workingDays }} Hari )
+                    Waktu Ketidakaktifan Internet Bulan Ini
+                    (<b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtime[0]->monthYear)->format('F Y') }}</b>) <br>
+                    ( {{ $workingDays }} Hari Kerja )
                 </div>
                 <div class="card-body">
                     @php
                         $thisMonth = date('Y m');
-                        foreach ($downtime as $downtime) {
-                            if ($downtime->monthYear != $thisMonth) {
+                        foreach ($downtime as $downtimeData) {
+                            if ($downtimeData->monthYear != $thisMonth) {
                                 $show = '00:00:00';
                                 $percent = '100';
                             } else {
-                                $show = $downtime->TO_SHOW;
-                                $percent = $downtime->percen;
+                                $show = $downtimeData->TO_SHOW;
+                                $percent = $downtimeData->percen;
                             }
                             echo '<h3 class="text-center">';
                             echo '<span class="text-danger">';
@@ -165,19 +165,20 @@
                     @endphp
                 </div>
             </div>
-
+        </div>
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center bg-dark text-light">
-                    Waktu internet down bulan
-                    <b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtimeLastMonth[0]->monthYear)->format('F Y') }} </b>
-                    ( {{ $workingDaysLastMonth }} Hari )
+                    Waktu Ketidakaktifan Internet Bulan Lalu
+                    <b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtimeLastMonth[0]->monthYear)->format('F Y') }}</b><br>
+                    ( {{ $workingDaysLastMonth }} Hari Kerja )
                 </div>
                 <div class="card-body">
                     @php
                         $thisMonth = date('Y m');
-                        foreach ($downtimeLastMonth as $downtimeLastMonth) {
-                                $show = $downtimeLastMonth->TO_SHOW;
-                                $percent = $downtimeLastMonth->percen;
+                        foreach ($downtimeLastMonth as $downtimeLastMonthData) {
+                            $show = $downtimeLastMonthData->TO_SHOW;
+                            $percent = $downtimeLastMonthData->percen;
                             echo '<h3 class="text-center">';
                             echo '<span class="text-danger">';
                             echo $show;
@@ -195,13 +196,32 @@
                     @endphp
                 </div>
             </div>
-
         </div>
-        <div class="col-9">
-            <canvas id="jar_chart"></canvas>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Unduh Laporan</h5><br>
+                    <a href="#" class="btn btn-primary btn-block">Download Report</a>
+                </div>
+            </div>
         </div>
     </div>
-
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="jar_chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="jar_chart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mb-4">
         <div class="col-8">
             <h1>7 Hari Terakhir</h1>
@@ -261,20 +281,17 @@
         @endforeach
         const jar_datas = {
             labels: jar_label,
-            datasets: [
-                {
-                    label: 'Persentase',
-                    data: jar_percent,
-                    backgroundColor: 'rgb(54, 100, 235)',
-                    type: 'line',
-                    order: 0
-                }
-            ]
+            datasets: [{
+                label: 'Persentase',
+                data: jar_percent,
+                backgroundColor: 'rgb(54, 100, 235)',
+                type: 'line',
+                order: 0
+            }]
         };
         const jar_chart = {
             type: 'bar',
             data: jar_datas,
-
             options: {
                 scales: {
                     y: {
@@ -287,7 +304,41 @@
                     }
                 }
             },
-
+        };
+    </script>
+    {{-- Jaringan Chart 2 --}}
+    <script id="jaringan2">
+        let jar_label2 = [];
+        let jar_data2 = [];
+        @foreach ($jar_data as $dur)
+            jar_label2.push('{{ $dur->say_bulan }}');
+            jar_data2.push('{{ strtotime("1970-01-01 $dur->TO_SHOW UTC") }}');
+        @endforeach
+        const jar_datas2 = {
+            labels: jar_label2,
+            datasets: [{
+                label: 'Menit Down',
+                data: jar_data2,
+                backgroundColor: 'rgb(54, 100, 235)',
+                type: 'line',
+                order: 0
+            }]
+        };
+        const jar_chart2 = {
+            type: 'bar',
+            data: jar_datas2,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            },
         };
     </script>
     {{-- Tipe Chart donut Ticket Status --}}
@@ -513,6 +564,10 @@
         new Chart(
             document.getElementById('jar_chart'),
             jar_chart
+        );
+        new Chart(
+            document.getElementById('jar_chart2'),
+            jar_chart2
         );
         const statusChart = new Chart(
             document.getElementById('status'),
