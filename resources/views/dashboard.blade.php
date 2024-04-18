@@ -127,12 +127,15 @@
             </select>
         </div>
     </div>
+
     <h1>Performa Jaringan</h1>
     <div class="row">
         <div class="col-3">
             <div class="card">
-                <div class="card-header">
-                    Waktu internet mati bulan ini
+                <div class="card-header text-center bg-secondary text-light">
+                    Waktu internet down bulan ini
+                    ( <b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtime[0]->monthYear)->format('F Y') }} </b> )
+                    ( {{ $workingDays }} Hari )
                 </div>
                 <div class="card-body">
                     @php
@@ -148,7 +151,7 @@
                             echo '<h3 class="text-center">';
                             echo '<span class="text-danger">';
                             echo $show;
-                            echo '</span>|';
+                            echo '</span> | ';
                             if ($percent < 80) {
                                 $span = 'text-warning';
                             } elseif ($percent < 50) {
@@ -162,49 +165,42 @@
                     @endphp
                 </div>
             </div>
-            @php
-                $i = 0;
-            @endphp
-            @foreach ($jar_latest as $jar)
-                <div class="card">
-                    <div class="card-body p-3 text-center">
-                        @if ($jar->different < 0)
-                            <div class="text-right text-warning">
-                                {{ $jar->different }}%
-                                <i class="fa fa-chevron-down"></i>
-                            @elseif ($jar->different > 0)
-                                <div class="text-right text-success">
-                                    {{ $jar->different }}%
-                                    <i class="fa fa-chevron-up"></i>
-                                @else
-                                    <div class="text-right text-success">
-                                        ~
-                        @endif
-                    </div>
-                    <div class="h1 m-0">{{ $jar->percentage }}%</div>
-                    <div class="text-muted mb-3">
-                        @php
-                            $monthNum = $jar->num_bulan;
-                            $dateObj = DateTime::createFromFormat('!m', $monthNum);
-                            $monthName = $dateObj->format('F');
-                            echo $monthName;
-                        @endphp
-                    </div>
+
+            <div class="card">
+                <div class="card-header text-center bg-dark text-light">
+                    Waktu internet down bulan
+                    <b>{{ \Carbon\Carbon::createFromFormat('Y m', $downtimeLastMonth[0]->monthYear)->format('F Y') }} </b>
+                    ( {{ $workingDaysLastMonth }} Hari )
                 </div>
+                <div class="card-body">
+                    @php
+                        $thisMonth = date('Y m');
+                        foreach ($downtimeLastMonth as $downtimeLastMonth) {
+                                $show = $downtimeLastMonth->TO_SHOW;
+                                $percent = $downtimeLastMonth->percen;
+                            echo '<h3 class="text-center">';
+                            echo '<span class="text-danger">';
+                            echo $show;
+                            echo '</span> | ';
+                            if ($percent < 80) {
+                                $span = 'text-warning';
+                            } elseif ($percent < 50) {
+                                $span = 'text-danger';
+                            } else {
+                                $span = 'text-success';
+                            }
+                            echo '<span class="' . $span . '">' . $percent . '%</span>';
+                            echo '</h3>';
+                        }
+                    @endphp
+                </div>
+            </div>
+
         </div>
-        @php
-            if (++$i == 2) {
-                break;
-            }
-        @endphp
-        @endforeach
-
+        <div class="col-9">
+            <canvas id="jar_chart"></canvas>
+        </div>
     </div>
-    <div class="col-9">
-        <canvas id="jar_chart"></canvas>
-    </div>
-    </div>
-
 
     <div class="row mb-4">
         <div class="col-8">
@@ -250,8 +246,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"
-        integrity="sha512-Tfw6etYMUhL4RTki37niav99C6OHwMDB2iBT5S5piyHO+ltK2YX8Hjy9TXxhE1Gm/TmAV0uaykSpnHKFIAif/A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+        integrity="sha512-Tfw6etYMUhL4RTki37niav99C6OHwMDB2iBT5S5piyHO+ltK2YX8Hjy9TXxhE1Gm/TmAV0uaykSpnHKFIAif/A==" crossorigin="anonymous" referrerpolicy="no-referrer">
         Chart.register(ChartDataLabels);
     </script>
     {{-- Jaringan Chart --}}
@@ -261,17 +256,12 @@
         let jar_percent = [];
         @foreach ($jar_data as $dur)
             jar_label.push('{{ $dur->say_bulan }}');
-            jar_data.push('{{ $dur->jumlah }}');
-            jar_percent.push('{{ $dur->percentage }}');
+            jar_data.push('{{ $dur->TO_SHOW }}');
+            jar_percent.push('{{ $dur->percen }}');
         @endforeach
         const jar_datas = {
             labels: jar_label,
-            datasets: [{
-                    label: 'Jumlah',
-                    data: jar_data,
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderWidth: 1
-                },
+            datasets: [
                 {
                     label: 'Persentase',
                     data: jar_percent,
@@ -293,7 +283,7 @@
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 }
             },
