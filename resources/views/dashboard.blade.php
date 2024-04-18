@@ -25,7 +25,6 @@
             height: 150px;
             z-index: 100;
             border-radius: 25px;
-            background-color: rgb(rgb(240, 6, 6), green, blue)
         }
     </style>
 @endsection
