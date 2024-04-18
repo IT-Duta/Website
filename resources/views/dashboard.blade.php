@@ -25,6 +25,7 @@
             height: 150px;
             z-index: 100;
             border-radius: 25px;
+            background-color: rgb(rgb(240, 6, 6), green, blue)
         }
     </style>
 @endsection
@@ -282,7 +283,7 @@
         const jar_datas = {
             labels: jar_label,
             datasets: [{
-                label: 'Persentase',
+                label: 'Jaringan Online ( Dalam Persentase )',
                 data: jar_percent,
                 backgroundColor: 'rgb(54, 100, 235)',
                 type: 'line',
@@ -317,9 +318,9 @@
         const jar_datas2 = {
             labels: jar_label2,
             datasets: [{
-                label: 'Menit Down',
+                label: 'Jaringan Offline ( Dalam Menit )',
                 data: jar_data2,
-                backgroundColor: 'rgb(54, 100, 235)',
+                backgroundColor: 'rgb(240, 6, 6)',
                 type: 'line',
                 order: 0
             }]
