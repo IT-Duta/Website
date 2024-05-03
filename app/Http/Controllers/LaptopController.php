@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\laptopExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\LaptopImport;
 use Carbon\Carbon;
@@ -117,5 +118,13 @@ class LaptopController extends Controller
         // dd(request()->file('your_file'));
         Excel::import(new LaptopImport, request()->file('your_file'));
         return redirect()->route('laptop_index')->with('status','Data has been imported');
+    }
+    
+    public function export()
+    {
+        $time = Carbon::now();
+        $time = date_format($time, 'd-m-y, H.i.s');
+        $filename = 'Laptop_Export_' . $time . '.xlsx';
+        return Excel::download(new laptopExport, $filename);
     }
 }

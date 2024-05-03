@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/laptop/del/{id}', 'LaptopController@destroy')->name('laptop_del');
     Route::get('/inventaris/laptop_qr/{id}', 'LaptopController@qr_generator')->name('laptop_qr');
     Route::get('/inventaris/laptop/report/{id}', 'LaptopController@report')->name('laptop_report');
+    Route::get('/inventaris/laptop/export', 'LaptopController@export')->name('laptop_export');
 
     // Untuk Inventaris PC
     Route::get('/inventaris/pc', 'PcController@index')->name('pc_index');
@@ -104,7 +105,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/monitor-{id}', 'monitorController@edit')->name('monitor_edit');
     Route::post('/inventaris/monitor-update', 'monitorController@update')->name('monitor_update');
     Route::get('/inventaris/monitor/d/{id}', 'monitorController@destroy')->name('monitor_destroy');
-    Route::get('/inventaris/monitor_qr/{id}', 'monitorController@monitor_pc_generator')->name('monitor_qr');
+    Route::get('/inventaris/monitor_qr/{id}', 'monitorController@monitor_qr_generator')->name('monitor_qr');
     Route::get('/inventaris/monitor/export', 'monitorController@export')->name('monitor_export');
     Route::post('/inventaris/monitor/import', 'monitorController@import')->name('monitor_import');
 
@@ -127,6 +128,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris/alat-it/destroy/{id}', 'AitController@destroy')->name('ait_destroy');
     Route::get('/inventaris/alat-it/qr/{id}', 'AitController@qr_generator')->name('ait_qr_generator');
     Route::get('/inventaris/alat-it/report/{id}', 'AitController@report')->name('ait_report');
+    Route::get('/inventaris/alat-it/type', 'AitController@getType')->name('ait_type_get');
+    Route::post('/inventaris/alat-it/type/store-type', 'AitController@storeType')->name('ait_type_store');
 
     //PINJAM INVENTARIS ALAT IT
     Route::get('/inventaris/alat-it/pinjam', 'AitPinjamController@index')->name('pinjam_ait_index');
@@ -299,6 +302,7 @@ Route::middleware('auth')->group(function () {
     Route::post('dashboard/updatekaryawan', 'KaryawanController@update')->name('karyawan_update');
     Route::get('dashboard/karyawan/del/x{id}', 'KaryawanController@destroy')->name('karyawan_delete');
     Route::post('dashboard/karyawan-import', 'KaryawanController@import')->name('karyawan_import');
+    Route::get('dashboard/karyawan/show/{id}', 'KaryawanController@show')->name('karyawan_show');
 
     // Panel p3c
     Route::middleware('p3cMiddleware')->group(function () {

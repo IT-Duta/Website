@@ -7,6 +7,7 @@
 @endsection
 @can('isAdmin')
     @section('header')
+        <a href="{{ route('laptop_export') }}" class="btn btn-info btn-round">Export Laptop</a>
         <a href="{{ route('laptop_import_view') }}" class="btn btn-primary btn-round">Import Laptop</a>
         <a href="{{ route('laptop_create') }}" class="btn btn-secondary btn-round">Add Laptop</a>
     @endsection
